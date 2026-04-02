@@ -30,7 +30,7 @@ const Navbar = () => {
 
   useEffect(() => {
     if (location.pathname !== "/") return;
-    const sections = ["showcase", "community", "team", "contact"];
+    const sections = ["showcase", "about", "community", "team", "contact"];
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
