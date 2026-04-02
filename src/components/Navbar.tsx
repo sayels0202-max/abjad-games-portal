@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logoText from "@/assets/logo-text.png";
+import { useLogoEasterEgg } from "@/components/EasterEggs";
 
 const navLinks = [
   { label: "About", href: "#about" },
@@ -18,6 +19,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const location = useLocation();
+  const handleLogoClick = useLogoEasterEgg();
 
   useEffect(() => {
     if (isOpen) {
@@ -59,7 +61,7 @@ const Navbar = () => {
           style={{ opacity: bgOpacity }}
         />
         <div className="relative mx-auto max-w-7xl flex items-center justify-between">
-          <a href="#" className="flex items-center group">
+          <a href="#" className="flex items-center group" onClick={(e) => { e.preventDefault(); handleLogoClick(); }}>
             <img
               src={logoText}
               alt="ABJAD GAMES"
