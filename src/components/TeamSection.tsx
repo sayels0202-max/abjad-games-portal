@@ -33,7 +33,8 @@ const TeamCard = ({
   const imageY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
   const imageScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.1, 1.02, 1.1]);
 
-  const isDimmed = hoveredIndex !== null && hoveredIndex !== index;
+  const isHovered = hoveredIndex === index;
+  const isDimmed = hoveredIndex !== null && !isHovered;
 
   return (
     <ScrollReveal delay={0.15 + index * 0.12}>
