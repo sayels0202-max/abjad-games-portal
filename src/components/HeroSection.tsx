@@ -120,7 +120,7 @@ const HeroSection = () => {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: showTitle ? 1 : 0, scale: showTitle ? 1 : 0.8 }}
                 transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className="w-[280px] md:w-[420px] lg:w-[560px] mx-auto"
+                className="w-[360px] md:w-[540px] lg:w-[720px] mx-auto"
               />
 
               {/* Glitch copies */}
