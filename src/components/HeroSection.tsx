@@ -144,15 +144,6 @@ const HeroSection = () => {
               )}
             </div>
 
-            {/* Subtitle */}
-            <motion.p
-              className="font-body text-base md:text-lg tracking-[0.3em] uppercase text-muted-foreground mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.5 }}
-            >
-              {subtitle}
-            </motion.p>
 
             {/* Motto */}
             <motion.p
