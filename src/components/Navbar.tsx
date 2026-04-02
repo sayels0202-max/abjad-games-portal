@@ -7,7 +7,7 @@ const navLinks = [
   { label: "About", href: "#about" },
   { label: "Games", href: "#showcase" },
   { label: "Team", href: "#team" },
-  { label: "Journal", href: "#community" },
+  { label: "News", href: "/news", isRoute: true },
   { label: "Careers", href: "/careers", isRoute: true },
   { label: "Contact", href: "#contact" },
 ];
