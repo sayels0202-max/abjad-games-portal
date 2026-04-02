@@ -5,8 +5,7 @@ import screenshot1 from "@/assets/screenshot1.png";
 import screenshot2 from "@/assets/screenshot2.png";
 import screenshot3 from "@/assets/screenshot3.png";
 import screenshot4 from "@/assets/screenshot4.png";
-import gameplayBg1 from "@/assets/gameplay-bg1.gif";
-import gameplayBg2 from "@/assets/gameplay-bg2.gif";
+import gameplayBg3 from "@/assets/gameplay-bg3.gif";
 import ScrollReveal from "./ui/ScrollReveal";
 
 const screenshots = [
@@ -16,7 +15,7 @@ const screenshots = [
   { src: screenshot4, alt: "The Watch" },
 ];
 
-const bgGifs = [gameplayBg1, gameplayBg2];
+const bgGifs = [gameplayBg3];
 
 const ShowcaseSection = () => {
   const ref = useRef<HTMLDivElement>(null);
