@@ -3,19 +3,31 @@ import { useRef, useState, useEffect } from "react";
 import banner from "@/assets/hero-bg.png";
 import abjadLogo from "@/assets/abjad-logo-text.png";
 
-const glitchKeyframes = `
-@keyframes glitch-1 {
-  0%, 100% { clip-path: inset(0 0 95% 0); transform: translate(-2px, 0); }
-  20% { clip-path: inset(40% 0 30% 0); transform: translate(2px, 0); }
-  40% { clip-path: inset(70% 0 5% 0); transform: translate(-1px, 0); }
-  60% { clip-path: inset(10% 0 60% 0); transform: translate(3px, 0); }
-  80% { clip-path: inset(80% 0 0% 0); transform: translate(-3px, 0); }
+const fireKeyframes = `
+@keyframes fire-flicker {
+  0%, 100% { filter: brightness(1) drop-shadow(0 0 8px hsl(var(--primary)/0.6)) drop-shadow(0 -4px 12px hsl(25 95% 50%/0.4)); }
+  25% { filter: brightness(1.1) drop-shadow(0 0 12px hsl(var(--primary)/0.8)) drop-shadow(0 -6px 18px hsl(25 95% 50%/0.6)); }
+  50% { filter: brightness(0.95) drop-shadow(0 0 6px hsl(var(--primary)/0.5)) drop-shadow(0 -3px 10px hsl(25 95% 50%/0.3)); }
+  75% { filter: brightness(1.05) drop-shadow(0 0 14px hsl(var(--primary)/0.7)) drop-shadow(0 -8px 20px hsl(25 95% 50%/0.5)); }
 }
-@keyframes glitch-2 {
-  0%, 100% { clip-path: inset(90% 0 0 0); transform: translate(2px, 0); }
-  25% { clip-path: inset(20% 0 50% 0); transform: translate(-3px, 0); }
-  50% { clip-path: inset(50% 0 20% 0); transform: translate(1px, 0); }
-  75% { clip-path: inset(0 0 70% 0); transform: translate(-2px, 0); }
+@keyframes fire-ember-1 {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-30px, -80px) scale(0); }
+}
+@keyframes fire-ember-2 {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: translate(20px, -100px) scale(0); }
+}
+@keyframes fire-ember-3 {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-10px, -120px) scale(0); }
+}
+@keyframes fire-glow-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.05); }
 }
 @keyframes scan-line {
   0% { transform: translateY(-100vh); }
