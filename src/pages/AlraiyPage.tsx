@@ -29,7 +29,7 @@ const mediaItems = [
   { src: gameplayBg2, alt: "Gameplay 2" },
   { src: screenshot1, alt: "Screenshot 1" },
   { src: screenshot2, alt: "Screenshot 2" },
-  { src: screenshot3, alt: "Screenshot 3" },
+  
   
   { src: screenshot5, alt: "Screenshot 5" },
   
