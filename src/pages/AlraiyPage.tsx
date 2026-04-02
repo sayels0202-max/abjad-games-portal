@@ -131,7 +131,13 @@ const MediaGallery = () => {
                   : "ring-foreground/10 brightness-75 hover:brightness-100"
               }`}
             >
-              <img src={item.src} alt={item.alt} className="w-full h-full object-cover" />
+              {item.type === "trailer" ? (
+                <div className="w-full h-full flex items-center justify-center bg-black/60">
+                  <div className="w-6 h-6 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent border-l-[9px] border-l-primary" />
+                </div>
+              ) : (
+                <img src={item.src} alt={item.alt} className="w-full h-full object-cover" />
+              )}
             </button>
           ))}
         </div>
