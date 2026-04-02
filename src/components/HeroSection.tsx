@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import banner from "@/assets/hero-bg.png";
-import logoOutline from "@/assets/logo-outline.png";
+import abjadLogo from "@/assets/abjad-logo-text.png";
 
 const glitchKeyframes = `
 @keyframes glitch-1 {
@@ -62,8 +62,8 @@ const HeroSection = () => {
     };
   }, []);
 
-  const titleText = "ABJAD GAMES";
   const subtitle = "Crafting Worlds. Telling Stories.";
+  const motto = "From Riyadh, We Build Worlds";
 
   return (
     <>
@@ -112,66 +112,41 @@ const HeroSection = () => {
             className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center"
             style={{ opacity: contentOpacity, y: contentY }}
           >
-            {/* Logo */}
-            <motion.img
-              src={logoOutline}
-              alt="Abjad Games"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="w-28 md:w-36 lg:w-44 mb-8"
-            />
-
-            {/* Glitch title */}
-            <div className="relative mb-4">
-              <motion.h1
-                className="font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-[0.15em] text-foreground"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: showTitle ? 1 : 0 }}
-                transition={{ duration: 0.1 }}
-              >
-                {titleText.split("").map((char, i) => (
-                  <motion.span
-                    key={i}
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={showTitle ? { opacity: 1, y: 0 } : {}}
-                    transition={{
-                      duration: 0.5,
-                      delay: i * 0.05,
-                      ease: [0.16, 1, 0.3, 1],
-                    }}
-                    className="inline-block"
-                    style={{ marginRight: char === " " ? "0.3em" : undefined }}
-                  >
-                    {char === " " ? "\u00A0" : char}
-                  </motion.span>
-                ))}
-              </motion.h1>
+            {/* Logo with glitch effect */}
+            <div className="relative mb-6">
+              <motion.img
+                src={abjadLogo}
+                alt="Abjad Games"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: showTitle ? 1 : 0, scale: showTitle ? 1 : 0.8 }}
+                transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                className="w-[280px] md:w-[420px] lg:w-[560px] mx-auto"
+              />
 
               {/* Glitch copies */}
               {glitchActive && (
                 <>
-                  <span
-                    className="absolute inset-0 font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-[0.15em] text-primary/80 pointer-events-none"
-                    style={{ animation: "glitch-1 0.3s steps(2) infinite" }}
-                    aria-hidden
-                  >
-                    {titleText}
-                  </span>
-                  <span
-                    className="absolute inset-0 font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-[0.15em] text-destructive/60 pointer-events-none"
-                    style={{ animation: "glitch-2 0.3s steps(3) infinite" }}
-                    aria-hidden
-                  >
-                    {titleText}
-                  </span>
+                  <img
+                    src={abjadLogo}
+                    alt=""
+                    className="absolute inset-0 w-[280px] md:w-[420px] lg:w-[560px] mx-auto opacity-80 pointer-events-none"
+                    style={{ animation: "glitch-1 0.3s steps(2) infinite", filter: "hue-rotate(90deg) saturate(2)" }}
+                    aria-hidden="true"
+                  />
+                  <img
+                    src={abjadLogo}
+                    alt=""
+                    className="absolute inset-0 w-[280px] md:w-[420px] lg:w-[560px] mx-auto opacity-60 pointer-events-none"
+                    style={{ animation: "glitch-2 0.3s steps(3) infinite", filter: "hue-rotate(-90deg) saturate(2)" }}
+                    aria-hidden="true"
+                  />
                 </>
               )}
             </div>
 
-            {/* Subtitle with stagger */}
+            {/* Subtitle */}
             <motion.p
-              className="font-body text-base md:text-lg tracking-[0.3em] uppercase text-muted-foreground mb-12"
+              className="font-body text-base md:text-lg tracking-[0.3em] uppercase text-muted-foreground mb-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.5 }}
@@ -179,12 +154,22 @@ const HeroSection = () => {
               {subtitle}
             </motion.p>
 
+            {/* Motto */}
+            <motion.p
+              className="font-body text-sm md:text-base tracking-[0.25em] uppercase text-primary/70 mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.8 }}
+            >
+              {motto}
+            </motion.p>
+
             {/* CTA */}
             <motion.a
               href="#showcase"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.8 }}
+              transition={{ duration: 0.8, delay: 2.1 }}
               className="group relative mirror-surface mirror-edge border border-primary/30 px-10 py-4 font-display text-xs tracking-[0.35em] uppercase text-primary rounded-xl overflow-hidden"
             >
               <span className="relative z-10">Explore Our Games</span>
