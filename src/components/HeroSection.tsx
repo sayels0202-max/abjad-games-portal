@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import { useRef, useState } from "react";
 import banner from "@/assets/hero-bg.png";
-import abjadLogo from "@/assets/abjad-logo-full.png";
+import logoOutline from "@/assets/logo-outline.png";
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -29,7 +29,6 @@ const HeroSection = () => {
         className="sticky top-0 h-screen overflow-hidden"
         style={{ opacity: sectionOpacity }}
       >
-        {/* Background image with zoom + parallax */}
         <motion.div className="absolute inset-0" style={{ y: imgY, scale }}>
           <img
             src={banner}
@@ -41,19 +40,17 @@ const HeroSection = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-transparent to-background/60" />
         </motion.div>
 
-        {/* Dark overlay that intensifies on scroll */}
         <motion.div
           className="absolute inset-0 bg-background"
           style={{ opacity: overlayOpacity }}
         />
 
-        {/* Content */}
         <motion.div
           className="relative z-10 flex h-full flex-col items-center justify-end pb-24 px-6 text-center"
           style={{ opacity: contentOpacity, y: contentY }}
         >
           <motion.img
-            src={abjadLogo}
+            src={logoOutline}
             alt="Abjad Games"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -71,7 +68,6 @@ const HeroSection = () => {
           </motion.a>
         </motion.div>
 
-        {/* Scroll indicator */}
         <motion.div
           className="absolute bottom-8 left-1/2 -translate-x-1/2"
           animate={{ y: [0, 8, 0] }}
