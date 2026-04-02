@@ -120,7 +120,7 @@ const HeroSection = () => {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: showTitle ? 1 : 0, scale: showTitle ? 1 : 0.8 }}
                 transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className="w-[360px] md:w-[540px] lg:w-[720px] mx-auto"
+                className="w-[440px] md:w-[680px] lg:w-[920px] mx-auto"
               />
 
               {/* Glitch copies */}
@@ -129,14 +129,14 @@ const HeroSection = () => {
                   <img
                     src={abjadLogo}
                     alt=""
-                    className="absolute inset-0 w-[360px] md:w-[540px] lg:w-[720px] mx-auto opacity-80 pointer-events-none"
+                    className="absolute inset-0 w-[440px] md:w-[680px] lg:w-[920px] mx-auto opacity-80 pointer-events-none"
                     style={{ animation: "glitch-1 0.3s steps(2) infinite", filter: "hue-rotate(90deg) saturate(2)" }}
                     aria-hidden="true"
                   />
                   <img
                     src={abjadLogo}
                     alt=""
-                    className="absolute inset-0 w-[360px] md:w-[540px] lg:w-[720px] mx-auto opacity-60 pointer-events-none"
+                    className="absolute inset-0 w-[440px] md:w-[680px] lg:w-[920px] mx-auto opacity-60 pointer-events-none"
                     style={{ animation: "glitch-2 0.3s steps(3) infinite", filter: "hue-rotate(-90deg) saturate(2)" }}
                     aria-hidden="true"
                   />
