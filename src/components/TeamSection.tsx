@@ -40,7 +40,7 @@ const TeamCard = ({ member, index }: { member: typeof team[0]; index: number }) 
           <motion.img
             src={member.image}
             alt={`${member.name} ${member.lastName}`}
-            className="absolute inset-0 w-full h-[130%] object-cover object-top"
+            className={`absolute inset-0 w-full h-[130%] object-cover ${member.objectPos} ${member.imageScale}`}
             style={{ y: imageY, scale: imageScale }}
           />
 
