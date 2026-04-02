@@ -32,7 +32,7 @@ const mediaItems = [
   { src: screenshot3, alt: "Screenshot 3" },
   
   { src: screenshot5, alt: "Screenshot 5" },
-  { src: screenshot6, alt: "Screenshot 6" },
+  
   { src: screenshot7, alt: "Screenshot 7" },
   { src: screenshot8, alt: "Screenshot 8" },
   { src: screenshot9, alt: "Screenshot 9" },
