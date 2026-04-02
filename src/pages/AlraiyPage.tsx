@@ -14,7 +14,88 @@ import FireParticles from "@/components/FireParticles";
 import CursorTrail from "@/components/CursorTrail";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
-const AlraiyPage = () => {
+const mediaItems = [
+  { src: gameplayBg1, alt: "Gameplay 1" },
+  { src: gameplayBg2, alt: "Gameplay 2" },
+  { src: screenshot1, alt: "Screenshot 1" },
+  { src: screenshot2, alt: "Screenshot 2" },
+  { src: screenshot3, alt: "Screenshot 3" },
+  { src: screenshot4, alt: "Screenshot 4" },
+];
+
+const MediaThumbnails = () => {
+  const [selected, setSelected] = useState<number | null>(null);
+
+  return (
+    <>
+      <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+        {mediaItems.map((item, i) => (
+          <button
+            key={i}
+            onClick={() => setSelected(i)}
+            className="relative overflow-hidden rounded-lg ring-1 ring-foreground/10 aspect-video group mirror-hover"
+          >
+            <img
+              src={item.src}
+              alt={item.alt}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-background/30 group-hover:bg-transparent transition-colors duration-300" />
+          </button>
+        ))}
+      </div>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {selected !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-background/95 backdrop-blur-sm flex items-center justify-center p-6"
+            onClick={() => setSelected(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.85, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.85, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="relative max-w-5xl w-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={mediaItems[selected].src}
+                alt={mediaItems[selected].alt}
+                className="w-full rounded-2xl ring-1 ring-foreground/10"
+              />
+              {/* Navigation arrows */}
+              <div className="absolute inset-y-0 left-0 flex items-center -ml-12">
+                <button
+                  onClick={() => setSelected((selected - 1 + mediaItems.length) % mediaItems.length)}
+                  className="w-10 h-10 rounded-full mirror-surface mirror-edge flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
+                >
+                  ←
+                </button>
+              </div>
+              <div className="absolute inset-y-0 right-0 flex items-center -mr-12">
+                <button
+                  onClick={() => setSelected((selected + 1) % mediaItems.length)}
+                  className="w-10 h-10 rounded-full mirror-surface mirror-edge flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
+                >
+                  →
+                </button>
+              </div>
+              <p className="text-center mt-4 text-xs tracking-[0.3em] uppercase text-muted-foreground font-body">
+                {selected + 1} / {mediaItems.length} — Click outside to close
+              </p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
+
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], [0, 300]);
