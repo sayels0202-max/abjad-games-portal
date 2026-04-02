@@ -24,24 +24,20 @@ import FireParticles from "@/components/FireParticles";
 import CursorTrail from "@/components/CursorTrail";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
-const mediaItems = [
-  { src: gameplayBg1, alt: "Gameplay 1" },
-  { src: gameplayBg2, alt: "Gameplay 2" },
-  { src: screenshot1, alt: "Screenshot 1" },
-  { src: screenshot2, alt: "Screenshot 2" },
-  
-  
-  { src: screenshot5, alt: "Screenshot 5" },
-  
-  { src: screenshot7, alt: "Screenshot 7" },
-  
-  { src: screenshot9, alt: "Screenshot 9" },
-  
-  
-  
-  
-];
+type MediaItem = 
+  | { type: "image"; src: string; alt: string }
+  | { type: "trailer"; alt: string };
 
+const mediaItems: MediaItem[] = [
+  { type: "trailer", alt: "Official Trailer" },
+  { type: "image", src: gameplayBg1, alt: "Gameplay 1" },
+  { type: "image", src: gameplayBg2, alt: "Gameplay 2" },
+  { type: "image", src: screenshot1, alt: "Screenshot 1" },
+  { type: "image", src: screenshot2, alt: "Screenshot 2" },
+  { type: "image", src: screenshot5, alt: "Screenshot 5" },
+  { type: "image", src: screenshot7, alt: "Screenshot 7" },
+  { type: "image", src: screenshot9, alt: "Screenshot 9" },
+];
 const MediaGallery = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
