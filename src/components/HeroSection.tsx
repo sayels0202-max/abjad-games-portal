@@ -124,35 +124,47 @@ const HeroSection = () => {
             className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center"
             style={{ opacity: contentOpacity, y: contentY }}
           >
-            {/* Logo with glitch effect */}
+            {/* Logo with fire effect */}
             <div className="relative mb-10 md:mb-14">
+              {/* Fire glow behind logo */}
+              <div
+                className="absolute inset-0 pointer-events-none z-0"
+                style={{
+                  background: "radial-gradient(ellipse 60% 40% at 50% 60%, hsl(25 95% 50%/0.15), transparent)",
+                  animation: "fire-glow-pulse 2s ease-in-out infinite",
+                }}
+              />
+
               <motion.img
                 src={abjadLogo}
                 alt="Abjad Games"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: showTitle ? 1 : 0, scale: showTitle ? 1 : 0.8 }}
                 transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className="w-[440px] md:w-[680px] lg:w-[920px] mx-auto drop-shadow-[0_0_40px_hsl(var(--primary)/0.15)]"
+                className="relative z-10 w-[440px] md:w-[680px] lg:w-[920px] mx-auto"
+                style={{ animation: showTitle ? "fire-flicker 1.5s ease-in-out infinite" : undefined }}
               />
 
-              {/* Glitch copies */}
-              {glitchActive && (
-                <>
-                  <img
-                    src={abjadLogo}
-                    alt=""
-                    className="absolute inset-0 w-[440px] md:w-[680px] lg:w-[920px] mx-auto opacity-80 pointer-events-none"
-                    style={{ animation: "glitch-1 0.3s steps(2) infinite", filter: "hue-rotate(90deg) saturate(2)" }}
-                    aria-hidden="true"
-                  />
-                  <img
-                    src={abjadLogo}
-                    alt=""
-                    className="absolute inset-0 w-[440px] md:w-[680px] lg:w-[920px] mx-auto opacity-60 pointer-events-none"
-                    style={{ animation: "glitch-2 0.3s steps(3) infinite", filter: "hue-rotate(-90deg) saturate(2)" }}
-                    aria-hidden="true"
-                  />
-                </>
+              {/* Fire embers rising from logo */}
+              {showTitle && (
+                <div className="absolute inset-0 pointer-events-none z-20">
+                  {[...Array(8)].map((_, i) => (
+                    <div
+                      key={i}
+                      className="absolute rounded-full"
+                      style={{
+                        width: `${3 + Math.random() * 4}px`,
+                        height: `${3 + Math.random() * 4}px`,
+                        background: `hsl(${15 + Math.random() * 25} 95% ${50 + Math.random() * 20}%)`,
+                        left: `${20 + Math.random() * 60}%`,
+                        bottom: `${30 + Math.random() * 20}%`,
+                        animation: `fire-ember-${(i % 3) + 1} ${1.5 + Math.random() * 2}s ease-out infinite`,
+                        animationDelay: `${Math.random() * 2}s`,
+                        boxShadow: `0 0 6px 2px hsl(25 95% 50%/0.6)`,
+                      }}
+                    />
+                  ))}
+                </div>
               )}
             </div>
 
