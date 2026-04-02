@@ -6,6 +6,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
 import AlraiyPage from "./pages/AlraiyPage.tsx";
 import CareersPage from "./pages/CareersPage.tsx";
+import NewsPage from "./pages/NewsPage.tsx";
+import NewsDetailPage from "./pages/NewsDetailPage.tsx";
 import AdminLoginPage from "./pages/AdminLoginPage.tsx";
 import AdminNewsPage from "./pages/AdminNewsPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
