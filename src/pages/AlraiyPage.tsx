@@ -19,6 +19,7 @@ import screenshot12 from "@/assets/screenshot12.png";
 import screenshot13 from "@/assets/screenshot13.png";
 import gameplayBg1 from "@/assets/gameplay-bg1.gif";
 import gameplayBg2 from "@/assets/gameplay-bg2.gif";
+import gameplayBg3 from "@/assets/gameplay-bg3.gif";
 import FireParticles from "@/components/FireParticles";
 import CursorTrail from "@/components/CursorTrail";
 import ScrollReveal from "@/components/ui/ScrollReveal";
