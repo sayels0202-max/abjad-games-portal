@@ -238,23 +238,9 @@ const AlraiyPage = () => {
             </h2>
           </ScrollReveal>
 
-          {/* Main viewer — Trailer placeholder */}
           <ScrollReveal delay={0.2} direction="scale">
-            <div className="relative aspect-video rounded-2xl overflow-hidden ring-1 ring-foreground/10 mirror-edge mb-4">
-              <div className="absolute inset-0 mirror-surface flex items-center justify-center">
-                <img src={banner} alt="Trailer placeholder" className="absolute inset-0 w-full h-full object-cover opacity-20" />
-                <div className="relative flex flex-col items-center gap-4 z-10">
-                  <div className="w-20 h-20 rounded-full border-2 border-primary/40 flex items-center justify-center mirror-surface">
-                    <div className="w-0 h-0 border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent border-l-[20px] border-l-primary ml-1" />
-                  </div>
-                  <p className="text-sm tracking-[0.3em] uppercase text-primary font-body">Trailer Coming Soon</p>
-                </div>
-              </div>
-            </div>
+            <MediaGallery />
           </ScrollReveal>
-
-          {/* Thumbnails strip */}
-          <MediaThumbnails />
         </div>
       </section>
 
