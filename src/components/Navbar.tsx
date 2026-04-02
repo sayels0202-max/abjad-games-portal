@@ -5,7 +5,6 @@ import logoText from "@/assets/logo-text.png";
 
 
 const navLinks = [
-  { label: "About", href: "#about" },
   { label: "Games", href: "#showcase" },
   { label: "Team", href: "#team" },
   { label: "News", href: "/news", isRoute: true },
@@ -32,7 +31,7 @@ const Navbar = () => {
 
   useEffect(() => {
     if (location.pathname !== "/") return;
-    const sections = ["about", "showcase", "team", "community", "contact"];
+    const sections = ["showcase", "team", "community", "contact"];
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
