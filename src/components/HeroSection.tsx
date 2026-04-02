@@ -169,7 +169,7 @@ const HeroSection = () => {
               href="#showcase"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.8 }}
+              transition={{ duration: 0.8, delay: 2.1 }}
               className="group relative mirror-surface mirror-edge border border-primary/30 px-10 py-4 font-display text-xs tracking-[0.35em] uppercase text-primary rounded-xl overflow-hidden"
             >
               <span className="relative z-10">Explore Our Games</span>
