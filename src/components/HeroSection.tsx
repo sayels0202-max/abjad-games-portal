@@ -1,34 +1,9 @@
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useMemo } from "react";
 import banner from "@/assets/hero-bg.png";
 import abjadLogo from "@/assets/abjad-logo-text.png";
 
-const fireKeyframes = `
-@keyframes fire-flicker {
-  0%, 100% { filter: brightness(1) drop-shadow(0 0 8px hsl(var(--primary)/0.6)) drop-shadow(0 -4px 12px hsl(25 95% 50%/0.4)); }
-  25% { filter: brightness(1.1) drop-shadow(0 0 12px hsl(var(--primary)/0.8)) drop-shadow(0 -6px 18px hsl(25 95% 50%/0.6)); }
-  50% { filter: brightness(0.95) drop-shadow(0 0 6px hsl(var(--primary)/0.5)) drop-shadow(0 -3px 10px hsl(25 95% 50%/0.3)); }
-  75% { filter: brightness(1.05) drop-shadow(0 0 14px hsl(var(--primary)/0.7)) drop-shadow(0 -8px 20px hsl(25 95% 50%/0.5)); }
-}
-@keyframes fire-ember-1 {
-  0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
-  20% { opacity: 1; }
-  100% { opacity: 0; transform: translate(-30px, -80px) scale(0); }
-}
-@keyframes fire-ember-2 {
-  0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
-  20% { opacity: 1; }
-  100% { opacity: 0; transform: translate(20px, -100px) scale(0); }
-}
-@keyframes fire-ember-3 {
-  0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
-  20% { opacity: 1; }
-  100% { opacity: 0; transform: translate(-10px, -120px) scale(0); }
-}
-@keyframes fire-glow-pulse {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(1.05); }
-}
+const scanLineKeyframes = `
 @keyframes scan-line {
   0% { transform: translateY(-100vh); }
   100% { transform: translateY(100vh); }
