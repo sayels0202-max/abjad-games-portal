@@ -4,7 +4,7 @@ import GlassCard from "./ui/GlassCard";
 
 const StudioSection = () => {
   return (
-    <section className="relative py-32 px-6">
+    <section id="about" className="relative py-32 px-6">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-secondary/30 to-transparent" />
 
       <div className="relative mx-auto max-w-4xl text-center">
