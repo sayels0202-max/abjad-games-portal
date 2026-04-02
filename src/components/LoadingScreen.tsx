@@ -1,14 +1,12 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef } from "react";
 import logoOutline from "@/assets/logo-outline.png";
-import logoText from "@/assets/logo-text.png";
 
 interface LoadingScreenProps {
   isVisible: boolean;
   onComplete: () => void;
 }
 
-// Dust/ember particle system for loading screen
 const LoadingParticles = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -22,14 +20,8 @@ const LoadingParticles = () => {
     canvas.height = window.innerHeight;
 
     interface Ember {
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      size: number;
-      life: number;
-      maxLife: number;
-      opacity: number;
+      x: number; y: number; vx: number; vy: number;
+      size: number; life: number; maxLife: number; opacity: number;
     }
 
     const embers: Ember[] = [];
@@ -48,29 +40,20 @@ const LoadingParticles = () => {
     let animId: number;
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      if (embers.length < 60 && Math.random() < 0.4) {
-        embers.push(spawn());
-      }
+      if (embers.length < 60 && Math.random() < 0.4) embers.push(spawn());
 
       for (let i = embers.length - 1; i >= 0; i--) {
         const e = embers[i];
         e.life++;
         if (e.life > e.maxLife) { embers.splice(i, 1); continue; }
-
         e.x += e.vx + Math.sin(e.life * 0.03) * 0.5;
         e.y += e.vy;
-
         const progress = e.life / e.maxLife;
         const alpha = progress < 0.1 ? progress * 10 : progress > 0.7 ? (1 - progress) * 3.3 : 1;
-
-        // Core
         ctx.beginPath();
         ctx.arc(e.x, e.y, e.size * (1 - progress * 0.3), 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255, 160, 20, ${alpha * e.opacity * 0.8})`;
         ctx.fill();
-
-        // Glow
         const grad = ctx.createRadialGradient(e.x, e.y, 0, e.x, e.y, e.size * 5);
         grad.addColorStop(0, `rgba(255, 140, 0, ${alpha * 0.12})`);
         grad.addColorStop(1, `rgba(255, 100, 10, 0)`);
@@ -79,7 +62,6 @@ const LoadingParticles = () => {
         ctx.fillStyle = grad;
         ctx.fill();
       }
-
       animId = requestAnimationFrame(animate);
     };
 
@@ -87,13 +69,7 @@ const LoadingParticles = () => {
     return () => cancelAnimationFrame(animId);
   }, []);
 
-  return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0"
-      style={{ mixBlendMode: "screen" }}
-    />
-  );
+  return <canvas ref={canvasRef} className="absolute inset-0" style={{ mixBlendMode: "screen" }} />;
 };
 
 const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
@@ -105,18 +81,14 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
           exit={{ opacity: 0 }}
           transition={{ duration: 1.2, ease: "easeInOut" }}
         >
-          {/* Radial glow behind logo */}
           <motion.div
             className="absolute w-[600px] h-[600px] rounded-full"
-            style={{
-              background: "radial-gradient(circle, hsl(38 92% 50% / 0.08) 0%, transparent 70%)",
-            }}
+            style={{ background: "radial-gradient(circle, hsl(38 92% 50% / 0.08) 0%, transparent 70%)" }}
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: [0.5, 1.2, 1], opacity: [0, 1, 0.6] }}
             transition={{ duration: 2.5, ease: "easeOut" }}
           />
 
-          {/* Particles */}
           <LoadingParticles />
 
           <motion.div
@@ -125,17 +97,11 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
             transition={{ duration: 1.2, ease: "easeOut" }}
             className="relative flex flex-col items-center"
           >
-            {/* Logo icon with breathe + pulse ring */}
             <div className="relative">
               <motion.div
                 className="absolute inset-0 rounded-full"
-                style={{
-                  background: "radial-gradient(circle, hsl(38 92% 50% / 0.15) 0%, transparent 70%)",
-                }}
-                animate={{
-                  scale: [1, 1.5, 1],
-                  opacity: [0.5, 0, 0.5],
-                }}
+                style={{ background: "radial-gradient(circle, hsl(38 92% 50% / 0.15) 0%, transparent 70%)" }}
+                animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
                 transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
               />
               <img
@@ -145,17 +111,6 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
               />
             </div>
 
-            {/* Logo text */}
-            <motion.img
-              src={logoText}
-              alt="ABJAD GAMES"
-              className="w-52 md:w-72 mt-4 opacity-90"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 0.9, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-            />
-
-            {/* Loading bar */}
             <motion.div
               className="mt-8 h-[2px] bg-primary rounded-full"
               initial={{ width: 0 }}
@@ -164,7 +119,6 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
               style={{ boxShadow: "0 0 12px hsl(38 92% 50% / 0.5)" }}
             />
 
-            {/* Loading text */}
             <motion.p
               className="mt-4 text-xs tracking-[0.4em] uppercase text-muted-foreground font-body"
               initial={{ opacity: 0 }}

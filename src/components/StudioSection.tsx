@@ -21,9 +21,15 @@ const StudioSection = () => {
         </ScrollReveal>
 
         <ScrollReveal delay={0.3}>
-          <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-10 tracking-wide">
+          <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-4 tracking-wide">
             Crafting Worlds from Ancient Letters
           </h2>
+        </ScrollReveal>
+
+        <ScrollReveal delay={0.35}>
+          <p className="font-display text-lg md:text-xl text-primary/80 italic tracking-wide mb-10">
+            "From Riyadh, We Build Worlds"
+          </p>
         </ScrollReveal>
 
         <ScrollReveal delay={0.45}>
@@ -43,9 +49,9 @@ const StudioSection = () => {
         <ScrollReveal delay={0.6}>
           <div className="mt-16 flex justify-center gap-8 md:gap-16">
             {[
-              { label: "Founded", value: "2024" },
+              { label: "Founded", value: "2025" },
+              { label: "Based In", value: "Riyadh" },
               { label: "First Title", value: "In Dev" },
-              { label: "Vision", value: "Infinite" },
             ].map((stat) => (
               <GlassCard key={stat.label} className="px-6 py-4 text-center" tilt={false}>
                 <p className="font-display text-2xl text-primary">{stat.value}</p>
