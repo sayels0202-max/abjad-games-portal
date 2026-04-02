@@ -146,7 +146,7 @@ const HeroSection = () => {
 
             {/* Motto */}
             <motion.p
-              className="font-body text-sm md:text-lg tracking-[0.35em] uppercase text-muted-foreground/80 mb-14"
+              className="font-body text-sm md:text-lg tracking-[0.35em] uppercase mb-14 text-destructive-foreground"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.8 }}
