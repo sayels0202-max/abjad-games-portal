@@ -45,7 +45,7 @@ const Index = () => {
           <ContactSection />
           <Footer />
           <AmbientAudio />
-          <EasterEggs />
+          
         </motion.div>
       )}
     </>

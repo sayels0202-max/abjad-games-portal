@@ -61,7 +61,7 @@ const Navbar = () => {
           style={{ opacity: bgOpacity }}
         />
         <div className="relative mx-auto max-w-7xl flex items-center justify-between">
-          <a href="#" className="flex items-center group" onClick={(e) => { e.preventDefault(); handleLogoClick(); }}>
+          <a href="#" className="flex items-center group" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
             <img
               src={logoText}
               alt="ABJAD GAMES"
