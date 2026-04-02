@@ -24,24 +24,20 @@ import FireParticles from "@/components/FireParticles";
 import CursorTrail from "@/components/CursorTrail";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
-const mediaItems = [
-  { src: gameplayBg1, alt: "Gameplay 1" },
-  { src: gameplayBg2, alt: "Gameplay 2" },
-  { src: screenshot1, alt: "Screenshot 1" },
-  { src: screenshot2, alt: "Screenshot 2" },
-  
-  
-  { src: screenshot5, alt: "Screenshot 5" },
-  
-  { src: screenshot7, alt: "Screenshot 7" },
-  
-  { src: screenshot9, alt: "Screenshot 9" },
-  
-  
-  
-  
-];
+type MediaItem = 
+  | { type: "image"; src: string; alt: string }
+  | { type: "trailer"; alt: string };
 
+const mediaItems: MediaItem[] = [
+  { type: "trailer", alt: "Official Trailer" },
+  { type: "image", src: gameplayBg1, alt: "Gameplay 1" },
+  { type: "image", src: gameplayBg2, alt: "Gameplay 2" },
+  { type: "image", src: screenshot1, alt: "Screenshot 1" },
+  { type: "image", src: screenshot2, alt: "Screenshot 2" },
+  { type: "image", src: screenshot5, alt: "Screenshot 5" },
+  { type: "image", src: screenshot7, alt: "Screenshot 7" },
+  { type: "image", src: screenshot9, alt: "Screenshot 9" },
+];
 const MediaGallery = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -62,21 +58,42 @@ const MediaGallery = () => {
     if (el) el.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
   });
 
+  const activeItem = mediaItems[activeIndex];
+
   return (
     <div className="space-y-3">
       {/* Main Viewer */}
       <div className="relative aspect-video rounded-2xl overflow-hidden ring-1 ring-foreground/10 group">
         <AnimatePresence mode="wait">
-          <motion.img
-            key={activeIndex}
-            src={mediaItems[activeIndex].src}
-            alt={mediaItems[activeIndex].alt}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="w-full h-full object-cover"
-          />
+          {activeItem.type === "trailer" ? (
+            <motion.div
+              key="trailer"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="w-full h-full flex items-center justify-center bg-black/80"
+            >
+              <img src={banner} alt="Trailer" className="absolute inset-0 w-full h-full object-cover opacity-20" />
+              <div className="relative flex flex-col items-center gap-4 z-10">
+                <div className="w-20 h-20 rounded-full border-2 border-primary/40 flex items-center justify-center bg-background/30 backdrop-blur-sm">
+                  <div className="w-0 h-0 border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent border-l-[20px] border-l-primary ml-1" />
+                </div>
+                <p className="text-sm tracking-[0.3em] uppercase text-primary font-body">Trailer Coming Soon</p>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.img
+              key={activeIndex}
+              src={activeItem.src}
+              alt={activeItem.alt}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="w-full h-full object-cover"
+            />
+          )}
         </AnimatePresence>
 
         {/* Left arrow */}
@@ -114,7 +131,13 @@ const MediaGallery = () => {
                   : "ring-foreground/10 brightness-75 hover:brightness-100"
               }`}
             >
-              <img src={item.src} alt={item.alt} className="w-full h-full object-cover" />
+              {item.type === "trailer" ? (
+                <div className="w-full h-full flex items-center justify-center bg-black/60">
+                  <div className="w-6 h-6 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent border-l-[9px] border-l-primary" />
+                </div>
+              ) : (
+                <img src={item.src} alt={item.alt} className="w-full h-full object-cover" />
+              )}
             </button>
           ))}
         </div>
