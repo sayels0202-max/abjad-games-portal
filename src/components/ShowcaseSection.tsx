@@ -84,20 +84,14 @@ const ShowcaseSection = () => {
           <ScrollReveal direction="right" delay={0.45}>
             <div className="lg:pt-8">
               <h3 className="font-display text-2xl md:text-3xl text-foreground mb-6 tracking-wide">
-                AL-RAIY
+                الراعي — AL-RAIY
               </h3>
-              <div className="space-y-5 text-muted-foreground font-body font-light leading-relaxed">
+              <div className="space-y-5 text-muted-foreground font-body font-light leading-relaxed text-right" dir="rtl">
                 <p>
-                  In a land forgotten by time, ancient terrors stir beneath the dunes. 
-                  You are the shepherd — the last watcher at the edge of darkness.
+                  يستيقظ بطلنا في خيمة غريبة و ليلة حالكة و يجد رجل أمامه بملامح مخفية في ظلمة الليل و بجانبه نار فاتنة, يزعم الرجل انه هنا لمساعدته و يجب ان تتبع تعليماته لكي ينجو من بطش الوحوش في هذه المزارع البائسة.
                 </p>
                 <p>
-                  Navigate treacherous desert nights armed only with fire and instinct. 
-                  Every shadow hides a story, every flame reveals a truth you may not be ready to face.
-                </p>
-                <p>
-                  A pixel-art survival horror experience rooted in Arabian folklore and mythology, 
-                  crafted with obsessive attention to atmosphere and tension.
+                  ماذا يخفي لك المكان ومن يختبئ في الظلام و هل هناك مهرب؟
                 </p>
               </div>
 
@@ -112,12 +106,25 @@ const ShowcaseSection = () => {
                 ))}
               </div>
 
-              <Link
-                to="/alraiy"
-                className="mt-10 inline-block mirror-surface mirror-edge mirror-hover border border-primary/30 px-8 py-3 font-display text-sm tracking-[0.3em] uppercase text-primary rounded-xl"
-              >
-                Learn More →
-              </Link>
+              <div className="mt-10 flex flex-wrap gap-4">
+                <a
+                  href="https://store.steampowered.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 mirror-surface mirror-edge mirror-hover border border-primary/30 px-8 py-3 font-display text-sm tracking-[0.2em] uppercase text-primary rounded-xl"
+                >
+                  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658a3.387 3.387 0 0 1 1.912-.59c.064 0 .128.003.19.008l2.861-4.142V8.91a4.528 4.528 0 0 1 4.524-4.524 4.528 4.528 0 0 1 4.524 4.524 4.528 4.528 0 0 1-4.524 4.524h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396a3.406 3.406 0 0 1-3.362-2.898L.309 14.466C1.539 19.857 6.272 24 11.979 24c6.627 0 12.001-5.373 12.001-12S18.606 0 11.979 0zM7.54 18.21l-1.473-.61a2.542 2.542 0 0 0 4.753-.895 2.543 2.543 0 0 0-2.54-2.541c-.267 0-.527.042-.774.12l1.521.63a1.868 1.868 0 0 1-1.423 3.453l-.064-.157zm8.4-5.695a3.023 3.023 0 0 0 3.016-3.015 3.023 3.023 0 0 0-3.016-3.015 3.023 3.023 0 0 0-3.016 3.015 3.023 3.023 0 0 0 3.016 3.015zm-.005-5.278a2.269 2.269 0 0 1 2.263 2.263 2.269 2.269 0 0 1-2.263 2.263 2.269 2.269 0 0 1-2.263-2.263 2.269 2.269 0 0 1 2.263-2.263z"/>
+                  </svg>
+                  Wishlist on Steam
+                </a>
+                <Link
+                  to="/alraiy"
+                  className="inline-block mirror-surface mirror-edge mirror-hover border border-foreground/20 px-8 py-3 font-display text-sm tracking-[0.2em] uppercase text-muted-foreground hover:text-primary rounded-xl transition-colors"
+                >
+                  Learn More →
+                </Link>
+              </div>
             </div>
           </ScrollReveal>
         </div>
