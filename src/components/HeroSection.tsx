@@ -62,8 +62,8 @@ const HeroSection = () => {
     };
   }, []);
 
-  const titleText = "ABJAD GAMES";
   const subtitle = "Crafting Worlds. Telling Stories.";
+  const motto = "From Riyadh, We Build Worlds";
 
   return (
     <>
