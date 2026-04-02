@@ -3,19 +3,31 @@ import { useRef, useState, useEffect } from "react";
 import banner from "@/assets/hero-bg.png";
 import abjadLogo from "@/assets/abjad-logo-text.png";
 
-const glitchKeyframes = `
-@keyframes glitch-1 {
-  0%, 100% { clip-path: inset(0 0 95% 0); transform: translate(-2px, 0); }
-  20% { clip-path: inset(40% 0 30% 0); transform: translate(2px, 0); }
-  40% { clip-path: inset(70% 0 5% 0); transform: translate(-1px, 0); }
-  60% { clip-path: inset(10% 0 60% 0); transform: translate(3px, 0); }
-  80% { clip-path: inset(80% 0 0% 0); transform: translate(-3px, 0); }
+const fireKeyframes = `
+@keyframes fire-flicker {
+  0%, 100% { filter: brightness(1) drop-shadow(0 0 8px hsl(var(--primary)/0.6)) drop-shadow(0 -4px 12px hsl(25 95% 50%/0.4)); }
+  25% { filter: brightness(1.1) drop-shadow(0 0 12px hsl(var(--primary)/0.8)) drop-shadow(0 -6px 18px hsl(25 95% 50%/0.6)); }
+  50% { filter: brightness(0.95) drop-shadow(0 0 6px hsl(var(--primary)/0.5)) drop-shadow(0 -3px 10px hsl(25 95% 50%/0.3)); }
+  75% { filter: brightness(1.05) drop-shadow(0 0 14px hsl(var(--primary)/0.7)) drop-shadow(0 -8px 20px hsl(25 95% 50%/0.5)); }
 }
-@keyframes glitch-2 {
-  0%, 100% { clip-path: inset(90% 0 0 0); transform: translate(2px, 0); }
-  25% { clip-path: inset(20% 0 50% 0); transform: translate(-3px, 0); }
-  50% { clip-path: inset(50% 0 20% 0); transform: translate(1px, 0); }
-  75% { clip-path: inset(0 0 70% 0); transform: translate(-2px, 0); }
+@keyframes fire-ember-1 {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-30px, -80px) scale(0); }
+}
+@keyframes fire-ember-2 {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: translate(20px, -100px) scale(0); }
+}
+@keyframes fire-ember-3 {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-10px, -120px) scale(0); }
+}
+@keyframes fire-glow-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.05); }
 }
 @keyframes scan-line {
   0% { transform: translateY(-100vh); }
@@ -27,7 +39,6 @@ const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [blurVal, setBlurVal] = useState(0);
   const [showTitle, setShowTitle] = useState(false);
-  const [glitchActive, setGlitchActive] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -47,18 +58,8 @@ const HeroSection = () => {
 
   useEffect(() => {
     const t1 = setTimeout(() => setShowTitle(true), 800);
-    const t2 = setTimeout(() => setGlitchActive(true), 1200);
-    const t3 = setTimeout(() => setGlitchActive(false), 1600);
-    // Periodic subtle glitch
-    const interval = setInterval(() => {
-      setGlitchActive(true);
-      setTimeout(() => setGlitchActive(false), 300);
-    }, 6000);
     return () => {
       clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
-      clearInterval(interval);
     };
   }, []);
 
@@ -67,7 +68,7 @@ const HeroSection = () => {
 
   return (
     <>
-      <style>{glitchKeyframes}</style>
+      <style>{fireKeyframes}</style>
       <div ref={containerRef} className="relative h-[200vh]">
         <motion.section
           className="sticky top-0 h-screen overflow-hidden"
@@ -112,35 +113,47 @@ const HeroSection = () => {
             className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center"
             style={{ opacity: contentOpacity, y: contentY }}
           >
-            {/* Logo with glitch effect */}
+            {/* Logo with fire effect */}
             <div className="relative mb-10 md:mb-14">
+              {/* Fire glow behind logo */}
+              <div
+                className="absolute inset-0 pointer-events-none z-0"
+                style={{
+                  background: "radial-gradient(ellipse 60% 40% at 50% 60%, hsl(25 95% 50%/0.15), transparent)",
+                  animation: "fire-glow-pulse 2s ease-in-out infinite",
+                }}
+              />
+
               <motion.img
                 src={abjadLogo}
                 alt="Abjad Games"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: showTitle ? 1 : 0, scale: showTitle ? 1 : 0.8 }}
                 transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className="w-[440px] md:w-[680px] lg:w-[920px] mx-auto drop-shadow-[0_0_40px_hsl(var(--primary)/0.15)]"
+                className="relative z-10 w-[440px] md:w-[680px] lg:w-[920px] mx-auto"
+                style={{ animation: showTitle ? "fire-flicker 1.5s ease-in-out infinite" : undefined }}
               />
 
-              {/* Glitch copies */}
-              {glitchActive && (
-                <>
-                  <img
-                    src={abjadLogo}
-                    alt=""
-                    className="absolute inset-0 w-[440px] md:w-[680px] lg:w-[920px] mx-auto opacity-80 pointer-events-none"
-                    style={{ animation: "glitch-1 0.3s steps(2) infinite", filter: "hue-rotate(90deg) saturate(2)" }}
-                    aria-hidden="true"
-                  />
-                  <img
-                    src={abjadLogo}
-                    alt=""
-                    className="absolute inset-0 w-[440px] md:w-[680px] lg:w-[920px] mx-auto opacity-60 pointer-events-none"
-                    style={{ animation: "glitch-2 0.3s steps(3) infinite", filter: "hue-rotate(-90deg) saturate(2)" }}
-                    aria-hidden="true"
-                  />
-                </>
+              {/* Fire embers rising from logo */}
+              {showTitle && (
+                <div className="absolute inset-0 pointer-events-none z-20">
+                  {[...Array(8)].map((_, i) => (
+                    <div
+                      key={i}
+                      className="absolute rounded-full"
+                      style={{
+                        width: `${3 + Math.random() * 4}px`,
+                        height: `${3 + Math.random() * 4}px`,
+                        background: `hsl(${15 + Math.random() * 25} 95% ${50 + Math.random() * 20}%)`,
+                        left: `${20 + Math.random() * 60}%`,
+                        bottom: `${30 + Math.random() * 20}%`,
+                        animation: `fire-ember-${(i % 3) + 1} ${1.5 + Math.random() * 2}s ease-out infinite`,
+                        animationDelay: `${Math.random() * 2}s`,
+                        boxShadow: `0 0 6px 2px hsl(25 95% 50%/0.6)`,
+                      }}
+                    />
+                  ))}
+                </div>
               )}
             </div>
 
