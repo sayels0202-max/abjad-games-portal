@@ -42,105 +42,84 @@ const mediaItems = [
   
 ];
 
-const MediaThumbnails = () => {
-  const [selected, setSelected] = useState<number | null>(null);
+const MediaGallery = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const scroll = (dir: "left" | "right") => {
-    if (!scrollRef.current) return;
-    const amount = dir === "left" ? -300 : 300;
-    scrollRef.current.scrollBy({ left: amount, behavior: "smooth" });
+  const goTo = (index: number) => {
+    setActiveIndex((index + mediaItems.length) % mediaItems.length);
   };
 
+  // Scroll thumbnail into view when active changes
+  const thumbRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  const setThumbRef = (el: HTMLButtonElement | null, i: number) => {
+    thumbRefs.current[i] = el;
+  };
+
+  useState(() => {
+    const el = thumbRefs.current[activeIndex];
+    if (el) el.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+  });
+
   return (
-    <>
-      <div className="relative group/scroll">
-        {/* Left arrow */}
-        <button
-          onClick={() => scroll("left")}
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full mirror-surface mirror-edge flex items-center justify-center text-muted-foreground hover:text-primary transition-colors opacity-0 group-hover/scroll:opacity-100"
-        >
-          ←
-        </button>
-
-        <div ref={scrollRef} className="flex gap-3 overflow-x-auto pb-3 scrollbar-hide snap-x snap-mandatory px-12">
-          {mediaItems.map((item, i) => (
-            <button
-              key={i}
-              onClick={() => setSelected(i)}
-              className="relative overflow-hidden rounded-lg ring-1 ring-foreground/10 aspect-video group mirror-hover flex-shrink-0 w-48 md:w-56 snap-start"
-            >
-              <img
-                src={item.src}
-                alt={item.alt}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-background/30 group-hover:bg-transparent transition-colors duration-300" />
-            </button>
-          ))}
-        </div>
-
-        {/* Right arrow */}
-        <button
-          onClick={() => scroll("right")}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full mirror-surface mirror-edge flex items-center justify-center text-muted-foreground hover:text-primary transition-colors opacity-0 group-hover/scroll:opacity-100"
-        >
-          →
-        </button>
-
-        {/* Gradient hints */}
-        <div className="absolute left-0 top-0 bottom-3 w-12 bg-gradient-to-r from-background to-transparent pointer-events-none z-10" />
-        <div className="absolute right-0 top-0 bottom-3 w-12 bg-gradient-to-l from-background to-transparent pointer-events-none z-10" />
-      </div>
-
-      {/* Lightbox */}
-      <AnimatePresence>
-        {selected !== null && (
-          <motion.div
+    <div className="space-y-3">
+      {/* Main Viewer */}
+      <div className="relative aspect-video rounded-2xl overflow-hidden ring-1 ring-foreground/10 group">
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={activeIndex}
+            src={mediaItems[activeIndex].src}
+            alt={mediaItems[activeIndex].alt}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-background/95 backdrop-blur-sm flex items-center justify-center p-6"
-            onClick={() => setSelected(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.85, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.85, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="relative max-w-5xl w-full"
-              onClick={(e) => e.stopPropagation()}
+            transition={{ duration: 0.3 }}
+            className="w-full h-full object-cover"
+          />
+        </AnimatePresence>
+
+        {/* Left arrow */}
+        <button
+          onClick={() => goTo(activeIndex - 1)}
+          className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-background/70 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-background/90 transition-all opacity-0 group-hover:opacity-100"
+        >
+          ‹
+        </button>
+        {/* Right arrow */}
+        <button
+          onClick={() => goTo(activeIndex + 1)}
+          className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-background/70 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-background/90 transition-all opacity-0 group-hover:opacity-100"
+        >
+          ›
+        </button>
+
+        {/* Counter */}
+        <div className="absolute bottom-3 right-3 bg-background/70 backdrop-blur-sm rounded-md px-3 py-1 text-xs font-body text-foreground">
+          {activeIndex + 1} / {mediaItems.length}
+        </div>
+      </div>
+
+      {/* Thumbnails Row */}
+      <div className="relative group/scroll">
+        <div ref={scrollRef} className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+          {mediaItems.map((item, i) => (
+            <button
+              key={i}
+              ref={(el) => setThumbRef(el, i)}
+              onClick={() => setActiveIndex(i)}
+              className={`relative flex-shrink-0 w-24 h-14 md:w-28 md:h-16 rounded-md overflow-hidden ring-1 transition-all duration-200 ${
+                i === activeIndex
+                  ? "ring-primary ring-2 brightness-100"
+                  : "ring-foreground/10 brightness-75 hover:brightness-100"
+              }`}
             >
-              <img
-                src={mediaItems[selected].src}
-                alt={mediaItems[selected].alt}
-                className="w-full rounded-2xl ring-1 ring-foreground/10"
-              />
-              {/* Navigation arrows */}
-              <div className="absolute inset-y-0 left-0 flex items-center -ml-12">
-                <button
-                  onClick={() => setSelected((selected - 1 + mediaItems.length) % mediaItems.length)}
-                  className="w-10 h-10 rounded-full mirror-surface mirror-edge flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
-                >
-                  ←
-                </button>
-              </div>
-              <div className="absolute inset-y-0 right-0 flex items-center -mr-12">
-                <button
-                  onClick={() => setSelected((selected + 1) % mediaItems.length)}
-                  className="w-10 h-10 rounded-full mirror-surface mirror-edge flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
-                >
-                  →
-                </button>
-              </div>
-              <p className="text-center mt-4 text-xs tracking-[0.3em] uppercase text-muted-foreground font-body">
-                {selected + 1} / {mediaItems.length} — Click outside to close
-              </p>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+              <img src={item.src} alt={item.alt} className="w-full h-full object-cover" />
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -259,23 +238,9 @@ const AlraiyPage = () => {
             </h2>
           </ScrollReveal>
 
-          {/* Main viewer — Trailer placeholder */}
           <ScrollReveal delay={0.2} direction="scale">
-            <div className="relative aspect-video rounded-2xl overflow-hidden ring-1 ring-foreground/10 mirror-edge mb-4">
-              <div className="absolute inset-0 mirror-surface flex items-center justify-center">
-                <img src={banner} alt="Trailer placeholder" className="absolute inset-0 w-full h-full object-cover opacity-20" />
-                <div className="relative flex flex-col items-center gap-4 z-10">
-                  <div className="w-20 h-20 rounded-full border-2 border-primary/40 flex items-center justify-center mirror-surface">
-                    <div className="w-0 h-0 border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent border-l-[20px] border-l-primary ml-1" />
-                  </div>
-                  <p className="text-sm tracking-[0.3em] uppercase text-primary font-body">Trailer Coming Soon</p>
-                </div>
-              </div>
-            </div>
+            <MediaGallery />
           </ScrollReveal>
-
-          {/* Thumbnails strip */}
-          <MediaThumbnails />
         </div>
       </section>
 
