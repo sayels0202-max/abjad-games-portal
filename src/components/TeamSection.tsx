@@ -13,196 +13,145 @@ const team = [
   { name: "Feras", lastName: "Hisan", role: "Producer", image: firasImg },
 ];
 
-const TeamSection = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-
-  const lineHeight = useTransform(scrollYProgress, [0.1, 0.5], ["0%", "100%"]);
-
-  return (
-    <section id="team" ref={sectionRef} className="relative py-32 px-6 overflow-hidden">
-      {/* Background ambient */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/[0.02] blur-[150px]" />
-      </div>
-
-      <div className="relative mx-auto max-w-6xl">
-        {/* Editorial header */}
-        <ScrollReveal>
-          <div className="flex items-center gap-6 mb-6">
-            <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
-            <p className="text-[11px] tracking-[0.5em] uppercase text-primary font-body font-medium">
-              The Team
-            </p>
-            <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
-          </div>
-        </ScrollReveal>
-
-        <ScrollReveal delay={0.1}>
-          <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground mb-2 tracking-wide text-center">
-            The People Behind
-          </h2>
-          <h2 className="font-display text-4xl md:text-6xl font-bold text-primary mb-16 tracking-wide text-center italic">
-            Abjad
-          </h2>
-        </ScrollReveal>
-
-        {/* Editorial asymmetric grid */}
-        <div className="relative">
-          {/* Vertical editorial line */}
-          <motion.div
-            className="absolute left-1/2 top-0 w-[1px] bg-gradient-to-b from-primary/30 via-primary/10 to-transparent hidden lg:block"
-            style={{ height: lineHeight, originY: 0 }}
-          />
-
-          {/* Row 1: Large left + Small right */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-6 mb-4 md:mb-6">
-            {/* Member 1 — large editorial card */}
-            <ScrollReveal delay={0.15} className="lg:col-span-7">
-              <EditorialCard
-                member={team[0]}
-                variant="landscape"
-                index={0}
-              />
-            </ScrollReveal>
-
-            {/* Member 2 — tall portrait */}
-            <ScrollReveal delay={0.25} className="lg:col-span-5">
-              <EditorialCard
-                member={team[1]}
-                variant="portrait"
-                index={1}
-              />
-            </ScrollReveal>
-          </div>
-
-          {/* Row 2: Small left + Large right (mirrored) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-6">
-            {/* Member 3 — tall portrait */}
-            <ScrollReveal delay={0.2} className="lg:col-span-5">
-              <EditorialCard
-                member={team[2]}
-                variant="portrait"
-                index={2}
-              />
-            </ScrollReveal>
-
-            {/* Member 4 — large editorial card */}
-            <ScrollReveal delay={0.3} className="lg:col-span-7">
-              <EditorialCard
-                member={team[3]}
-                variant="landscape"
-                index={3}
-              />
-            </ScrollReveal>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const EditorialCard = ({
-  member,
-  variant,
-  index,
-}: {
-  member: typeof team[0];
-  variant: "landscape" | "portrait";
-  index: number;
-}) => {
+const TeamCard = ({ member, index }: { member: typeof team[0]; index: number }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: cardRef,
     offset: ["start end", "end start"],
   });
-  const imageY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
 
-  const isLandscape = variant === "landscape";
+  // Parallax: image moves slower than scroll
+  const imageY = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
+  // Subtle scale on scroll
+  const imageScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.15, 1.05, 1.15]);
 
   return (
-    <motion.div
-      ref={cardRef}
-      className={`group relative rounded-lg overflow-hidden cursor-default ${
-        isLandscape ? "aspect-[16/10]" : "aspect-[3/4]"
-      }`}
-      whileHover={{ scale: 1.01 }}
-      transition={{ type: "spring", stiffness: 300, damping: 25 }}
-    >
-      {/* Parallax image */}
-      <motion.img
-        src={member.image}
-        alt={`${member.name} ${member.lastName}`}
-        className="absolute inset-0 w-full h-[120%] object-cover object-top brightness-[0.55] saturate-[0.8] group-hover:brightness-[0.65] group-hover:saturate-100 transition-all duration-700"
-        style={{ y: imageY }}
-      />
-
-      {/* Film grain */}
-      <div
-        className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-        }}
-      />
-
-      {/* Editorial gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent" />
-
-      {/* Hover glow */}
-      <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-
-      {/* Editorial text overlay — positioned differently based on variant */}
-      <div
-        className={`absolute ${
-          isLandscape
-            ? "bottom-0 left-0 p-6 md:p-8 max-w-[80%]"
-            : "bottom-0 inset-x-0 p-5 md:p-7"
-        }`}
+    <ScrollReveal delay={0.15 + index * 0.12}>
+      <motion.div
+        ref={cardRef}
+        className="group relative rounded-xl overflow-hidden cursor-default"
+        style={{ perspective: "1000px" }}
+        whileHover={{ y: -10 }}
+        transition={{ type: "spring", stiffness: 260, damping: 18 }}
       >
-        {/* Issue number / index */}
-        <motion.span
-          className="text-[10px] tracking-[0.4em] uppercase font-body text-primary/60 block mb-3"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.3 + index * 0.1 }}
-        >
-          0{index + 1} — {member.role}
-        </motion.span>
+        {/* Card container with cinematic aspect ratio */}
+        <div className="relative w-full aspect-[2/3] overflow-hidden bg-background">
+          {/* Parallax image */}
+          <motion.img
+            src={member.image}
+            alt={`${member.name} ${member.lastName}`}
+            className="absolute inset-0 w-full h-[130%] object-cover object-top"
+            style={{ y: imageY, scale: imageScale }}
+          />
 
-        {/* Accent line */}
-        <motion.div
-          className="w-10 h-[1px] bg-primary/50 mb-3 origin-left"
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          transition={{ duration: 0.7, delay: 0.35 + index * 0.1 }}
-        />
+          {/* Film grain overlay */}
+          <div
+            className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+            }}
+          />
 
-        {/* Name — editorial large type */}
-        <h3 className="font-display text-foreground/50 text-sm md:text-base tracking-[0.2em] uppercase leading-tight">
-          {member.name}
-        </h3>
-        <h3
-          className={`font-display font-bold text-foreground uppercase tracking-[0.12em] leading-tight ${
-            isLandscape
-              ? "text-2xl md:text-4xl"
-              : "text-xl md:text-2xl"
-          }`}
-        >
-          {member.lastName}
-        </h3>
+          {/* Cinematic vignette */}
+          <div className="absolute inset-0 shadow-[inset_0_0_80px_rgba(0,0,0,0.5)]" />
 
-        {/* Decorative editorial dash */}
-        <div className="w-0 group-hover:w-12 h-[1px] bg-primary/30 mt-3 transition-all duration-500 ease-out" />
+          {/* Bottom gradient - dramatic cinematic fade */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 via-30% to-transparent" />
+
+          {/* Top subtle gradient */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-transparent to-30%" />
+
+          {/* Primary accent glow on hover */}
+          <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700" />
+
+          {/* Scan line effect */}
+          <div
+            className="absolute inset-0 pointer-events-none opacity-[0.04]"
+            style={{
+              backgroundImage:
+                "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.03) 2px, rgba(255,255,255,0.03) 4px)",
+            }}
+          />
+        </div>
+
+        {/* Info overlay at bottom */}
+        <div className="absolute inset-x-0 bottom-0 p-5 md:p-7">
+          {/* Animated accent line */}
+          <motion.div
+            className="h-[1px] bg-gradient-to-r from-primary via-primary/60 to-transparent mb-4 origin-left"
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 + index * 0.1, ease: "easeOut" }}
+            style={{ width: "60%" }}
+          />
+
+          {/* Role label - appears first */}
+          <motion.p
+            className="text-[10px] md:text-[11px] uppercase tracking-[0.3em] font-body text-primary/80 mb-2"
+            initial={{ opacity: 0, x: -10 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
+          >
+            {member.role}
+          </motion.p>
+
+          {/* First name - subtle */}
+          <h3 className="font-display text-sm md:text-base text-foreground/60 leading-tight tracking-wider">
+            {member.name}
+          </h3>
+          {/* Last name - bold, prominent */}
+          <h3 className="font-display text-xl md:text-2xl font-bold text-foreground uppercase tracking-[0.15em] leading-tight">
+            {member.lastName}
+          </h3>
+
+          {/* Hover reveal: subtle line below name */}
+          <motion.div
+            className="w-0 group-hover:w-10 h-[1px] bg-primary/40 mt-3 transition-all duration-500"
+          />
+        </div>
+
+        {/* Corner accent */}
+        <div className="absolute top-4 right-4 w-5 h-5 border-t border-r border-primary/20 group-hover:border-primary/50 transition-colors duration-500 rounded-tr-sm" />
+        <div className="absolute bottom-4 left-4 w-5 h-5 border-b border-l border-primary/20 group-hover:border-primary/50 transition-colors duration-500 rounded-bl-sm" />
+      </motion.div>
+    </ScrollReveal>
+  );
+};
+
+const TeamSection = () => {
+  return (
+    <section id="team" className="relative py-32 px-6 overflow-hidden">
+      {/* Background ambient glow */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full bg-primary/[0.02] blur-[150px]" />
       </div>
 
-      {/* Corner editorial marks */}
-      <div className="absolute top-3 left-3 w-4 h-4 border-t border-l border-foreground/10 group-hover:border-primary/30 transition-colors duration-500" />
-      <div className="absolute top-3 right-3 w-4 h-4 border-t border-r border-foreground/10 group-hover:border-primary/30 transition-colors duration-500" />
-    </motion.div>
+      <div className="relative mx-auto max-w-7xl">
+        <ScrollReveal>
+          <p className="text-sm tracking-[0.4em] uppercase text-primary font-body font-medium mb-4 text-center">
+            The Team
+          </p>
+        </ScrollReveal>
+
+        <ScrollReveal delay={0.1}>
+          <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-4 tracking-wide text-center">
+            The People Behind Abjad
+          </h2>
+        </ScrollReveal>
+
+        <ScrollReveal delay={0.15}>
+          <p className="text-muted-foreground text-center mb-20 max-w-lg mx-auto font-body font-light">
+            A passionate crew of creators pushing the boundaries of interactive entertainment.
+          </p>
+        </ScrollReveal>
+
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
+          {team.map((member, i) => (
+            <TeamCard key={member.name + member.lastName} member={member} index={i} />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 };
 
