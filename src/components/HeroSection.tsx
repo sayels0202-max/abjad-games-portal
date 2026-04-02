@@ -114,43 +114,13 @@ const HeroSection = () => {
           >
             {/* Logo with glitch effect */}
             <div className="relative mb-10 md:mb-14">
-              {/* Ambient glow behind logo */}
-              <motion.div
-                className="absolute inset-0 flex items-center justify-center pointer-events-none"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: showTitle ? 1 : 0 }}
-                transition={{ duration: 2, delay: 1 }}
-              >
-                <div className="w-[300px] md:w-[500px] lg:w-[700px] h-[100px] md:h-[160px] rounded-full bg-primary/8 blur-[80px]" />
-              </motion.div>
-
-              {/* Shimmer sweep overlay */}
-              <motion.div
-                className="absolute inset-0 z-20 pointer-events-none overflow-hidden rounded-lg"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: showTitle ? 1 : 0 }}
-              >
-                <motion.div
-                  className="absolute inset-0"
-                  style={{
-                    background: "linear-gradient(105deg, transparent 40%, hsl(var(--primary) / 0.08) 45%, hsl(var(--primary) / 0.15) 50%, hsl(var(--primary) / 0.08) 55%, transparent 60%)",
-                  }}
-                  animate={{ x: ["-100%", "200%"] }}
-                  transition={{ duration: 3, repeat: Infinity, repeatDelay: 5, ease: "easeInOut" }}
-                />
-              </motion.div>
-
               <motion.img
                 src={abjadLogo}
                 alt="Abjad Games"
-                initial={{ opacity: 0, scale: 0.8, filter: "brightness(0) blur(8px)" }}
-                animate={{
-                  opacity: showTitle ? 1 : 0,
-                  scale: showTitle ? 1 : 0.8,
-                  filter: showTitle ? "brightness(1) blur(0px)" : "brightness(0) blur(8px)",
-                }}
-                transition={{ duration: 1.4, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className="relative z-10 w-[440px] md:w-[680px] lg:w-[920px] mx-auto drop-shadow-[0_0_60px_hsl(var(--primary)/0.2)] hover:drop-shadow-[0_0_80px_hsl(var(--primary)/0.35)] transition-all duration-700"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: showTitle ? 1 : 0, scale: showTitle ? 1 : 0.8 }}
+                transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                className="w-[440px] md:w-[680px] lg:w-[920px] mx-auto drop-shadow-[0_0_40px_hsl(var(--primary)/0.15)]"
               />
 
               {/* Glitch copies */}
@@ -159,15 +129,15 @@ const HeroSection = () => {
                   <img
                     src={abjadLogo}
                     alt=""
-                    className="absolute inset-0 z-10 w-[440px] md:w-[680px] lg:w-[920px] mx-auto opacity-70 pointer-events-none"
-                    style={{ animation: "glitch-1 0.3s steps(2) infinite", filter: "hue-rotate(90deg) saturate(2) brightness(1.3)" }}
+                    className="absolute inset-0 w-[440px] md:w-[680px] lg:w-[920px] mx-auto opacity-80 pointer-events-none"
+                    style={{ animation: "glitch-1 0.3s steps(2) infinite", filter: "hue-rotate(90deg) saturate(2)" }}
                     aria-hidden="true"
                   />
                   <img
                     src={abjadLogo}
                     alt=""
-                    className="absolute inset-0 z-10 w-[440px] md:w-[680px] lg:w-[920px] mx-auto opacity-50 pointer-events-none"
-                    style={{ animation: "glitch-2 0.3s steps(3) infinite", filter: "hue-rotate(-90deg) saturate(2) brightness(1.3)" }}
+                    className="absolute inset-0 w-[440px] md:w-[680px] lg:w-[920px] mx-auto opacity-60 pointer-events-none"
+                    style={{ animation: "glitch-2 0.3s steps(3) infinite", filter: "hue-rotate(-90deg) saturate(2)" }}
                     aria-hidden="true"
                   />
                 </>
