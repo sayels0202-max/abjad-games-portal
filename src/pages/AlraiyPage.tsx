@@ -44,11 +44,26 @@ const mediaItems = [
 
 const MediaThumbnails = () => {
   const [selected, setSelected] = useState<number | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (dir: "left" | "right") => {
+    if (!scrollRef.current) return;
+    const amount = dir === "left" ? -300 : 300;
+    scrollRef.current.scrollBy({ left: amount, behavior: "smooth" });
+  };
 
   return (
     <>
-      <div className="relative">
-        <div className="flex gap-3 overflow-x-auto pb-3 scrollbar-hide snap-x snap-mandatory">
+      <div className="relative group/scroll">
+        {/* Left arrow */}
+        <button
+          onClick={() => scroll("left")}
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full mirror-surface mirror-edge flex items-center justify-center text-muted-foreground hover:text-primary transition-colors opacity-0 group-hover/scroll:opacity-100"
+        >
+          ←
+        </button>
+
+        <div ref={scrollRef} className="flex gap-3 overflow-x-auto pb-3 scrollbar-hide snap-x snap-mandatory px-12">
           {mediaItems.map((item, i) => (
             <button
               key={i}
@@ -64,8 +79,18 @@ const MediaThumbnails = () => {
             </button>
           ))}
         </div>
-        {/* Scroll hint */}
-        <div className="absolute right-0 top-0 bottom-3 w-16 bg-gradient-to-l from-background to-transparent pointer-events-none z-10" />
+
+        {/* Right arrow */}
+        <button
+          onClick={() => scroll("right")}
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full mirror-surface mirror-edge flex items-center justify-center text-muted-foreground hover:text-primary transition-colors opacity-0 group-hover/scroll:opacity-100"
+        >
+          →
+        </button>
+
+        {/* Gradient hints */}
+        <div className="absolute left-0 top-0 bottom-3 w-12 bg-gradient-to-r from-background to-transparent pointer-events-none z-10" />
+        <div className="absolute right-0 top-0 bottom-3 w-12 bg-gradient-to-l from-background to-transparent pointer-events-none z-10" />
       </div>
 
       {/* Lightbox */}
