@@ -47,21 +47,25 @@ const MediaThumbnails = () => {
 
   return (
     <>
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        {mediaItems.map((item, i) => (
-          <button
-            key={i}
-            onClick={() => setSelected(i)}
-            className="relative overflow-hidden rounded-lg ring-1 ring-foreground/10 aspect-video group mirror-hover"
-          >
-            <img
-              src={item.src}
-              alt={item.alt}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-            />
-            <div className="absolute inset-0 bg-background/30 group-hover:bg-transparent transition-colors duration-300" />
-          </button>
-        ))}
+      <div className="relative">
+        <div className="flex gap-3 overflow-x-auto pb-3 scrollbar-hide snap-x snap-mandatory">
+          {mediaItems.map((item, i) => (
+            <button
+              key={i}
+              onClick={() => setSelected(i)}
+              className="relative overflow-hidden rounded-lg ring-1 ring-foreground/10 aspect-video group mirror-hover flex-shrink-0 w-48 md:w-56 snap-start"
+            >
+              <img
+                src={item.src}
+                alt={item.alt}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-background/30 group-hover:bg-transparent transition-colors duration-300" />
+            </button>
+          ))}
+        </div>
+        {/* Scroll hint */}
+        <div className="absolute right-0 top-0 bottom-3 w-16 bg-gradient-to-l from-background to-transparent pointer-events-none z-10" />
       </div>
 
       {/* Lightbox */}
