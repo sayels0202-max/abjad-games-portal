@@ -149,7 +149,7 @@ const AlraiyPage = () => {
       <div ref={heroRef} className="relative h-[180vh]">
         <motion.section className="sticky top-0 h-screen overflow-hidden" style={{ opacity: sectionOpacity }}>
           <motion.div className="absolute inset-0" style={{ y, scale }}>
-            <img src={banner} alt="Al-Raiy" className="h-full w-full object-cover" />
+            <img src={gameplayBg3} alt="Al-Raiy" className="h-full w-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-background/20" />
           </motion.div>
 
