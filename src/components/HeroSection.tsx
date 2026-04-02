@@ -39,7 +39,6 @@ const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [blurVal, setBlurVal] = useState(0);
   const [showTitle, setShowTitle] = useState(false);
-  const [glitchActive, setGlitchActive] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
