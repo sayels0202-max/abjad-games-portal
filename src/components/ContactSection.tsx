@@ -1,35 +1,19 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Mail, MessageCircle, Send, X } from "lucide-react";
+import { motion } from "framer-motion";
 import ScrollReveal from "./ui/ScrollReveal";
-
-const contactMethods = [
-  {
-    icon: Mail,
-    label: "Email",
-    value: "contact@abjadgames.com",
-    href: "mailto:contact@abjadgames.com",
-  },
-  {
-    icon: MessageCircle,
-    label: "Discord",
-    value: "Join our server",
-    href: "#",
-  },
-  {
-    icon: Send,
-    label: "X / Twitter",
-    value: "@AbjadGames",
-    href: "#",
-  },
-];
+import GlassCard from "./ui/GlassCard";
 
 const ContactSection = () => {
-  const [expanded, setExpanded] = useState<number | null>(null);
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+  };
 
   return (
     <section id="contact" className="relative py-32 px-6">
-      <div className="relative mx-auto max-w-3xl text-center">
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-secondary/20 to-transparent" />
+      <div className="relative mx-auto max-w-2xl text-center">
         <ScrollReveal>
           <p className="text-sm tracking-[0.4em] uppercase text-primary font-body font-medium mb-4">
             Contact
@@ -41,63 +25,53 @@ const ContactSection = () => {
           </h2>
         </ScrollReveal>
         <ScrollReveal delay={0.2}>
-          <p className="text-muted-foreground font-body font-light text-lg leading-relaxed mb-16">
-            Have a question or partnership idea? Reach out through any channel.
+          <p className="text-muted-foreground font-body font-light text-lg leading-relaxed mb-12">
+            Have a question, a partnership idea, or just want to say hello? We'd love to hear from you.
           </p>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {contactMethods.map((method, i) => {
-            const Icon = method.icon;
-            const isExpanded = expanded === i;
-
-            return (
-              <ScrollReveal key={method.label} delay={0.3 + i * 0.1}>
-                <motion.div
-                  className="relative cursor-pointer"
-                  onClick={() => setExpanded(isExpanded ? null : i)}
-                  whileHover={{ y: -4 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                >
-                  <div className="mirror-surface mirror-edge rounded-2xl border border-border/40 hover:border-primary/30 transition-all duration-500 overflow-hidden">
-                    <div className="p-6 flex flex-col items-center gap-4">
-                      <div className="w-12 h-12 rounded-xl mirror-surface border border-border/40 flex items-center justify-center">
-                        <Icon size={20} className="text-primary" />
-                      </div>
-                      <span className="font-display text-sm tracking-wider text-foreground uppercase">
-                        {method.label}
-                      </span>
-                    </div>
-
-                    <AnimatePresence>
-                      {isExpanded && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="overflow-hidden"
-                        >
-                          <div className="px-6 pb-5 border-t border-border/30 pt-4">
-                            <a
-                              href={method.href}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              onClick={(e) => e.stopPropagation()}
-                              className="text-sm font-body text-primary hover:underline"
-                            >
-                              {method.value}
-                            </a>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                </motion.div>
-              </ScrollReveal>
-            );
-          })}
-        </div>
+        <ScrollReveal delay={0.35} direction="scale">
+          <GlassCard className="p-8 text-left" tilt={false}>
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div>
+                <label className="block text-xs tracking-[0.2em] uppercase text-muted-foreground font-body mb-2">Name</label>
+                <input
+                  type="text"
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  className="w-full bg-background/50 border border-border/60 rounded-md px-4 py-3 text-foreground font-body text-sm focus:outline-none focus:border-primary/60 focus:ring-1 focus:ring-primary/20 transition-all duration-300 placeholder:text-muted-foreground/50"
+                  placeholder="Your name"
+                />
+              </div>
+              <div>
+                <label className="block text-xs tracking-[0.2em] uppercase text-muted-foreground font-body mb-2">Email</label>
+                <input
+                  type="email"
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  className="w-full bg-background/50 border border-border/60 rounded-md px-4 py-3 text-foreground font-body text-sm focus:outline-none focus:border-primary/60 focus:ring-1 focus:ring-primary/20 transition-all duration-300 placeholder:text-muted-foreground/50"
+                  placeholder="your@email.com"
+                />
+              </div>
+              <div>
+                <label className="block text-xs tracking-[0.2em] uppercase text-muted-foreground font-body mb-2">Message</label>
+                <textarea
+                  value={form.message}
+                  onChange={(e) => setForm({ ...form, message: e.target.value })}
+                  rows={5}
+                  className="w-full bg-background/50 border border-border/60 rounded-md px-4 py-3 text-foreground font-body text-sm focus:outline-none focus:border-primary/60 focus:ring-1 focus:ring-primary/20 transition-all duration-300 resize-none placeholder:text-muted-foreground/50"
+                  placeholder="Tell us what's on your mind..."
+                />
+              </div>
+              <button
+                type="submit"
+                className="w-full border border-primary/40 px-8 py-3 font-display text-sm tracking-[0.3em] uppercase text-primary transition-all duration-500 hover:bg-primary/10 hover:border-primary hover:shadow-[0_0_25px_hsl(38_92%_53%/0.15)] rounded-md"
+              >
+                Send Message
+              </button>
+            </form>
+          </GlassCard>
+        </ScrollReveal>
       </div>
     </section>
   );

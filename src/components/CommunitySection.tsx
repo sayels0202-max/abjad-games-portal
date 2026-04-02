@@ -76,12 +76,12 @@ const CommunitySection = () => {
           <div>
             <ScrollReveal>
               <p className="text-sm tracking-[0.4em] uppercase text-primary font-body font-medium mb-4">
-                Latest Updates
+                Social Feed
               </p>
             </ScrollReveal>
             <ScrollReveal delay={0.1}>
               <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground tracking-wide">
-                Join the Journey
+                Latest from Our Channels
               </h2>
             </ScrollReveal>
           </div>
