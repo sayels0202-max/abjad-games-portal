@@ -7,7 +7,7 @@ const navLinks = [
   { label: "About", href: "#about" },
   { label: "Games", href: "#showcase" },
   { label: "Team", href: "#team" },
-  { label: "Journal", href: "#journal" },
+  { label: "Journal", href: "#community" },
   { label: "Careers", href: "/careers", isRoute: true },
   { label: "Contact", href: "#contact" },
 ];
@@ -28,27 +28,21 @@ const Navbar = () => {
     return () => { document.body.style.overflow = ""; };
   }, [isOpen]);
 
-  // Track active section on scroll
   useEffect(() => {
     if (location.pathname !== "/") return;
-    
-    const sections = ["about", "showcase", "team", "journal", "contact"];
+    const sections = ["about", "showcase", "team", "community", "contact"];
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
         });
       },
       { rootMargin: "-40% 0px -40% 0px" }
     );
-
     sections.forEach((id) => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
-
     return () => observer.disconnect();
   }, [location.pathname]);
 
@@ -69,7 +63,7 @@ const Navbar = () => {
             <img
               src={logoText}
               alt="ABJAD GAMES"
-              className="h-14 md:h-16 transition-all duration-500 group-hover:drop-shadow-[0_0_15px_hsl(38_92%_50%/0.3)]"
+              className="h-20 md:h-24 transition-all duration-500 group-hover:drop-shadow-[0_0_15px_hsl(38_92%_50%/0.3)]"
             />
           </a>
 
@@ -89,11 +83,7 @@ const Navbar = () => {
                 >
                   {link.label}
                   {isActive && (
-                    <motion.span
-                      layoutId="nav-indicator"
-                      className="absolute -bottom-1 left-0 right-0 h-[1px] bg-primary"
-                      transition={{ duration: 0.3 }}
-                    />
+                    <motion.span layoutId="nav-indicator" className="absolute -bottom-1 left-0 right-0 h-[1px] bg-primary" transition={{ duration: 0.3 }} />
                   )}
                 </Link>
               ) : (
@@ -106,41 +96,21 @@ const Navbar = () => {
                 >
                   {link.label}
                   {isActive && (
-                    <motion.span
-                      layoutId="nav-indicator"
-                      className="absolute -bottom-1 left-0 right-0 h-[1px] bg-primary"
-                      transition={{ duration: 0.3 }}
-                    />
+                    <motion.span layoutId="nav-indicator" className="absolute -bottom-1 left-0 right-0 h-[1px] bg-primary" transition={{ duration: 0.3 }} />
                   )}
                 </a>
               );
             })}
           </div>
 
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden flex flex-col gap-1.5 p-2"
-          >
-            <motion.span
-              className="block w-5 h-[1.5px] bg-foreground"
-              animate={isOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
-              transition={{ duration: 0.3 }}
-            />
-            <motion.span
-              className="block w-5 h-[1.5px] bg-foreground"
-              animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
-              transition={{ duration: 0.2 }}
-            />
-            <motion.span
-              className="block w-5 h-[1.5px] bg-foreground"
-              animate={isOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
-              transition={{ duration: 0.3 }}
-            />
+          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden flex flex-col gap-1.5 p-2">
+            <motion.span className="block w-5 h-[1.5px] bg-foreground" animate={isOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }} transition={{ duration: 0.3 }} />
+            <motion.span className="block w-5 h-[1.5px] bg-foreground" animate={isOpen ? { opacity: 0 } : { opacity: 1 }} transition={{ duration: 0.2 }} />
+            <motion.span className="block w-5 h-[1.5px] bg-foreground" animate={isOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }} transition={{ duration: 0.3 }} />
           </button>
         </div>
       </motion.nav>
 
-      {/* Mobile menu */}
       <motion.div
         className="fixed inset-0 z-30 bg-background/98 flex flex-col items-center justify-center gap-8 md:hidden"
         initial={false}

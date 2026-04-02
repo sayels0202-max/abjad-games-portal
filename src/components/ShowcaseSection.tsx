@@ -37,7 +37,7 @@ const ShowcaseSection = () => {
 
         <ScrollReveal delay={0.15}>
           <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-16 tracking-wide">
-            Into the Unknown
+            AL-RAIY
           </h2>
         </ScrollReveal>
 
@@ -55,7 +55,6 @@ const ShowcaseSection = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.6 }}
                 />
-                {/* Glass overlay at bottom */}
                 <div className="absolute bottom-0 inset-x-0 h-20 bg-gradient-to-t from-background/80 to-transparent flex items-end px-4 pb-3">
                   <span className="font-display text-sm tracking-wider text-foreground/80">{screenshots[activeIndex].alt}</span>
                 </div>
@@ -83,9 +82,6 @@ const ShowcaseSection = () => {
           {/* Description */}
           <ScrollReveal direction="right" delay={0.45}>
             <div className="lg:pt-8">
-              <h3 className="font-display text-2xl md:text-3xl text-foreground mb-6 tracking-wide">
-                AL-RAIY
-              </h3>
               <div className="space-y-5 text-muted-foreground font-body font-light leading-relaxed">
                 <p>
                   Our hero awakens inside a strange tent on a pitch-black night. A man with hidden features stands before him, 
@@ -95,17 +91,6 @@ const ShowcaseSection = () => {
                 <p>
                   What secrets does this place hold? Who hides in the darkness — and is there any escape?
                 </p>
-              </div>
-
-              <div className="mt-10 flex flex-wrap gap-3">
-                {["Survival Horror", "Pixel Art", "Arabian Folklore", "Atmospheric"].map((tag) => (
-                  <span
-                    key={tag}
-                    className="mirror-surface border border-foreground/10 px-4 py-1.5 text-xs tracking-[0.2em] uppercase text-muted-foreground font-body rounded-xl"
-                  >
-                    {tag}
-                  </span>
-                ))}
               </div>
 
               <div className="mt-10 flex flex-wrap gap-4">
