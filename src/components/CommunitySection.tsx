@@ -3,72 +3,98 @@ import GlassCard from "./ui/GlassCard";
 import ScrollReveal from "./ui/ScrollReveal";
 
 const channels = [
-  { platform: "X", link: "#" },
-  { platform: "Instagram", link: "#" },
-  { platform: "YouTube", link: "#" },
-];
-
-const platformConfig: Record<string, { color: string; icon: React.ReactNode }> = {
-  X: {
+  {
+    platform: "X (Twitter)",
+    handle: "@AbjadGames",
+    link: "https://x.com/AbjadGames",
+    comingSoon: false,
     color: "bg-primary/10 text-primary",
     icon: (
-      <svg viewBox="0 0 24 24" className="w-7 h-7 fill-current">
+      <svg viewBox="0 0 24 24" className="w-8 h-8 fill-current">
         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
       </svg>
     ),
   },
-  Instagram: {
-    color: "bg-pink-500/10 text-pink-400",
+  {
+    platform: "LinkedIn",
+    handle: "Abjad Games",
+    link: "https://www.linkedin.com/company/abjad-games",
+    comingSoon: false,
+    color: "bg-blue-500/10 text-blue-400",
     icon: (
-      <svg viewBox="0 0 24 24" className="w-7 h-7 fill-current">
-        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+      <svg viewBox="0 0 24 24" className="w-8 h-8 fill-current">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
       </svg>
     ),
   },
-  YouTube: {
-    color: "bg-red-500/10 text-red-400",
+  {
+    platform: "Steam",
+    handle: "",
+    link: "#",
+    comingSoon: true,
+    color: "bg-emerald-500/10 text-emerald-400",
     icon: (
-      <svg viewBox="0 0 24 24" className="w-7 h-7 fill-current">
-        <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+      <svg viewBox="0 0 24 24" className="w-8 h-8 fill-current">
+        <path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91a4.26 4.26 0 014.258-4.256 4.26 4.26 0 014.258 4.256 4.26 4.26 0 01-4.258 4.256h-.098l-4.07 2.907c0 .052.004.105.004.158 0 2.39-1.935 4.332-4.321 4.332a4.321 4.321 0 01-4.296-3.848L.453 14.472C1.681 19.946 6.349 24 11.979 24c6.627 0 12-5.373 12-12S18.606 0 11.979 0zM7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25a2.848 2.848 0 003.753-1.44 2.841 2.841 0 00.007-2.181 2.848 2.848 0 00-1.538-1.549 2.856 2.856 0 00-2.076-.128l1.521.629a2.1 2.1 0 01-1.508 3.93zm8.877-8.395a2.843 2.843 0 00-2.84-2.838 2.843 2.843 0 00-2.84 2.838 2.843 2.843 0 002.84 2.838 2.843 2.843 0 002.84-2.838zm-4.968-.002a2.13 2.13 0 012.128-2.126 2.13 2.13 0 012.128 2.126 2.13 2.13 0 01-2.128 2.127 2.13 2.13 0 01-2.128-2.127z" />
       </svg>
     ),
   },
-};
+];
 
 const CommunitySection = () => {
   return (
     <section id="community" className="relative py-32 px-6">
-      <div className="relative mx-auto max-w-7xl">
-        <div className="text-center mb-12">
+      <div className="relative mx-auto max-w-5xl">
+        <div className="text-center mb-16">
           <ScrollReveal>
             <p className="text-sm tracking-[0.4em] uppercase text-primary font-body font-medium mb-4">
-              Social Feed
+              Stay Connected
             </p>
           </ScrollReveal>
           <ScrollReveal delay={0.1}>
             <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground tracking-wide">
-              Latest from Our Channels
+              Follow Us
             </h2>
           </ScrollReveal>
         </div>
 
-        <div className="flex justify-center gap-6 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
           {channels.map((ch, i) => (
             <motion.a
               key={ch.platform}
               href={ch.link}
-              className="flex-shrink-0"
-              initial={{ opacity: 0, y: 20 }}
+              target={ch.comingSoon ? undefined : "_blank"}
+              rel={ch.comingSoon ? undefined : "noopener noreferrer"}
+              className={`block ${ch.comingSoon ? "pointer-events-none" : ""}`}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.15 }}
+              transition={{ duration: 0.5, delay: i * 0.12 }}
             >
-              <GlassCard className="p-8 md:p-10 flex flex-col items-center gap-4 w-[160px] md:w-[200px]" tilt={false}>
-                <span className={`flex items-center justify-center w-14 h-14 rounded-2xl ${platformConfig[ch.platform]?.color || "bg-primary/10 text-primary"}`}>
-                  {platformConfig[ch.platform]?.icon}
+              <GlassCard
+                className="p-8 flex flex-col items-center gap-5 h-full text-center"
+                tilt={!ch.comingSoon}
+              >
+                <span
+                  className={`flex items-center justify-center w-16 h-16 rounded-2xl ${ch.color}`}
+                >
+                  {ch.icon}
                 </span>
-                <span className="font-display text-sm tracking-wide text-foreground">{ch.platform}</span>
-                <span className="text-[11px] tracking-[0.2em] uppercase text-muted-foreground/60 font-body">قريباً</span>
+
+                <div className="flex flex-col items-center gap-1.5">
+                  <span className="font-display text-base tracking-wide text-foreground font-semibold">
+                    {ch.platform}
+                  </span>
+                  {ch.comingSoon ? (
+                    <span className="text-xs tracking-[0.15em] uppercase text-muted-foreground/60 font-body">
+                      Coming Soon
+                    </span>
+                  ) : (
+                    <span className="text-sm text-muted-foreground font-body">
+                      {ch.handle}
+                    </span>
+                  )}
+                </div>
               </GlassCard>
             </motion.a>
           ))}
