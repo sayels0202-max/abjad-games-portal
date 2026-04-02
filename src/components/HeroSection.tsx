@@ -79,7 +79,7 @@ const HeroSection = () => {
 
   return (
     <>
-      <style>{glitchKeyframes}</style>
+      <style>{fireKeyframes}</style>
       <div ref={containerRef} className="relative h-[200vh]">
         <motion.section
           className="sticky top-0 h-screen overflow-hidden"
