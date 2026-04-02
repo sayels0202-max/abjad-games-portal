@@ -96,7 +96,8 @@ const MediaThumbnails = () => {
   );
 };
 
-  const AlraiyPage = () => {
+const AlraiyPage = () => {
+  const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], [0, 300]);
   const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
