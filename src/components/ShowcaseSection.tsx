@@ -30,9 +30,15 @@ const ShowcaseSection = () => {
     <section id="showcase" ref={ref} className="relative py-32 px-6">
       <div className="mx-auto max-w-7xl">
         <ScrollReveal>
-          <p className="text-sm tracking-[0.4em] uppercase text-primary font-body font-medium mb-4">
+          <p className="text-sm tracking-[0.4em] uppercase text-primary font-body font-medium mb-6">
             Our Games
           </p>
+        </ScrollReveal>
+
+        <ScrollReveal delay={0.1}>
+          <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-16 tracking-wide">
+            Upcoming Titles
+          </h2>
         </ScrollReveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
