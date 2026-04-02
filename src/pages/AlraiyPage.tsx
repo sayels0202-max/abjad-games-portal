@@ -116,7 +116,7 @@ const AlraiyPage = () => {
         </div>
       </section>
 
-      {/* Gameplay GIFs */}
+      {/* Into the Darkness — GIFs + Screenshots combined */}
       <section className="relative py-24 px-6 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-secondary/20 to-transparent" />
         <div className="relative mx-auto max-w-5xl">
@@ -131,11 +131,11 @@ const AlraiyPage = () => {
             </h2>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[gameplayBg1, gameplayBg2].map((gif, i) => (
-              <ScrollReveal key={i} delay={0.2 + i * 0.15} direction="scale">
-                <div className="relative overflow-hidden rounded-2xl ring-1 ring-foreground/10 mirror-edge aspect-video">
-                  <img src={gif} alt={`Gameplay ${i + 1}`} className="w-full h-full object-cover" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {[gameplayBg1, gameplayBg2, screenshot1, screenshot2, screenshot3, screenshot4].map((src, i) => (
+              <ScrollReveal key={i} delay={0.15 + i * 0.08} direction="scale">
+                <div className="relative overflow-hidden rounded-2xl ring-1 ring-foreground/10 mirror-edge aspect-video group">
+                  <img src={src} alt={`Game ${i + 1}`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 </div>
               </ScrollReveal>
             ))}
@@ -143,32 +143,36 @@ const AlraiyPage = () => {
         </div>
       </section>
 
-      {/* Screenshots */}
-      <section className="relative py-24 px-6">
-        <div className="relative mx-auto max-w-5xl">
+      {/* Trailer — Coming Soon */}
+      <section className="relative py-32 px-6">
+        <div className="relative mx-auto max-w-4xl">
           <ScrollReveal>
             <p className="text-sm tracking-[0.4em] uppercase text-primary font-body font-medium mb-4 text-center">
-              Gallery
+              Watch
             </p>
           </ScrollReveal>
           <ScrollReveal delay={0.1}>
             <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-12 tracking-wide text-center">
-              Screenshots
+              Official Trailer
             </h2>
           </ScrollReveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {[screenshot1, screenshot2, screenshot3, screenshot4].map((src, i) => (
-              <ScrollReveal key={i} delay={0.15 + i * 0.1} direction="scale">
-                <div className="relative overflow-hidden rounded-2xl ring-1 ring-foreground/10 mirror-edge aspect-video group">
-                  <img src={src} alt={`Screenshot ${i + 1}`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          <ScrollReveal delay={0.25} direction="scale">
+            <div className="relative aspect-video rounded-2xl overflow-hidden ring-1 ring-foreground/10 mirror-edge">
+              <div className="absolute inset-0 mirror-surface flex items-center justify-center">
+                <img src={banner} alt="Trailer placeholder" className="absolute inset-0 w-full h-full object-cover opacity-20" />
+                <div className="relative flex flex-col items-center gap-4 z-10">
+                  <div className="w-20 h-20 rounded-full border-2 border-primary/40 flex items-center justify-center mirror-surface">
+                    <div className="w-0 h-0 border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent border-l-[20px] border-l-primary ml-1" />
+                  </div>
+                  <p className="text-sm tracking-[0.3em] uppercase text-primary font-body">Coming Soon</p>
                 </div>
-              </ScrollReveal>
-            ))}
-          </div>
+              </div>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
+      {/* Steam Wishlist CTA */}
       <section className="py-32 px-6 text-center">
         <ScrollReveal direction="scale">
           <div className="mx-auto max-w-md">
@@ -192,7 +196,6 @@ const AlraiyPage = () => {
           </div>
         </ScrollReveal>
       </section>
-
       <footer className="border-t border-foreground/5 py-8 px-6 text-center">
         <p className="text-xs text-muted-foreground font-body">
           © {new Date().getFullYear()} Abjad Games. All rights reserved.
