@@ -8,6 +8,15 @@ import screenshot1 from "@/assets/screenshot1.png";
 import screenshot2 from "@/assets/screenshot2.png";
 import screenshot3 from "@/assets/screenshot3.png";
 import screenshot4 from "@/assets/screenshot4.png";
+import screenshot5 from "@/assets/screenshot5.png";
+import screenshot6 from "@/assets/screenshot6.png";
+import screenshot7 from "@/assets/screenshot7.png";
+import screenshot8 from "@/assets/screenshot8.png";
+import screenshot9 from "@/assets/screenshot9.png";
+import screenshot10 from "@/assets/screenshot10.png";
+import screenshot11 from "@/assets/screenshot11.png";
+import screenshot12 from "@/assets/screenshot12.png";
+import screenshot13 from "@/assets/screenshot13.png";
 import gameplayBg1 from "@/assets/gameplay-bg1.gif";
 import gameplayBg2 from "@/assets/gameplay-bg2.gif";
 import FireParticles from "@/components/FireParticles";
@@ -21,6 +30,15 @@ const mediaItems = [
   { src: screenshot2, alt: "Screenshot 2" },
   { src: screenshot3, alt: "Screenshot 3" },
   { src: screenshot4, alt: "Screenshot 4" },
+  { src: screenshot5, alt: "Screenshot 5" },
+  { src: screenshot6, alt: "Screenshot 6" },
+  { src: screenshot7, alt: "Screenshot 7" },
+  { src: screenshot8, alt: "Screenshot 8" },
+  { src: screenshot9, alt: "Screenshot 9" },
+  { src: screenshot10, alt: "Screenshot 10" },
+  { src: screenshot11, alt: "Screenshot 11" },
+  { src: screenshot12, alt: "Screenshot 12" },
+  { src: screenshot13, alt: "Screenshot 13" },
 ];
 
 const MediaThumbnails = () => {
