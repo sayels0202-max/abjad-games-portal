@@ -216,7 +216,7 @@ const EasterEggs = () => {
             <motion.div
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-8xl"
               initial={{ scale: 0, rotate: -180 }}
-              animate={{ scale: [0, 1.5, 1], rotate: [−180, 0, 0], opacity: [0, 1, 0] }}
+              animate={{ scale: [0, 1.5, 1], rotate: [-180, 0, 0], opacity: [0, 1, 0] }}
               transition={{ duration: 3 }}
             >
               👁
