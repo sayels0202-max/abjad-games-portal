@@ -1,5 +1,5 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import banner from "@/assets/banner.png";
@@ -13,6 +13,88 @@ import gameplayBg2 from "@/assets/gameplay-bg2.gif";
 import FireParticles from "@/components/FireParticles";
 import CursorTrail from "@/components/CursorTrail";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+
+const mediaItems = [
+  { src: gameplayBg1, alt: "Gameplay 1" },
+  { src: gameplayBg2, alt: "Gameplay 2" },
+  { src: screenshot1, alt: "Screenshot 1" },
+  { src: screenshot2, alt: "Screenshot 2" },
+  { src: screenshot3, alt: "Screenshot 3" },
+  { src: screenshot4, alt: "Screenshot 4" },
+];
+
+const MediaThumbnails = () => {
+  const [selected, setSelected] = useState<number | null>(null);
+
+  return (
+    <>
+      <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+        {mediaItems.map((item, i) => (
+          <button
+            key={i}
+            onClick={() => setSelected(i)}
+            className="relative overflow-hidden rounded-lg ring-1 ring-foreground/10 aspect-video group mirror-hover"
+          >
+            <img
+              src={item.src}
+              alt={item.alt}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-background/30 group-hover:bg-transparent transition-colors duration-300" />
+          </button>
+        ))}
+      </div>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {selected !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-background/95 backdrop-blur-sm flex items-center justify-center p-6"
+            onClick={() => setSelected(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.85, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.85, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="relative max-w-5xl w-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={mediaItems[selected].src}
+                alt={mediaItems[selected].alt}
+                className="w-full rounded-2xl ring-1 ring-foreground/10"
+              />
+              {/* Navigation arrows */}
+              <div className="absolute inset-y-0 left-0 flex items-center -ml-12">
+                <button
+                  onClick={() => setSelected((selected - 1 + mediaItems.length) % mediaItems.length)}
+                  className="w-10 h-10 rounded-full mirror-surface mirror-edge flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
+                >
+                  ←
+                </button>
+              </div>
+              <div className="absolute inset-y-0 right-0 flex items-center -mr-12">
+                <button
+                  onClick={() => setSelected((selected + 1) % mediaItems.length)}
+                  className="w-10 h-10 rounded-full mirror-surface mirror-edge flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
+                >
+                  →
+                </button>
+              </div>
+              <p className="text-center mt-4 text-xs tracking-[0.3em] uppercase text-muted-foreground font-body">
+                {selected + 1} / {mediaItems.length} — Click outside to close
+              </p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
 
 const AlraiyPage = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -116,13 +198,13 @@ const AlraiyPage = () => {
         </div>
       </section>
 
-      {/* Into the Darkness — GIFs + Screenshots combined */}
+      {/* Media Section — Steam-style layout */}
       <section className="relative py-24 px-6 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-secondary/20 to-transparent" />
         <div className="relative mx-auto max-w-5xl">
           <ScrollReveal>
             <p className="text-sm tracking-[0.4em] uppercase text-primary font-body font-medium mb-4 text-center">
-              Gameplay
+              Media
             </p>
           </ScrollReveal>
           <ScrollReveal delay={0.1}>
@@ -131,44 +213,23 @@ const AlraiyPage = () => {
             </h2>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {[gameplayBg1, gameplayBg2, screenshot1, screenshot2, screenshot3, screenshot4].map((src, i) => (
-              <ScrollReveal key={i} delay={0.15 + i * 0.08} direction="scale">
-                <div className="relative overflow-hidden rounded-2xl ring-1 ring-foreground/10 mirror-edge aspect-video group">
-                  <img src={src} alt={`Game ${i + 1}`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Trailer — Coming Soon */}
-      <section className="relative py-32 px-6">
-        <div className="relative mx-auto max-w-4xl">
-          <ScrollReveal>
-            <p className="text-sm tracking-[0.4em] uppercase text-primary font-body font-medium mb-4 text-center">
-              Watch
-            </p>
-          </ScrollReveal>
-          <ScrollReveal delay={0.1}>
-            <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-12 tracking-wide text-center">
-              Official Trailer
-            </h2>
-          </ScrollReveal>
-          <ScrollReveal delay={0.25} direction="scale">
-            <div className="relative aspect-video rounded-2xl overflow-hidden ring-1 ring-foreground/10 mirror-edge">
+          {/* Main viewer — Trailer placeholder */}
+          <ScrollReveal delay={0.2} direction="scale">
+            <div className="relative aspect-video rounded-2xl overflow-hidden ring-1 ring-foreground/10 mirror-edge mb-4">
               <div className="absolute inset-0 mirror-surface flex items-center justify-center">
                 <img src={banner} alt="Trailer placeholder" className="absolute inset-0 w-full h-full object-cover opacity-20" />
                 <div className="relative flex flex-col items-center gap-4 z-10">
                   <div className="w-20 h-20 rounded-full border-2 border-primary/40 flex items-center justify-center mirror-surface">
                     <div className="w-0 h-0 border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent border-l-[20px] border-l-primary ml-1" />
                   </div>
-                  <p className="text-sm tracking-[0.3em] uppercase text-primary font-body">Coming Soon</p>
+                  <p className="text-sm tracking-[0.3em] uppercase text-primary font-body">Trailer Coming Soon</p>
                 </div>
               </div>
             </div>
           </ScrollReveal>
+
+          {/* Thumbnails strip */}
+          <MediaThumbnails />
         </div>
       </section>
 
