@@ -4,40 +4,17 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import GlassCard from "./ui/GlassCard";
 import ScrollReveal from "./ui/ScrollReveal";
 
-const posts = [
+const channels = [
   {
     platform: "X",
-    date: "March 2026",
-    title: "AL-RAIY Development Update #3",
-    desc: "Major progress on the dialogue system and NPC interactions. The world of AL-RAIY is becoming more alive.",
     link: "#",
   },
   {
     platform: "Instagram",
-    date: "February 2026",
-    title: "New Concept Art Revealed",
-    desc: "A first look at the underground temple environments and the creatures that dwell within.",
     link: "#",
   },
   {
     platform: "YouTube",
-    date: "January 2026",
-    title: "Sound Design Deep Dive",
-    desc: "Our sound designer shares the process behind creating the eerie ambient soundscapes.",
-    link: "#",
-  },
-  {
-    platform: "X",
-    date: "December 2025",
-    title: "Studio Year in Review",
-    desc: "Looking back at everything we accomplished in our first year as a studio.",
-    link: "#",
-  },
-  {
-    platform: "Instagram",
-    date: "November 2025",
-    title: "Character Design Process",
-    desc: "Behind the scenes of how we design the characters that inhabit the world of AL-RAIY.",
     link: "#",
   },
 ];
