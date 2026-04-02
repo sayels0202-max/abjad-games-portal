@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import GlassCard from "./ui/GlassCard";
 import ScrollReveal from "./ui/ScrollReveal";
