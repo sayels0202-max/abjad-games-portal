@@ -74,39 +74,40 @@ const CommunitySection = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {news.map((item, i) => (
-              <motion.article
-                key={item.id}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-              >
-                <GlassCard className="overflow-hidden h-full flex flex-col" tilt={false}>
-                  {item.cover_image_url && (
-                    <div className="aspect-video overflow-hidden">
-                      <img
-                        src={item.cover_image_url}
-                        alt={item.title}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                      />
-                    </div>
-                  )}
-                  <div className="p-6 flex flex-col flex-1">
-                    <time className="text-xs tracking-[0.15em] uppercase text-muted-foreground/60 font-body mb-3">
-                      {formatDate(item.created_at)}
-                    </time>
-                    <h3 className="font-display text-lg font-semibold text-foreground mb-2">
-                      {item.title}
-                    </h3>
-                    {item.summary && (
-                      <p className="text-sm text-muted-foreground font-body line-clamp-3 flex-1">
-                        {item.summary}
-                      </p>
+              <Link to={`/news/${item.id}`} key={item.id}>
+                <motion.article
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                >
+                  <GlassCard className="overflow-hidden h-full flex flex-col hover:border-primary/30 transition-colors" tilt={false}>
+                    {item.cover_image_url && (
+                      <div className="aspect-video overflow-hidden">
+                        <img
+                          src={item.cover_image_url}
+                          alt={item.title}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                      </div>
                     )}
-                  </div>
-                </GlassCard>
-              </motion.article>
+                    <div className="p-6 flex flex-col flex-1">
+                      <time className="text-xs tracking-[0.15em] uppercase text-muted-foreground/60 font-body mb-3">
+                        {formatDate(item.created_at)}
+                      </time>
+                      <h3 className="font-display text-lg font-semibold text-foreground mb-2">
+                        {item.title}
+                      </h3>
+                      {item.summary && (
+                        <p className="text-sm text-muted-foreground font-body line-clamp-3 flex-1">
+                          {item.summary}
+                        </p>
+                      )}
+                    </div>
+                  </GlassCard>
+                </motion.article>
+              </Link>
             ))}
           </div>
         )}
