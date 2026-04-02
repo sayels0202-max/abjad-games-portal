@@ -58,21 +58,42 @@ const MediaGallery = () => {
     if (el) el.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
   });
 
+  const activeItem = mediaItems[activeIndex];
+
   return (
     <div className="space-y-3">
       {/* Main Viewer */}
       <div className="relative aspect-video rounded-2xl overflow-hidden ring-1 ring-foreground/10 group">
         <AnimatePresence mode="wait">
-          <motion.img
-            key={activeIndex}
-            src={mediaItems[activeIndex].src}
-            alt={mediaItems[activeIndex].alt}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="w-full h-full object-cover"
-          />
+          {activeItem.type === "trailer" ? (
+            <motion.div
+              key="trailer"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="w-full h-full flex items-center justify-center bg-black/80"
+            >
+              <img src={banner} alt="Trailer" className="absolute inset-0 w-full h-full object-cover opacity-20" />
+              <div className="relative flex flex-col items-center gap-4 z-10">
+                <div className="w-20 h-20 rounded-full border-2 border-primary/40 flex items-center justify-center bg-background/30 backdrop-blur-sm">
+                  <div className="w-0 h-0 border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent border-l-[20px] border-l-primary ml-1" />
+                </div>
+                <p className="text-sm tracking-[0.3em] uppercase text-primary font-body">Trailer Coming Soon</p>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.img
+              key={activeIndex}
+              src={activeItem.src}
+              alt={activeItem.alt}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="w-full h-full object-cover"
+            />
+          )}
         </AnimatePresence>
 
         {/* Left arrow */}
