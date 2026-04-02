@@ -133,6 +133,16 @@ const EasterEggs = () => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [showSecretMessage]);
 
+  // Logo easter egg listener
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const msg = (e as CustomEvent).detail;
+      showSecretMessage(msg, "heartbeat");
+    };
+    window.addEventListener("easter-egg-msg", handler);
+    return () => window.removeEventListener("easter-egg-msg", handler);
+  }, [showSecretMessage]);
+
   // Scroll ghost - appears once randomly
   useEffect(() => {
     const handleScroll = () => {
