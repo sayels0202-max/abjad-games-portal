@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import banner from "@/assets/hero-bg.png";
-import logoOutline from "@/assets/logo-outline.png";
+import abjadLogo from "@/assets/abjad-logo-text.png";
 
 const glitchKeyframes = `
 @keyframes glitch-1 {
