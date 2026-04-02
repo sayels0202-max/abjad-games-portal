@@ -9,7 +9,7 @@
 }
 
 a, button, [role="button"], input[type="submit"], select, label, .cursor-pointer {
-  cursor: url('/cursor-pointer.svg') 10 1, pointer;
+  cursor: url('/cursor-default.svg') 3 2, auto;
 }
 
 @layer base {
