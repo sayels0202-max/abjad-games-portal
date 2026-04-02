@@ -4,7 +4,7 @@ import LoadingScreen from "@/components/LoadingScreen";
 import FireParticles from "@/components/FireParticles";
 import CursorTrail from "@/components/CursorTrail";
 import ScrollWatermark from "@/components/ScrollWatermark";
-import EasterEggs from "@/components/EasterEggs";
+
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import ShowcaseSection from "@/components/ShowcaseSection";
@@ -45,7 +45,7 @@ const Index = () => {
           <ContactSection />
           <Footer />
           <AmbientAudio />
-          <EasterEggs />
+          
         </motion.div>
       )}
     </>
