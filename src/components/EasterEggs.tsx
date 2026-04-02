@@ -271,7 +271,7 @@ const EasterEggs = () => {
 };
 
 // Export the logo click handler for use in Navbar
-export const useLogoEasterEgg = (onTrigger: (msg: string) => void) => {
+export const useLogoEasterEgg = () => {
   const clickCount = useRef(0);
   const clickTimer = useRef<NodeJS.Timeout>();
 
@@ -282,13 +282,15 @@ export const useLogoEasterEgg = (onTrigger: (msg: string) => void) => {
     if (clickCount.current >= 7) {
       clickCount.current = 0;
       playCreepySound("heartbeat");
-      onTrigger(secretMessages[Math.floor(Math.random() * secretMessages.length)]);
+      window.dispatchEvent(new CustomEvent("easter-egg-msg", {
+        detail: secretMessages[Math.floor(Math.random() * secretMessages.length)],
+      }));
     } else {
       clickTimer.current = setTimeout(() => {
         clickCount.current = 0;
       }, 2000);
     }
-  }, [onTrigger]);
+  }, []);
 
   return handleLogoClick;
 };
