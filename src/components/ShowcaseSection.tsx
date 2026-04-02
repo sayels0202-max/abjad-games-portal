@@ -1,10 +1,12 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import screenshot1 from "@/assets/screenshot1.png";
 import screenshot2 from "@/assets/screenshot2.png";
 import screenshot3 from "@/assets/screenshot3.png";
 import screenshot4 from "@/assets/screenshot4.png";
+import gameplayBg1 from "@/assets/gameplay-bg1.gif";
+import gameplayBg2 from "@/assets/gameplay-bg2.gif";
 import ScrollReveal from "./ui/ScrollReveal";
 
 const screenshots = [
@@ -14,9 +16,12 @@ const screenshots = [
   { src: screenshot4, alt: "The Watch" },
 ];
 
+const bgGifs = [gameplayBg1, gameplayBg2];
+
 const ShowcaseSection = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [activeBg, setActiveBg] = useState(0);
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -26,8 +31,33 @@ const ShowcaseSection = () => {
   const imageScale = useTransform(scrollYProgress, [0, 0.4], [0.9, 1]);
   const imageOpacity = useTransform(scrollYProgress, [0, 0.3], [0.5, 1]);
 
+  // Cycle background GIF when thumbnail changes
+  const handleThumbnailClick = (i: number) => {
+    setActiveIndex(i);
+    setActiveBg(i % bgGifs.length);
+  };
+
   return (
-    <section id="showcase" ref={ref} className="relative py-32 px-6">
+    <section id="showcase" ref={ref} className="relative py-32 px-6 overflow-hidden">
+      {/* Animated GIF Background */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeBg}
+          className="absolute inset-0 z-0"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.15 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.2 }}
+        >
+          <img
+            src={bgGifs[activeBg]}
+            alt=""
+            className="w-full h-full object-cover"
+          />
+        </motion.div>
+      </AnimatePresence>
+      {/* Gradient overlay for readability */}
+      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-background via-background/70 to-background" />
       <div className="mx-auto max-w-7xl">
         <ScrollReveal>
           <p className="text-sm tracking-[0.4em] uppercase text-primary font-body font-medium mb-6">
