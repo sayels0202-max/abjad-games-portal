@@ -116,13 +116,13 @@ const AlraiyPage = () => {
         </div>
       </section>
 
-      {/* Into the Darkness — GIFs + Screenshots combined */}
+      {/* Media Section — Steam-style layout */}
       <section className="relative py-24 px-6 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-secondary/20 to-transparent" />
         <div className="relative mx-auto max-w-5xl">
           <ScrollReveal>
             <p className="text-sm tracking-[0.4em] uppercase text-primary font-body font-medium mb-4 text-center">
-              Gameplay
+              Media
             </p>
           </ScrollReveal>
           <ScrollReveal delay={0.1}>
@@ -131,44 +131,23 @@ const AlraiyPage = () => {
             </h2>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {[gameplayBg1, gameplayBg2, screenshot1, screenshot2, screenshot3, screenshot4].map((src, i) => (
-              <ScrollReveal key={i} delay={0.15 + i * 0.08} direction="scale">
-                <div className="relative overflow-hidden rounded-2xl ring-1 ring-foreground/10 mirror-edge aspect-video group">
-                  <img src={src} alt={`Game ${i + 1}`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Trailer — Coming Soon */}
-      <section className="relative py-32 px-6">
-        <div className="relative mx-auto max-w-4xl">
-          <ScrollReveal>
-            <p className="text-sm tracking-[0.4em] uppercase text-primary font-body font-medium mb-4 text-center">
-              Watch
-            </p>
-          </ScrollReveal>
-          <ScrollReveal delay={0.1}>
-            <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-12 tracking-wide text-center">
-              Official Trailer
-            </h2>
-          </ScrollReveal>
-          <ScrollReveal delay={0.25} direction="scale">
-            <div className="relative aspect-video rounded-2xl overflow-hidden ring-1 ring-foreground/10 mirror-edge">
+          {/* Main viewer — Trailer placeholder */}
+          <ScrollReveal delay={0.2} direction="scale">
+            <div className="relative aspect-video rounded-2xl overflow-hidden ring-1 ring-foreground/10 mirror-edge mb-4">
               <div className="absolute inset-0 mirror-surface flex items-center justify-center">
                 <img src={banner} alt="Trailer placeholder" className="absolute inset-0 w-full h-full object-cover opacity-20" />
                 <div className="relative flex flex-col items-center gap-4 z-10">
                   <div className="w-20 h-20 rounded-full border-2 border-primary/40 flex items-center justify-center mirror-surface">
                     <div className="w-0 h-0 border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent border-l-[20px] border-l-primary ml-1" />
                   </div>
-                  <p className="text-sm tracking-[0.3em] uppercase text-primary font-body">Coming Soon</p>
+                  <p className="text-sm tracking-[0.3em] uppercase text-primary font-body">Trailer Coming Soon</p>
                 </div>
               </div>
             </div>
           </ScrollReveal>
+
+          {/* Thumbnails strip */}
+          <MediaThumbnails />
         </div>
       </section>
 
