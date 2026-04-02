@@ -129,14 +129,14 @@ const HeroSection = () => {
                   <img
                     src={abjadLogo}
                     alt=""
-                    className="absolute inset-0 w-[280px] md:w-[420px] lg:w-[560px] mx-auto opacity-80 pointer-events-none"
+                    className="absolute inset-0 w-[360px] md:w-[540px] lg:w-[720px] mx-auto opacity-80 pointer-events-none"
                     style={{ animation: "glitch-1 0.3s steps(2) infinite", filter: "hue-rotate(90deg) saturate(2)" }}
                     aria-hidden="true"
                   />
                   <img
                     src={abjadLogo}
                     alt=""
-                    className="absolute inset-0 w-[280px] md:w-[420px] lg:w-[560px] mx-auto opacity-60 pointer-events-none"
+                    className="absolute inset-0 w-[360px] md:w-[540px] lg:w-[720px] mx-auto opacity-60 pointer-events-none"
                     style={{ animation: "glitch-2 0.3s steps(3) infinite", filter: "hue-rotate(-90deg) saturate(2)" }}
                     aria-hidden="true"
                   />
