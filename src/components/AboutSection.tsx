@@ -52,9 +52,18 @@ const AboutSection = () => {
             <ScrollReveal key={card.title} delay={0.3 + i * 0.12} direction="scale">
               <GlassCard className="p-8 h-full">
                 <div className="relative z-10">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors duration-500">
-                    <card.icon className="w-6 h-6 text-primary" strokeWidth={1.5} />
-                  </div>
+                  <motion.div
+                    className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors duration-500"
+                    whileHover={{ scale: 1.15, rotate: [0, -8, 8, -4, 0] }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <motion.div
+                      whileHover={{ scale: 1.2 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <card.icon className="w-6 h-6 text-primary" strokeWidth={1.5} />
+                    </motion.div>
+                  </motion.div>
                   <h3 className="font-display text-xl text-foreground mb-3 tracking-wide">{card.title}</h3>
                   <p className="text-muted-foreground font-body font-light leading-relaxed text-sm">{card.text}</p>
                 </div>
