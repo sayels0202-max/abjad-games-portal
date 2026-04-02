@@ -95,7 +95,7 @@ const ShowcaseSection = () => {
                 {screenshots.map((ss, i) => (
                   <button
                     key={i}
-                    onClick={() => setActiveIndex(i)}
+                    onClick={() => handleThumbnailClick(i)}
                     className={`relative overflow-hidden rounded-xl flex-1 aspect-video mirror-hover ${
                       i === activeIndex
                         ? "ring-2 ring-primary mirror-edge scale-[1.02]"
