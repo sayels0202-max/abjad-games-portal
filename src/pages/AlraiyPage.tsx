@@ -143,7 +143,32 @@ const AlraiyPage = () => {
         </div>
       </section>
 
-      {/* Steam Wishlist CTA */}
+      {/* Screenshots */}
+      <section className="relative py-24 px-6">
+        <div className="relative mx-auto max-w-5xl">
+          <ScrollReveal>
+            <p className="text-sm tracking-[0.4em] uppercase text-primary font-body font-medium mb-4 text-center">
+              Gallery
+            </p>
+          </ScrollReveal>
+          <ScrollReveal delay={0.1}>
+            <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-12 tracking-wide text-center">
+              Screenshots
+            </h2>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {[screenshot1, screenshot2, screenshot3, screenshot4].map((src, i) => (
+              <ScrollReveal key={i} delay={0.15 + i * 0.1} direction="scale">
+                <div className="relative overflow-hidden rounded-2xl ring-1 ring-foreground/10 mirror-edge aspect-video group">
+                  <img src={src} alt={`Screenshot ${i + 1}`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="py-32 px-6 text-center">
         <ScrollReveal direction="scale">
           <div className="mx-auto max-w-md">
