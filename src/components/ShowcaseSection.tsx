@@ -58,7 +58,7 @@ const ShowcaseSection = () => {
       </AnimatePresence>
       {/* Gradient overlay for readability */}
       <div className="absolute inset-0 z-[1] bg-gradient-to-b from-background via-background/70 to-background" />
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-7xl relative z-[2]">
         <ScrollReveal>
           <p className="text-sm tracking-[0.4em] uppercase text-primary font-body font-medium mb-6">
             Our Games
