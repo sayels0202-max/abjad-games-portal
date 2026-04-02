@@ -113,14 +113,14 @@ const HeroSection = () => {
             style={{ opacity: contentOpacity, y: contentY }}
           >
             {/* Logo with glitch effect */}
-            <div className="relative mb-6">
+            <div className="relative mb-10 md:mb-14">
               <motion.img
                 src={abjadLogo}
                 alt="Abjad Games"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: showTitle ? 1 : 0, scale: showTitle ? 1 : 0.8 }}
                 transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className="w-[440px] md:w-[680px] lg:w-[920px] mx-auto"
+                className="w-[440px] md:w-[680px] lg:w-[920px] mx-auto drop-shadow-[0_0_40px_hsl(var(--primary)/0.15)]"
               />
 
               {/* Glitch copies */}
@@ -144,10 +144,9 @@ const HeroSection = () => {
               )}
             </div>
 
-
             {/* Motto */}
             <motion.p
-              className="font-body text-sm md:text-base tracking-[0.25em] uppercase text-primary/70 mb-12"
+              className="font-body text-sm md:text-lg tracking-[0.35em] uppercase text-muted-foreground/80 mb-14"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.8 }}
