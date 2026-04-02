@@ -7,6 +7,7 @@ import ScrollWatermark from "@/components/ScrollWatermark";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import ShowcaseSection from "@/components/ShowcaseSection";
+import ParallaxStorySection from "@/components/ParallaxStorySection";
 import StudioSection from "@/components/StudioSection";
 import TeamSection from "@/components/TeamSection";
 import CommunitySection from "@/components/CommunitySection";
