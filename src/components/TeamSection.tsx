@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import ScrollReveal from "./ui/ScrollReveal";
 import firasImg from "@/assets/team/firas.jpg";
 import sayilImg from "@/assets/team/sayil.jpg";
@@ -7,23 +7,33 @@ import alsulaimanImg from "@/assets/team/alsulaiman.jpg";
 import alradhyanImg from "@/assets/team/alradhyan.jpg";
 
 const team = [
-  { name: "Sayil", lastName: "Alyami", role: "Game Designer", image: sayilImg, imageScale: "scale-100", objectPos: "object-top" },
-  { name: "Abdulaziz", lastName: "Alsulaiman", role: "3D Artist", image: alsulaimanImg, imageScale: "scale-150", objectPos: "object-top" },
-  { name: "Abdulaziz", lastName: "Alradhyan", role: "Programmer", image: alradhyanImg, imageScale: "scale-100", objectPos: "object-top" },
-  { name: "Feras", lastName: "Hisan", role: "Producer", image: firasImg, imageScale: "scale-100", objectPos: "object-top" },
+  { name: "Sayil", lastName: "Alyami", role: "Game Designer", image: sayilImg, objectPos: "object-[50%_20%]" },
+  { name: "Abdulaziz", lastName: "Alsulaiman", role: "3D Artist", image: alsulaimanImg, objectPos: "object-[50%_25%]" },
+  { name: "Abdulaziz", lastName: "Alradhyan", role: "Programmer", image: alradhyanImg, objectPos: "object-[50%_15%]" },
+  { name: "Feras", lastName: "Hisan", role: "Producer", image: firasImg, objectPos: "object-[50%_15%]" },
 ];
 
-const TeamCard = ({ member, index }: { member: typeof team[0]; index: number }) => {
+const TeamCard = ({
+  member,
+  index,
+  hoveredIndex,
+  onHover,
+}: {
+  member: typeof team[0];
+  index: number;
+  hoveredIndex: number | null;
+  onHover: (i: number | null) => void;
+}) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: cardRef,
     offset: ["start end", "end start"],
   });
 
-  // Parallax: image moves slower than scroll
-  const imageY = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
-  // Subtle scale on scroll
-  const imageScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.15, 1.05, 1.15]);
+  const imageY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+  const imageScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.1, 1.02, 1.1]);
+
+  const isDimmed = hoveredIndex !== null && hoveredIndex !== index;
 
   return (
     <ScrollReveal delay={0.15 + index * 0.12}>
@@ -33,15 +43,24 @@ const TeamCard = ({ member, index }: { member: typeof team[0]; index: number }) 
         style={{ perspective: "1000px" }}
         whileHover={{ y: -10 }}
         transition={{ type: "spring", stiffness: 260, damping: 18 }}
+        onMouseEnter={() => onHover(index)}
+        onMouseLeave={() => onHover(null)}
       >
-        {/* Card container with cinematic aspect ratio */}
-        <div className="relative w-full aspect-[2/3] overflow-hidden bg-background">
+        {/* Card with larger aspect ratio */}
+        <div className="relative w-full aspect-[3/4] overflow-hidden bg-background">
           {/* Parallax image */}
           <motion.img
             src={member.image}
             alt={`${member.name} ${member.lastName}`}
-            className={`absolute inset-0 w-full h-[130%] object-cover ${member.objectPos} ${member.imageScale}`}
+            className={`absolute inset-0 w-full h-[120%] object-cover ${member.objectPos} transition-all duration-500`}
             style={{ y: imageY, scale: imageScale }}
+          />
+
+          {/* Dim overlay when another card is hovered */}
+          <motion.div
+            className="absolute inset-0 bg-black/70 pointer-events-none"
+            animate={{ opacity: isDimmed ? 1 : 0 }}
+            transition={{ duration: 0.4 }}
           />
 
           {/* Film grain overlay */}
@@ -55,7 +74,7 @@ const TeamCard = ({ member, index }: { member: typeof team[0]; index: number }) 
           {/* Cinematic vignette */}
           <div className="absolute inset-0 shadow-[inset_0_0_80px_rgba(0,0,0,0.5)]" />
 
-          {/* Bottom gradient - dramatic cinematic fade */}
+          {/* Bottom gradient */}
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 via-30% to-transparent" />
 
           {/* Top subtle gradient */}
@@ -76,7 +95,6 @@ const TeamCard = ({ member, index }: { member: typeof team[0]; index: number }) 
 
         {/* Info overlay at bottom */}
         <div className="absolute inset-x-0 bottom-0 p-5 md:p-7">
-          {/* Animated accent line */}
           <motion.div
             className="h-[1px] bg-gradient-to-r from-primary via-primary/60 to-transparent mb-4 origin-left"
             initial={{ scaleX: 0 }}
@@ -85,7 +103,6 @@ const TeamCard = ({ member, index }: { member: typeof team[0]; index: number }) 
             style={{ width: "60%" }}
           />
 
-          {/* Role label - appears first */}
           <motion.p
             className="text-[10px] md:text-[11px] uppercase tracking-[0.3em] font-body text-primary/80 mb-2"
             initial={{ opacity: 0, x: -10 }}
@@ -95,16 +112,13 @@ const TeamCard = ({ member, index }: { member: typeof team[0]; index: number }) 
             {member.role}
           </motion.p>
 
-          {/* First name - subtle */}
           <h3 className="font-display text-sm md:text-base text-foreground/60 leading-tight tracking-wider">
             {member.name}
           </h3>
-          {/* Last name - bold, prominent */}
           <h3 className="font-display text-xl md:text-2xl font-bold text-foreground uppercase tracking-[0.15em] leading-tight">
             {member.lastName}
           </h3>
 
-          {/* Hover reveal: subtle line below name */}
           <motion.div
             className="w-0 group-hover:w-10 h-[1px] bg-primary/40 mt-3 transition-all duration-500"
           />
@@ -119,6 +133,8 @@ const TeamCard = ({ member, index }: { member: typeof team[0]; index: number }) 
 };
 
 const TeamSection = () => {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
   return (
     <section id="team" className="relative py-32 px-6 overflow-hidden">
       {/* Background ambient glow */}
@@ -147,7 +163,13 @@ const TeamSection = () => {
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
           {team.map((member, i) => (
-            <TeamCard key={member.name + member.lastName} member={member} index={i} />
+            <TeamCard
+              key={member.name + member.lastName}
+              member={member}
+              index={i}
+              hoveredIndex={hoveredIndex}
+              onHover={setHoveredIndex}
+            />
           ))}
         </div>
       </div>
