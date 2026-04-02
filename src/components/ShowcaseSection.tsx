@@ -31,19 +31,13 @@ const ShowcaseSection = () => {
       <div className="mx-auto max-w-7xl">
         <ScrollReveal>
           <p className="text-sm tracking-[0.4em] uppercase text-primary font-body font-medium mb-4">
-            Featured Project
+            Our Games
           </p>
-        </ScrollReveal>
-
-        <ScrollReveal delay={0.15}>
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-16 tracking-wide">
-            AL-RAIY
-          </h2>
         </ScrollReveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Main image with parallax scale */}
-          <ScrollReveal direction="left" delay={0.3}>
+          <ScrollReveal direction="left" delay={0.2}>
             <motion.div className="relative" style={{ scale: imageScale, opacity: imageOpacity }}>
               <div className="relative overflow-hidden rounded-2xl ring-1 ring-foreground/10 mirror-edge shadow-2xl shadow-primary/5">
                 <motion.img
@@ -79,9 +73,13 @@ const ShowcaseSection = () => {
             </motion.div>
           </ScrollReveal>
 
-          {/* Description */}
-          <ScrollReveal direction="right" delay={0.45}>
-            <div className="lg:pt-8">
+          {/* Game info - right side */}
+          <ScrollReveal direction="right" delay={0.35}>
+            <div className="lg:pt-4">
+              <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-8 tracking-wide">
+                AL-RAIY
+              </h2>
+
               <div className="space-y-5 text-muted-foreground font-body font-light leading-relaxed">
                 <p>
                   Our hero awakens inside a strange tent on a pitch-black night. A man with hidden features stands before him, 
