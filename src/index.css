@@ -4,6 +4,14 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  cursor: url('/src/assets/cursor-default.png') 0 0, auto;
+}
+
+a, button, [role="button"], input[type="submit"], select, label, .cursor-pointer {
+  cursor: url('/src/assets/cursor-hand.png') 16 0, pointer;
+}
+
 @layer base {
   :root {
     --background: 220 15% 8%;
