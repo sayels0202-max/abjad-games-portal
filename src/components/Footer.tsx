@@ -56,10 +56,17 @@ const Footer = () => (
             rel={s.comingSoon ? undefined : "noopener noreferrer"}
             aria-label={s.name}
             className={`text-muted-foreground hover:text-primary transition-colors duration-300 ${s.comingSoon ? "opacity-40 pointer-events-none" : ""}`}
-            whileHover={{ y: -2 }}
+            whileHover={{ y: -4, scale: 1.25 }}
+            whileTap={{ scale: 0.9 }}
+            transition={{ type: "spring", stiffness: 400, damping: 15 }}
             title={s.comingSoon ? "Coming Soon" : s.name}
           >
-            {s.icon}
+            <motion.span
+              className="block"
+              whileHover={{ filter: "drop-shadow(0 0 8px hsl(38 92% 50% / 0.5))" }}
+            >
+              {s.icon}
+            </motion.span>
           </motion.a>
         ))}
       </div>
