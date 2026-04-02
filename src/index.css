@@ -5,11 +5,11 @@
 @tailwind utilities;
 
 * {
-  cursor: url('/src/assets/cursor-default.png') 0 0, auto;
+  cursor: url('/cursor-default.svg') 3 2, auto;
 }
 
 a, button, [role="button"], input[type="submit"], select, label, .cursor-pointer {
-  cursor: url('/src/assets/cursor-hand.png') 16 0, pointer;
+  cursor: url('/cursor-pointer.svg') 10 1, pointer;
 }
 
 @layer base {
