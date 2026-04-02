@@ -7,10 +7,10 @@ import alsulaimanImg from "@/assets/team/alsulaiman.jpg";
 import alradhyanImg from "@/assets/team/alradhyan.jpg";
 
 const team = [
-  { name: "Sayil", lastName: "Alyami", role: "Game Designer", image: sayilImg },
-  { name: "Abdulaziz", lastName: "Alsulaiman", role: "3D Artist", image: alsulaimanImg },
-  { name: "Abdulaziz", lastName: "Alradhyan", role: "Programmer", image: alradhyanImg },
-  { name: "Feras", lastName: "Hisan", role: "Producer", image: firasImg },
+  { name: "Sayil", lastName: "Alyami", role: "Game Designer", image: sayilImg, imageScale: "scale-100", objectPos: "object-top" },
+  { name: "Abdulaziz", lastName: "Alsulaiman", role: "3D Artist", image: alsulaimanImg, imageScale: "scale-150", objectPos: "object-top" },
+  { name: "Abdulaziz", lastName: "Alradhyan", role: "Programmer", image: alradhyanImg, imageScale: "scale-100", objectPos: "object-top" },
+  { name: "Feras", lastName: "Hisan", role: "Producer", image: firasImg, imageScale: "scale-100", objectPos: "object-top" },
 ];
 
 const TeamCard = ({ member, index }: { member: typeof team[0]; index: number }) => {
@@ -40,7 +40,7 @@ const TeamCard = ({ member, index }: { member: typeof team[0]; index: number }) 
           <motion.img
             src={member.image}
             alt={`${member.name} ${member.lastName}`}
-            className="absolute inset-0 w-full h-[130%] object-cover object-top"
+            className={`absolute inset-0 w-full h-[130%] object-cover ${member.objectPos} ${member.imageScale}`}
             style={{ y: imageY, scale: imageScale }}
           />
 
