@@ -1,14 +1,13 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { Briefcase } from "lucide-react";
 import logoText from "@/assets/logo-text.png";
-
 
 const navLinks = [
   { label: "Games", href: "#showcase" },
+  { label: "News", href: "#community" },
   { label: "Team", href: "#team" },
-  { label: "News", href: "/news", isRoute: true },
-  { label: "Careers", href: "/careers", isRoute: true },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -18,7 +17,6 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const location = useLocation();
-  
 
   useEffect(() => {
     if (isOpen) {
@@ -31,7 +29,7 @@ const Navbar = () => {
 
   useEffect(() => {
     if (location.pathname !== "/") return;
-    const sections = ["showcase", "team", "community", "contact"];
+    const sections = ["showcase", "community", "team", "contact"];
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -70,24 +68,8 @@ const Navbar = () => {
 
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => {
-              const isActive = link.isRoute
-                ? location.pathname === link.href
-                : activeSection === link.href.replace("#", "");
-
-              return link.isRoute ? (
-                <Link
-                  key={link.label}
-                  to={link.href}
-                  className={`relative text-xs tracking-[0.2em] uppercase font-body transition-colors duration-300 ${
-                    isActive ? "text-primary" : "text-muted-foreground hover:text-primary"
-                  }`}
-                >
-                  {link.label}
-                  {isActive && (
-                    <motion.span layoutId="nav-indicator" className="absolute -bottom-1 left-0 right-0 h-[1px] bg-primary" transition={{ duration: 0.3 }} />
-                  )}
-                </Link>
-              ) : (
+              const isActive = activeSection === link.href.replace("#", "");
+              return (
                 <a
                   key={link.label}
                   href={link.href}
@@ -102,6 +84,15 @@ const Navbar = () => {
                 </a>
               );
             })}
+
+            {/* Careers icon */}
+            <Link
+              to="/careers"
+              className="relative text-muted-foreground hover:text-primary transition-colors duration-300 ml-2"
+              title="Careers"
+            >
+              <Briefcase className="w-4 h-4" strokeWidth={1.5} />
+            </Link>
           </div>
 
           <button onClick={() => setIsOpen(!isOpen)} className="md:hidden flex flex-col gap-1.5 p-2">
@@ -118,37 +109,33 @@ const Navbar = () => {
         animate={isOpen ? { opacity: 1, pointerEvents: "auto" as const } : { opacity: 0, pointerEvents: "none" as const }}
         transition={{ duration: 0.4 }}
       >
-        {navLinks.map((link, i) =>
-          link.isRoute ? (
-            <motion.div key={link.label}>
-              <Link
-                to={link.href}
-                onClick={() => setIsOpen(false)}
-                className="font-display text-2xl tracking-[0.3em] uppercase text-foreground hover:text-primary transition-colors"
-              >
-                <motion.span
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  transition={{ duration: 0.4, delay: i * 0.08 }}
-                >
-                  {link.label}
-                </motion.span>
-              </Link>
-            </motion.div>
-          ) : (
-            <motion.a
-              key={link.label}
-              href={link.href}
-              onClick={() => setIsOpen(false)}
-              className="font-display text-2xl tracking-[0.3em] uppercase text-foreground hover:text-primary transition-colors"
-              initial={{ opacity: 0, y: 20 }}
-              animate={isOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-            >
-              {link.label}
-            </motion.a>
-          )
-        )}
+        {navLinks.map((link, i) => (
+          <motion.a
+            key={link.label}
+            href={link.href}
+            onClick={() => setIsOpen(false)}
+            className="font-display text-2xl tracking-[0.3em] uppercase text-foreground hover:text-primary transition-colors"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.4, delay: i * 0.08 }}
+          >
+            {link.label}
+          </motion.a>
+        ))}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.4, delay: navLinks.length * 0.08 }}
+        >
+          <Link
+            to="/careers"
+            onClick={() => setIsOpen(false)}
+            className="flex items-center gap-3 font-display text-lg tracking-[0.3em] uppercase text-muted-foreground hover:text-primary transition-colors"
+          >
+            <Briefcase className="w-5 h-5" strokeWidth={1.5} />
+            Careers
+          </Link>
+        </motion.div>
       </motion.div>
     </>
   );
