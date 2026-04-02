@@ -58,18 +58,8 @@ const HeroSection = () => {
 
   useEffect(() => {
     const t1 = setTimeout(() => setShowTitle(true), 800);
-    const t2 = setTimeout(() => setGlitchActive(true), 1200);
-    const t3 = setTimeout(() => setGlitchActive(false), 1600);
-    // Periodic subtle glitch
-    const interval = setInterval(() => {
-      setGlitchActive(true);
-      setTimeout(() => setGlitchActive(false), 300);
-    }, 6000);
     return () => {
       clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
-      clearInterval(interval);
     };
   }, []);
 
