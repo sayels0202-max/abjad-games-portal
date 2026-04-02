@@ -1,7 +1,8 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logoText from "@/assets/logo-text.png";
+import { useLogoEasterEgg } from "@/components/EasterEggs";
 
 const navLinks = [
   { label: "About", href: "#about" },
