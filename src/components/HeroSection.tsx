@@ -10,7 +10,110 @@ const scanLineKeyframes = `
 }
 `;
 
-const HeroSection = () => {
+const SPARK_COLORS = [
+  "255, 160, 20",
+  "255, 100, 10",
+  "255, 200, 50",
+  "200, 60, 10",
+  "255, 140, 0",
+];
+
+interface Spark {
+  x: number; y: number; vx: number; vy: number;
+  size: number; life: number; maxLife: number; color: string;
+}
+
+const LogoSparks = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const sparksRef = useRef<Spark[]>([]);
+  const animRef = useRef<number>(0);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const resize = () => {
+      const parent = canvas.parentElement;
+      if (parent) {
+        canvas.width = parent.offsetWidth;
+        canvas.height = parent.offsetHeight;
+      }
+    };
+    resize();
+    window.addEventListener("resize", resize);
+
+    const spawnSpark = (): Spark => {
+      const maxLife = 40 + Math.random() * 60;
+      return {
+        x: canvas.width * (0.15 + Math.random() * 0.7),
+        y: canvas.height * (0.35 + Math.random() * 0.3),
+        vx: (Math.random() - 0.5) * 1.2,
+        vy: -(0.6 + Math.random() * 1.8),
+        size: 0.6 + Math.random() * 1.8,
+        life: 0,
+        maxLife,
+        color: SPARK_COLORS[Math.floor(Math.random() * SPARK_COLORS.length)],
+      };
+    };
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (sparksRef.current.length < 30 && Math.random() < 0.4) {
+        sparksRef.current.push(spawnSpark());
+      }
+
+      sparksRef.current = sparksRef.current.filter((p) => {
+        p.life++;
+        if (p.life > p.maxLife) return false;
+
+        p.x += p.vx + (Math.random() - 0.5) * 0.3;
+        p.y += p.vy;
+        p.vy *= 0.99;
+
+        const progress = p.life / p.maxLife;
+        const alpha = progress < 0.1 ? progress * 10 : progress > 0.6 ? (1 - progress) * 2.5 : 1;
+        const currentSize = p.size * (1 - progress * 0.5);
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, currentSize, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${p.color}, ${alpha * 0.5})`;
+        ctx.fill();
+
+        // Glow
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, currentSize * 2.5, 0, Math.PI * 2);
+        const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, currentSize * 2.5);
+        grad.addColorStop(0, `rgba(${p.color}, ${alpha * 0.15})`);
+        grad.addColorStop(1, `rgba(${p.color}, 0)`);
+        ctx.fillStyle = grad;
+        ctx.fill();
+
+        return true;
+      });
+
+      animRef.current = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      window.removeEventListener("resize", resize);
+      cancelAnimationFrame(animRef.current);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 z-20 pointer-events-none"
+      style={{ mixBlendMode: "screen" }}
+    />
+  );
+};
+
   const containerRef = useRef<HTMLDivElement>(null);
   const [blurVal, setBlurVal] = useState(0);
   const [showTitle, setShowTitle] = useState(false);
