@@ -57,10 +57,10 @@ const TeamCard = ({
             style={{ y: imageY, scale: imageScale }}
           />
 
-          {/* Dim overlay when another card is hovered */}
+          {/* Dim overlay - default dimmed, reveals on hover */}
           <motion.div
-            className="absolute inset-0 bg-black/70 pointer-events-none"
-            animate={{ opacity: isDimmed ? 1 : 0 }}
+            className="absolute inset-0 bg-black/60 pointer-events-none"
+            animate={{ opacity: isDimmed ? 1 : isHovered ? 0 : 0.6 }}
             transition={{ duration: 0.4 }}
           />
 
