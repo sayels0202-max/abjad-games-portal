@@ -55,7 +55,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.5 }}
-            className="w-48 md:w-64 lg:w-80 mb-6"
+            className="w-36 md:w-48 lg:w-60 mb-6"
           />
           <motion.a
             href="#showcase"
