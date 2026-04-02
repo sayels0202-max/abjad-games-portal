@@ -81,8 +81,7 @@ const TeamCard = ({
           {/* Top subtle gradient */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-transparent to-30%" />
 
-          {/* Primary accent glow on hover */}
-          <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700" />
+          {/* Removed primary accent glow */}
 
           {/* Scan line effect */}
           <div
