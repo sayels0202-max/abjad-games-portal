@@ -47,25 +47,47 @@ const platformConfig: Record<string, { color: string; icon: React.ReactNode }> =
 };
 
 const CommunitySection = () => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
+  return (
+    <section id="community" className="relative py-32 px-6">
+      <div className="relative mx-auto max-w-7xl">
+        <div className="text-center mb-12">
+          <ScrollReveal>
+            <p className="text-sm tracking-[0.4em] uppercase text-primary font-body font-medium mb-4">
+              Social Feed
+            </p>
+          </ScrollReveal>
+          <ScrollReveal delay={0.1}>
+            <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground tracking-wide">
+              Latest from Our Channels
+            </h2>
+          </ScrollReveal>
+        </div>
 
-  const checkScroll = () => {
-    if (!scrollRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-    setCanScrollLeft(scrollLeft > 10);
-    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
-  };
-
-  const scroll = (dir: "left" | "right") => {
-    if (!scrollRef.current) return;
-    const amount = scrollRef.current.clientWidth * 0.8;
-    scrollRef.current.scrollBy({
-      left: dir === "left" ? -amount : amount,
-      behavior: "smooth",
-    });
-  };
+        <div className="flex justify-center gap-6 md:gap-8">
+          {channels.map((ch, i) => (
+            <motion.a
+              key={ch.platform}
+              href={ch.link}
+              className="flex-shrink-0"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.15 }}
+            >
+              <GlassCard className="p-8 md:p-10 flex flex-col items-center gap-4 w-[160px] md:w-[200px]" tilt={false}>
+                <span className={`flex items-center justify-center w-14 h-14 rounded-2xl ${platformConfig[ch.platform]?.color || "bg-primary/10 text-primary"}`}>
+                  <span className="scale-[2]">{platformConfig[ch.platform]?.icon}</span>
+                </span>
+                <span className="font-display text-sm tracking-wide text-foreground">{ch.platform}</span>
+                <span className="text-[11px] tracking-[0.2em] uppercase text-muted-foreground/60 font-body">قريباً</span>
+              </GlassCard>
+            </motion.a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
 
   return (
     <section id="community" className="relative py-32 px-6">
