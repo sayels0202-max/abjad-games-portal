@@ -5,7 +5,6 @@ import logoText from "@/assets/logo-text.png";
 
 
 const navLinks = [
-  { label: "About", href: "#about" },
   { label: "Games", href: "#showcase" },
   { label: "Team", href: "#team" },
   { label: "News", href: "/news", isRoute: true },
