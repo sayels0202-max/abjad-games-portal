@@ -219,12 +219,8 @@ const AlraiyPage = () => {
 
       {/* Media Section — Steam-style layout */}
       <section className="relative py-24 px-6 overflow-hidden">
-        {/* GIF Background */}
-        <div className="absolute inset-0 z-0">
-          <img src={gameplayBg3} alt="" className="w-full h-full object-cover opacity-15" />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/60 to-background z-[1]" />
-        <div className="relative z-[2] mx-auto max-w-5xl">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-secondary/20 to-transparent" />
+        <div className="relative mx-auto max-w-5xl">
           <ScrollReveal>
             <p className="text-sm tracking-[0.4em] uppercase text-primary font-body font-medium mb-4 text-center">
               Media
