@@ -153,7 +153,8 @@ const CommunitySection = () => {
               >
                 <GlassCard className="p-6 h-full" tilt={false}>
                   <div className="flex items-center gap-3 mb-4">
-                    <span className={`text-[10px] font-body font-semibold tracking-wider uppercase px-2.5 py-1 rounded-lg ${platformColors[post.platform] || "bg-primary/10 text-primary"}`}>
+                    <span className={`flex items-center gap-1.5 text-[10px] font-body font-semibold tracking-wider uppercase px-2.5 py-1 rounded-lg ${platformConfig[post.platform]?.color || "bg-primary/10 text-primary"}`}>
+                      {platformConfig[post.platform]?.icon}
                       {post.platform}
                     </span>
                     <span className="text-[11px] text-muted-foreground/60 font-body">{post.date}</span>
