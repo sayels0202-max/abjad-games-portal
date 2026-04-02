@@ -181,3 +181,11 @@ a, button, [role="button"], input[type="submit"], select, label, .cursor-pointer
   height: 1px;
   background: linear-gradient(90deg, transparent, hsl(38 92% 50% / 0.2), transparent);
 }
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
