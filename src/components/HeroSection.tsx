@@ -1,39 +1,118 @@
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useMemo } from "react";
 import banner from "@/assets/hero-bg.png";
 import abjadLogo from "@/assets/abjad-logo-text.png";
 
-const fireKeyframes = `
-@keyframes fire-flicker {
-  0%, 100% { filter: brightness(1) drop-shadow(0 0 8px hsl(var(--primary)/0.6)) drop-shadow(0 -4px 12px hsl(25 95% 50%/0.4)); }
-  25% { filter: brightness(1.1) drop-shadow(0 0 12px hsl(var(--primary)/0.8)) drop-shadow(0 -6px 18px hsl(25 95% 50%/0.6)); }
-  50% { filter: brightness(0.95) drop-shadow(0 0 6px hsl(var(--primary)/0.5)) drop-shadow(0 -3px 10px hsl(25 95% 50%/0.3)); }
-  75% { filter: brightness(1.05) drop-shadow(0 0 14px hsl(var(--primary)/0.7)) drop-shadow(0 -8px 20px hsl(25 95% 50%/0.5)); }
-}
-@keyframes fire-ember-1 {
-  0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
-  20% { opacity: 1; }
-  100% { opacity: 0; transform: translate(-30px, -80px) scale(0); }
-}
-@keyframes fire-ember-2 {
-  0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
-  20% { opacity: 1; }
-  100% { opacity: 0; transform: translate(20px, -100px) scale(0); }
-}
-@keyframes fire-ember-3 {
-  0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
-  20% { opacity: 1; }
-  100% { opacity: 0; transform: translate(-10px, -120px) scale(0); }
-}
-@keyframes fire-glow-pulse {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(1.05); }
-}
+const scanLineKeyframes = `
 @keyframes scan-line {
   0% { transform: translateY(-100vh); }
   100% { transform: translateY(100vh); }
 }
 `;
+
+const SPARK_COLORS = [
+  "255, 160, 20",
+  "255, 100, 10",
+  "255, 200, 50",
+  "200, 60, 10",
+  "255, 140, 0",
+];
+
+interface Spark {
+  x: number; y: number; vx: number; vy: number;
+  size: number; life: number; maxLife: number; color: string;
+}
+
+const LogoSparks = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const sparksRef = useRef<Spark[]>([]);
+  const animRef = useRef<number>(0);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const resize = () => {
+      const parent = canvas.parentElement;
+      if (parent) {
+        canvas.width = parent.offsetWidth;
+        canvas.height = parent.offsetHeight;
+      }
+    };
+    resize();
+    window.addEventListener("resize", resize);
+
+    const spawnSpark = (): Spark => {
+      const maxLife = 40 + Math.random() * 60;
+      return {
+        x: canvas.width * (0.15 + Math.random() * 0.7),
+        y: canvas.height * (0.35 + Math.random() * 0.3),
+        vx: (Math.random() - 0.5) * 1.2,
+        vy: -(0.6 + Math.random() * 1.8),
+        size: 0.6 + Math.random() * 1.8,
+        life: 0,
+        maxLife,
+        color: SPARK_COLORS[Math.floor(Math.random() * SPARK_COLORS.length)],
+      };
+    };
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (sparksRef.current.length < 30 && Math.random() < 0.4) {
+        sparksRef.current.push(spawnSpark());
+      }
+
+      sparksRef.current = sparksRef.current.filter((p) => {
+        p.life++;
+        if (p.life > p.maxLife) return false;
+
+        p.x += p.vx + (Math.random() - 0.5) * 0.3;
+        p.y += p.vy;
+        p.vy *= 0.99;
+
+        const progress = p.life / p.maxLife;
+        const alpha = progress < 0.1 ? progress * 10 : progress > 0.6 ? (1 - progress) * 2.5 : 1;
+        const currentSize = p.size * (1 - progress * 0.5);
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, currentSize, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${p.color}, ${alpha * 0.5})`;
+        ctx.fill();
+
+        // Glow
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, currentSize * 2.5, 0, Math.PI * 2);
+        const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, currentSize * 2.5);
+        grad.addColorStop(0, `rgba(${p.color}, ${alpha * 0.15})`);
+        grad.addColorStop(1, `rgba(${p.color}, 0)`);
+        ctx.fillStyle = grad;
+        ctx.fill();
+
+        return true;
+      });
+
+      animRef.current = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      window.removeEventListener("resize", resize);
+      cancelAnimationFrame(animRef.current);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 z-20 pointer-events-none"
+      style={{ mixBlendMode: "screen" }}
+    />
+  );
+};
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -68,7 +147,7 @@ const HeroSection = () => {
 
   return (
     <>
-      <style>{fireKeyframes}</style>
+      <style>{scanLineKeyframes}</style>
       <div ref={containerRef} className="relative h-[200vh]">
         <motion.section
           className="sticky top-0 h-screen overflow-hidden"
@@ -113,48 +192,19 @@ const HeroSection = () => {
             className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center"
             style={{ opacity: contentOpacity, y: contentY }}
           >
-            {/* Logo with fire effect */}
+            {/* Logo with spark particles */}
             <div className="relative mb-10 md:mb-14">
-              {/* Fire glow behind logo */}
-              <div
-                className="absolute inset-0 pointer-events-none z-0"
-                style={{
-                  background: "radial-gradient(ellipse 60% 40% at 50% 60%, hsl(25 95% 50%/0.15), transparent)",
-                  animation: "fire-glow-pulse 2s ease-in-out infinite",
-                }}
-              />
-
               <motion.img
                 src={abjadLogo}
                 alt="Abjad Games"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: showTitle ? 1 : 0, scale: showTitle ? 1 : 0.8 }}
                 transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className="relative z-10 w-[440px] md:w-[680px] lg:w-[920px] mx-auto"
-                style={{ animation: showTitle ? "fire-flicker 1.5s ease-in-out infinite" : undefined }}
+                className="relative z-10 w-[440px] md:w-[680px] lg:w-[920px] mx-auto drop-shadow-[0_0_40px_hsl(var(--primary)/0.15)]"
               />
 
-              {/* Fire embers rising from logo */}
-              {showTitle && (
-                <div className="absolute inset-0 pointer-events-none z-20">
-                  {[...Array(8)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="absolute rounded-full"
-                      style={{
-                        width: `${3 + Math.random() * 4}px`,
-                        height: `${3 + Math.random() * 4}px`,
-                        background: `hsl(${15 + Math.random() * 25} 95% ${50 + Math.random() * 20}%)`,
-                        left: `${20 + Math.random() * 60}%`,
-                        bottom: `${30 + Math.random() * 20}%`,
-                        animation: `fire-ember-${(i % 3) + 1} ${1.5 + Math.random() * 2}s ease-out infinite`,
-                        animationDelay: `${Math.random() * 2}s`,
-                        boxShadow: `0 0 6px 2px hsl(25 95% 50%/0.6)`,
-                      }}
-                    />
-                  ))}
-                </div>
-              )}
+              {/* Canvas sparks from logo */}
+              {showTitle && <LogoSparks />}
             </div>
 
             {/* Motto */}
