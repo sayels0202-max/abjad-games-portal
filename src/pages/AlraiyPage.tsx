@@ -150,7 +150,7 @@ const AlraiyPage = () => {
         <motion.section className="sticky top-0 h-screen overflow-hidden" style={{ opacity: sectionOpacity }}>
           <motion.div className="absolute inset-0" style={{ y, scale }}>
             <img src={gameplayBg3} alt="Al-Raiy" className="h-full w-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-background/20" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
           </motion.div>
 
           <motion.div className="relative z-10 flex h-full flex-col items-center justify-center text-center px-6" style={{ opacity }}>
