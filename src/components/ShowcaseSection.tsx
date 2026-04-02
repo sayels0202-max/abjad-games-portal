@@ -84,14 +84,16 @@ const ShowcaseSection = () => {
           <ScrollReveal direction="right" delay={0.45}>
             <div className="lg:pt-8">
               <h3 className="font-display text-2xl md:text-3xl text-foreground mb-6 tracking-wide">
-                الراعي — AL-RAIY
+                AL-RAIY
               </h3>
-              <div className="space-y-5 text-muted-foreground font-body font-light leading-relaxed text-right" dir="rtl">
+              <div className="space-y-5 text-muted-foreground font-body font-light leading-relaxed">
                 <p>
-                  يستيقظ بطلنا في خيمة غريبة و ليلة حالكة و يجد رجل أمامه بملامح مخفية في ظلمة الليل و بجانبه نار فاتنة, يزعم الرجل انه هنا لمساعدته و يجب ان تتبع تعليماته لكي ينجو من بطش الوحوش في هذه المزارع البائسة.
+                  Our hero awakens inside a strange tent on a pitch-black night. A man with hidden features stands before him, 
+                  silhouetted against a mesmerizing fire. The stranger claims he is here to help — follow his instructions 
+                  to survive the monsters lurking across these desolate farmlands.
                 </p>
                 <p>
-                  ماذا يخفي لك المكان ومن يختبئ في الظلام و هل هناك مهرب؟
+                  What secrets does this place hold? Who hides in the darkness — and is there any escape?
                 </p>
               </div>
 
