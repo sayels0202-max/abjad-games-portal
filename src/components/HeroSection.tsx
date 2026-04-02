@@ -114,7 +114,8 @@ const LogoSparks = () => {
   );
 };
 
-  const HeroSection = () => {
+const HeroSection = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [blurVal, setBlurVal] = useState(0);
   const [showTitle, setShowTitle] = useState(false);
 
