@@ -33,7 +33,8 @@ const TeamCard = ({
   const imageY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
   const imageScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.1, 1.02, 1.1]);
 
-  const isDimmed = hoveredIndex !== null && hoveredIndex !== index;
+  const isHovered = hoveredIndex === index;
+  const isDimmed = hoveredIndex !== null && !isHovered;
 
   return (
     <ScrollReveal delay={0.15 + index * 0.12}>
@@ -56,10 +57,10 @@ const TeamCard = ({
             style={{ y: imageY, scale: imageScale }}
           />
 
-          {/* Dim overlay when another card is hovered */}
+          {/* Dim overlay - default dimmed, reveals on hover */}
           <motion.div
-            className="absolute inset-0 bg-black/70 pointer-events-none"
-            animate={{ opacity: isDimmed ? 1 : 0 }}
+            className="absolute inset-0 bg-black/60 pointer-events-none"
+            animate={{ opacity: isDimmed ? 1 : isHovered ? 0 : 0.6 }}
             transition={{ duration: 0.4 }}
           />
 
@@ -80,8 +81,7 @@ const TeamCard = ({
           {/* Top subtle gradient */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-transparent to-30%" />
 
-          {/* Primary accent glow on hover */}
-          <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700" />
+          {/* Removed primary accent glow */}
 
           {/* Scan line effect */}
           <div
