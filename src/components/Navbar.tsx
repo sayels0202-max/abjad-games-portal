@@ -19,6 +19,12 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const location = useLocation();
+  const [easterEggMsg, setEasterEggMsg] = useState<string | null>(null);
+
+  const handleLogoClick = useLogoEasterEgg(useCallback((msg: string) => {
+    setEasterEggMsg(msg);
+    setTimeout(() => setEasterEggMsg(null), 4000);
+  }, []));
 
   useEffect(() => {
     if (isOpen) {
