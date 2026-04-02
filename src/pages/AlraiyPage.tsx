@@ -182,8 +182,8 @@ const AlraiyPage = () => {
               transition={{ duration: 0.8, delay: 1.3 }}
               className="mt-8 max-w-2xl text-muted-foreground font-body text-lg md:text-xl font-light leading-relaxed"
             >
-              تجربة رعب بقاء بأسلوب بكسل آرت في صحراء عربية قديمة.
-              واجه الظلام. أبقِ اللهب حيّاً.
+              A pixel-art survival horror experience set in the ancient Arabian desert.
+              Face the darkness. Keep the flame alive.
             </motion.p>
           </motion.div>
         </motion.section>
@@ -205,10 +205,10 @@ const AlraiyPage = () => {
           <ScrollReveal delay={0.2}>
             <div className="space-y-5 text-muted-foreground font-body font-light text-base md:text-lg leading-relaxed">
               <p>
-                يستيقظ بطلنا في خيمة غريبة وليلة حالكة ويجد رجلاً أمامه بملامح مخفية في ظلمة الليل وبجانبه نار فاتنة. يزعم الرجل أنه هنا لمساعدته ويجب أن تتبع تعليماته لكي ينجو من بطش الوحوش في هذه المزارع البائسة.
+                Our hero awakens inside a strange tent on a pitch-black night. A man with hidden features stands before him, shrouded in darkness with a mesmerizing fire by his side. The stranger claims he is here to help — follow his instructions to survive the wrath of the monsters lurking across these desolate farmlands.
               </p>
               <p>
-                ماذا يخفي لك المكان ومن يختبئ في الظلام وهل هناك مهرب؟
+                What does this place hide? Who lurks in the darkness — and is there any escape?
               </p>
             </div>
           </ScrollReveal>
