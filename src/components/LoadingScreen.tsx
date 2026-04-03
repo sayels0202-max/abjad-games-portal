@@ -1,14 +1,12 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useRef } from "react";
 
 interface LoadingScreenProps {
   isVisible: boolean;
   onComplete: () => void;
+  onVideoEnd?: () => void;
 }
 
-const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
+const LoadingScreen = ({ isVisible, onComplete, onVideoEnd }: LoadingScreenProps) => {
   return (
     <AnimatePresence onExitComplete={onComplete}>
       {isVisible && (
@@ -18,11 +16,11 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
           transition={{ duration: 1.2, ease: "easeInOut" }}
         >
           <video
-            ref={videoRef}
             src="/swg.mp4"
             autoPlay
             muted
             playsInline
+            onEnded={onVideoEnd}
             className="w-full h-full object-contain"
           />
         </motion.div>
