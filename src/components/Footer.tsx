@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import footerLogo from "@/assets/footer-logo.png";
 const socials = [
   {
     name: "X (Twitter)",
@@ -43,7 +42,7 @@ const socials = [
 const Footer = () => (
   <footer className="border-t border-border py-12 px-6">
     <div className="mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-6">
-      <img src={footerLogo} alt="Abjad Games" className="h-10 w-auto opacity-80" />
+      <p className="font-display text-sm tracking-[0.2em] text-muted-foreground">ABJAD GAMES</p>
 
       <div className="flex items-center gap-5">
         {socials.map((s) => (
