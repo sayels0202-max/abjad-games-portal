@@ -3,27 +3,45 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Volume2, VolumeX } from "lucide-react";
 
 const AmbientAudio = () => {
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
   const [showTooltip, setShowTooltip] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const hasStartedRef = useRef(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setShowTooltip(false), 5000);
     return () => clearTimeout(timer);
   }, []);
 
+  // Auto-play on first user interaction (click/scroll/key)
+  useEffect(() => {
+    const startAudio = () => {
+      if (hasStartedRef.current) return;
+      const audio = audioRef.current;
+      if (!audio) return;
+      audio.volume = 0.3;
+      audio.play().then(() => {
+        hasStartedRef.current = true;
+      }).catch(() => {});
+    };
+
+    const events = ["click", "scroll", "keydown", "touchstart"];
+    events.forEach((e) => window.addEventListener(e, startAudio, { once: true }));
+    return () => events.forEach((e) => window.removeEventListener(e, startAudio));
+  }, []);
+
   const toggleAudio = () => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    if (isMuted) {
+    if (!isMuted) {
+      audio.pause();
+      setIsMuted(true);
+    } else {
       audio.play().catch(() => {});
       audio.volume = 0.3;
       setIsMuted(false);
-    } else {
-      audio.pause();
-      setIsMuted(true);
     }
   };
 
