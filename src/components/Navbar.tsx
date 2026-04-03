@@ -1,7 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Briefcase } from "lucide-react";
+import { useLocation } from "react-router-dom";
 import logoText from "@/assets/logo-text.png";
 
 const navLinks = [
@@ -100,14 +99,6 @@ const Navbar = () => {
               <span className="text-[10px] tracking-[0.15em] uppercase font-body">Discord</span>
             </a>
 
-            {/* Careers icon */}
-            <Link
-              to="/careers"
-              className="relative text-muted-foreground hover:text-primary transition-colors duration-300 ml-1"
-              title="Careers"
-            >
-              <Briefcase className="w-4 h-4" strokeWidth={1.5} />
-            </Link>
           </div>
 
           <button onClick={() => setIsOpen(!isOpen)} className="md:hidden flex flex-col gap-1.5 p-2">
@@ -152,20 +143,6 @@ const Navbar = () => {
           </svg>
           Join our Discord
         </motion.a>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.4, delay: (navLinks.length + 1) * 0.08 }}
-        >
-          <Link
-            to="/careers"
-            onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 font-display text-lg tracking-[0.3em] uppercase text-muted-foreground hover:text-primary transition-colors"
-          >
-            <Briefcase className="w-5 h-5" strokeWidth={1.5} />
-            Careers
-          </Link>
-        </motion.div>
       </motion.div>
     </>
   );
