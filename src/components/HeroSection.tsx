@@ -187,6 +187,14 @@ const HeroSection = () => {
             style={{ opacity: overlayOpacity }}
           />
 
+          {/* Dark vignette behind text content */}
+          <div
+            className="absolute inset-0 z-[5] pointer-events-none"
+            style={{
+              background: "radial-gradient(ellipse 60% 50% at 50% 45%, hsl(0 0% 0% / 0.75) 0%, transparent 100%)",
+            }}
+          />
+
           {/* Content */}
           <motion.div
             className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center"
@@ -194,8 +202,6 @@ const HeroSection = () => {
           >
             {/* Logo with spark particles */}
             <div className="relative mb-10 md:mb-14">
-              {/* Dark radial glow behind logo */}
-              <div className="absolute inset-0 -z-[1] scale-150 bg-radial-[ellipse_at_center] from-background/90 via-background/60 to-transparent" />
               <motion.img
                 src={abjadLogo}
                 alt="Abjad Games"
