@@ -1,7 +1,6 @@
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import { useRef, useState, useEffect, useMemo } from "react";
-import banner from "@/assets/hero-bg.gif";
-import abjadLogo from "@/assets/abjad-logo-text.png";
+import abjadLogo from "@/assets/abjad-logo-text.webp";
 
 const scanLineKeyframes = `
 @keyframes scan-line {
