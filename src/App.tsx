@@ -10,6 +10,7 @@ import NewsPage from "./pages/NewsPage.tsx";
 import NewsDetailPage from "./pages/NewsDetailPage.tsx";
 import AdminLoginPage from "./pages/AdminLoginPage.tsx";
 import AdminNewsPage from "./pages/AdminNewsPage.tsx";
+import AmbientAudio from "./components/AmbientAudio.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -19,6 +20,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <AmbientAudio />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
