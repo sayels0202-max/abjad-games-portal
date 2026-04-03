@@ -41,8 +41,8 @@ const socials = [
 
 const Footer = () => (
   <footer className="border-t border-border py-12 px-6">
-    <div className="mx-auto w-full flex flex-col md:flex-row items-center justify-between gap-6">
-      <p className="font-display text-sm tracking-[0.2em] text-muted-foreground">ABJAD GAMES</p>
+    <div className="mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-6">
+      <p className="font-display text-base tracking-[0.2em] text-muted-foreground">ABJAD GAMES</p>
 
       <div className="flex items-center gap-5">
         {socials.map((s) => (
