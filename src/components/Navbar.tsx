@@ -73,7 +73,7 @@ const Navbar = () => {
                 <a
                   key={link.label}
                   href={link.href}
-                  className={`relative text-xs tracking-[0.2em] uppercase font-body transition-colors duration-300 ${
+                  className={`relative text-sm tracking-[0.2em] uppercase font-body transition-colors duration-300 ${
                     isActive ? "text-primary" : "text-muted-foreground hover:text-primary"
                   }`}
                 >
