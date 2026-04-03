@@ -144,20 +144,6 @@ const Navbar = () => {
           </svg>
           Join our Discord
         </motion.a>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.4, delay: (navLinks.length + 1) * 0.08 }}
-        >
-          <Link
-            to="/careers"
-            onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 font-display text-lg tracking-[0.3em] uppercase text-muted-foreground hover:text-primary transition-colors"
-          >
-            <Briefcase className="w-5 h-5" strokeWidth={1.5} />
-            Careers
-          </Link>
-        </motion.div>
       </motion.div>
     </>
   );
