@@ -18,17 +18,14 @@ import Footer from "@/components/Footer";
 const Index = () => {
   const [loading, setLoading] = useState(true);
 
-  const handleVideoEnd = () => setLoading(false);
-
   useEffect(() => {
-    // Fallback timeout in case video fails to load
-    const timer = setTimeout(() => setLoading(false), 15000);
+    const timer = setTimeout(() => setLoading(false), 1800);
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <>
-      <LoadingScreen isVisible={loading} onComplete={() => {}} onVideoEnd={handleVideoEnd} />
+      <LoadingScreen isVisible={loading} onComplete={() => {}} />
 
       {!loading && (
         <motion.div
