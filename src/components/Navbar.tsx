@@ -110,7 +110,7 @@ const Navbar = () => {
       </motion.nav>
 
       <motion.div
-        className="fixed inset-0 z-30 bg-background/98 flex flex-col items-center justify-center gap-8 md:hidden"
+        className="fixed inset-0 z-30 bg-background flex flex-col items-center justify-center gap-8 md:hidden"
         initial={false}
         animate={isOpen ? { opacity: 1, pointerEvents: "auto" as const } : { opacity: 0, pointerEvents: "none" as const }}
         transition={{ duration: 0.4 }}
