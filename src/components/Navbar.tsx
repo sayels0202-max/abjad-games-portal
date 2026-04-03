@@ -100,14 +100,6 @@ const Navbar = () => {
               <span className="text-[10px] tracking-[0.15em] uppercase font-body">Discord</span>
             </a>
 
-            {/* Careers icon */}
-            <Link
-              to="/careers"
-              className="relative text-muted-foreground hover:text-primary transition-colors duration-300 ml-1"
-              title="Careers"
-            >
-              <Briefcase className="w-4 h-4" strokeWidth={1.5} />
-            </Link>
           </div>
 
           <button onClick={() => setIsOpen(!isOpen)} className="md:hidden flex flex-col gap-1.5 p-2">
