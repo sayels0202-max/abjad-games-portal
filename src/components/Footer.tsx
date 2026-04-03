@@ -69,7 +69,7 @@ const Footer = () => (
 
       </div>
 
-      <p className="text-xs text-muted-foreground font-body">
+      <p className="text-sm text-muted-foreground font-body">
         © {new Date().getFullYear()} Abjad Games. All rights reserved.
       </p>
     </div>
