@@ -225,7 +225,7 @@ const HeroSection = () => {
                   animate={{ scaleX: 1 }}
                   transition={{ duration: 1, delay: 2.2 }}
                 />
-                <p className="font-body text-sm md:text-lg tracking-[0.35em] uppercase text-destructive-foreground bg-gradient-to-r from-muted-foreground via-foreground to-muted-foreground bg-clip-text text-transparent">
+                <p className="font-body text-sm md:text-lg tracking-[0.35em] uppercase bg-gradient-to-r from-muted-foreground via-foreground to-muted-foreground bg-clip-text text-transparent drop-shadow-[0_0_30px_hsl(0_0%_0%/0.9)]" style={{ textShadow: "0 0 40px hsl(0 0% 0% / 0.9), 0 0 80px hsl(0 0% 0% / 0.6)" }}>
                   {motto}
                 </p>
                 <motion.span
