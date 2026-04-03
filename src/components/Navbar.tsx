@@ -62,7 +62,7 @@ const Navbar = () => {
             <img
               src={logoIcon}
               alt="ABJAD GAMES"
-              className="h-10 md:h-12 w-auto transition-all duration-500 group-hover:drop-shadow-[0_0_15px_hsl(38_92%_50%/0.3)]"
+              className="h-12 md:h-14 w-auto transition-all duration-500 group-hover:drop-shadow-[0_0_15px_hsl(38_92%_50%/0.3)]"
             />
           </a>
 
