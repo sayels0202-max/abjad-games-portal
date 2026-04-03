@@ -28,7 +28,7 @@ const Index = () => {
 
   return (
     <>
-      <LoadingScreen isVisible={loading} onComplete={() => {}} />
+      <LoadingScreen isVisible={loading} onComplete={() => {}} onVideoEnd={handleVideoEnd} />
 
       {!loading && (
         <motion.div
