@@ -159,14 +159,14 @@ const HeroSection = () => {
               src={banner}
               alt="Al-Raiy"
               className="h-full w-full object-cover"
-              style={{ filter: `blur(${blurVal}px)` }}
+              style={{ filter: `blur(${blurVal}px) brightness(1.18) contrast(1.06) saturate(1.08)` }}
             />
             {/* Color grading overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
-            <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-transparent to-background/70" />
+            <div className="absolute inset-0 bg-gradient-to-b from-background/55 via-transparent to-background/45" />
+            <div className="absolute inset-0 bg-gradient-to-r from-background/35 via-transparent to-background/35" />
             {/* Film grain noise */}
             <div
-              className="absolute inset-0 opacity-[0.04] mix-blend-overlay pointer-events-none"
+              className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none"
               style={{
                 backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
               }}
@@ -191,7 +191,7 @@ const HeroSection = () => {
           <div
             className="absolute inset-0 z-[5] pointer-events-none"
             style={{
-              background: "radial-gradient(ellipse 72% 58% at 50% 45%, hsl(0 0% 0% / 0.88) 0%, hsl(0 0% 0% / 0.45) 42%, transparent 100%)",
+              background: "radial-gradient(ellipse 72% 58% at 50% 45%, hsl(0 0% 0% / 0.58) 0%, hsl(0 0% 0% / 0.18) 42%, transparent 100%)",
             }}
           />
 
