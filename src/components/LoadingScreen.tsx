@@ -108,6 +108,7 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
                 src={logoOutline}
                 alt="Abjad Games"
                 className="w-44 md:w-60 animate-breathe relative z-10"
+                fetchPriority="high"
               />
             </div>
 
