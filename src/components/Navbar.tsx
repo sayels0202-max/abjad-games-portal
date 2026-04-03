@@ -60,9 +60,9 @@ const Navbar = () => {
         <div className="relative mx-auto max-w-7xl flex items-center justify-between">
           <a href="#" className="flex items-center group" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
             <img
-              src={logoText}
+              src={logoIcon}
               alt="ABJAD GAMES"
-              className="h-20 md:h-24 transition-all duration-500 group-hover:drop-shadow-[0_0_15px_hsl(38_92%_50%/0.3)]"
+              className="h-10 md:h-12 w-auto transition-all duration-500 group-hover:drop-shadow-[0_0_15px_hsl(38_92%_50%/0.3)]"
             />
           </a>
 
