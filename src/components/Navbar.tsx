@@ -57,7 +57,7 @@ const Navbar = () => {
           className="absolute inset-0 mirror-surface border-b border-foreground/5"
           style={{ opacity: bgOpacity }}
         />
-        <div className="relative mx-auto w-full flex items-center justify-between">
+        <div className="relative mx-auto max-w-7xl flex items-center justify-between">
           <a href="#" className="flex items-center group" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
             <img
               src={logoIcon}
