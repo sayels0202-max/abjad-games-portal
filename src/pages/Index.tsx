@@ -18,8 +18,11 @@ import Footer from "@/components/Footer";
 const Index = () => {
   const [loading, setLoading] = useState(true);
 
+  const handleVideoEnd = () => setLoading(false);
+
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1800);
+    // Fallback timeout in case video fails to load
+    const timer = setTimeout(() => setLoading(false), 15000);
     return () => clearTimeout(timer);
   }, []);
 
