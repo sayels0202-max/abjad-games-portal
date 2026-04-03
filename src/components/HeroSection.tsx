@@ -194,6 +194,8 @@ const HeroSection = () => {
           >
             {/* Logo with spark particles */}
             <div className="relative mb-10 md:mb-14">
+              {/* Dark radial glow behind logo */}
+              <div className="absolute inset-0 -z-[1] scale-150 bg-radial-[ellipse_at_center] from-background/90 via-background/60 to-transparent" />
               <motion.img
                 src={abjadLogo}
                 alt="Abjad Games"
@@ -201,6 +203,7 @@ const HeroSection = () => {
                 animate={{ opacity: showTitle ? 1 : 0, scale: showTitle ? 1 : 0.8 }}
                 transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
                 className="relative z-10 w-[440px] md:w-[680px] lg:w-[920px] mx-auto drop-shadow-[0_0_40px_hsl(var(--primary)/0.15)]"
+                style={{ filter: "drop-shadow(0 0 60px hsl(0 0% 0% / 0.8))" }}
               />
 
               {/* Canvas sparks from logo */}
@@ -222,7 +225,7 @@ const HeroSection = () => {
                   animate={{ scaleX: 1 }}
                   transition={{ duration: 1, delay: 2.2 }}
                 />
-                <p className="font-body text-sm md:text-lg tracking-[0.35em] uppercase text-destructive-foreground bg-gradient-to-r from-muted-foreground via-foreground to-muted-foreground bg-clip-text text-transparent">
+                <p className="font-body text-sm md:text-lg tracking-[0.35em] uppercase bg-gradient-to-r from-muted-foreground via-foreground to-muted-foreground bg-clip-text text-transparent drop-shadow-[0_0_30px_hsl(0_0%_0%/0.9)]" style={{ textShadow: "0 0 40px hsl(0 0% 0% / 0.9), 0 0 80px hsl(0 0% 0% / 0.6)" }}>
                   {motto}
                 </p>
                 <motion.span
