@@ -160,7 +160,7 @@ const HeroSection = () => {
               muted
               playsInline
               className="h-full w-full object-cover"
-              style={{ filter: `blur(${Math.max(blurVal - 0.6, 0)}px) brightness(1.32) contrast(1.08) saturate(1.14)` }}
+              style={{ filter: blurVal > 0.6 ? `blur(${blurVal - 0.6}px)` : 'none' }}
             >
               <source src="/hero-bg.mp4" type="video/mp4" />
             </video>
