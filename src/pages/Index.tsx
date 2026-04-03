@@ -13,7 +13,7 @@ import TeamSection from "@/components/TeamSection";
 import CommunitySection from "@/components/CommunitySection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
-import AmbientAudio from "@/components/AmbientAudio";
+
 
 const Index = () => {
   const [loading, setLoading] = useState(true);
@@ -44,7 +44,7 @@ const Index = () => {
           <TeamSection />
           <ContactSection />
           <Footer />
-          <AmbientAudio />
+          
           
         </motion.div>
       )}
