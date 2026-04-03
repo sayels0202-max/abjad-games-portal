@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef } from "react";
-import logoOutline from "@/assets/logo-outline.png";
+import logoOutline from "@/assets/logo-outline-sm.webp";
 
 interface LoadingScreenProps {
   isVisible: boolean;

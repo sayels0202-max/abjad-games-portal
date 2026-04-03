@@ -1,4 +1,4 @@
-import logoOutline from "@/assets/logo-outline.png";
+import logoOutline from "@/assets/logo-outline-sm.webp";
 import ScrollReveal from "./ui/ScrollReveal";
 import GlassCard from "./ui/GlassCard";
 

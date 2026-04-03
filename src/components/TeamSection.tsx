@@ -1,10 +1,10 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
 import ScrollReveal from "./ui/ScrollReveal";
-import firasImg from "@/assets/team/firas.jpg";
-import sayilImg from "@/assets/team/sayil.jpg";
-import alsulaimanImg from "@/assets/team/alsulaiman.jpg";
-import alradhyanImg from "@/assets/team/alradhyan.jpg";
+import firasImg from "@/assets/team/firas.webp";
+import sayilImg from "@/assets/team/sayil.webp";
+import alsulaimanImg from "@/assets/team/alsulaiman.webp";
+import alradhyanImg from "@/assets/team/alradhyan.webp";
 
 const team = [
   { name: "Sayil", lastName: "Alyami", role: "Game Designer", image: sayilImg, objectPos: "object-[50%_20%]" },

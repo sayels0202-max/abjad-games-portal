@@ -154,12 +154,16 @@ const HeroSection = () => {
         >
           {/* Background layers */}
           <motion.div className="absolute inset-0" style={{ y: imgY, scale }}>
-            <img
-              src={banner}
-              alt="Al-Raiy"
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
               className="h-full w-full object-cover"
               style={{ filter: `blur(${Math.max(blurVal - 0.6, 0)}px) brightness(1.32) contrast(1.08) saturate(1.14)` }}
-            />
+            >
+              <source src="/hero-bg.webm" type="video/webm" />
+            </video>
             {/* Color grading overlay */}
             <div className="absolute inset-0 bg-gradient-to-b from-background/35 via-transparent to-background/25" />
             <div className="absolute inset-0 bg-gradient-to-r from-background/18 via-transparent to-background/18" />

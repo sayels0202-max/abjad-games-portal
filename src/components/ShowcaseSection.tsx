@@ -1,10 +1,10 @@
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import screenshot1 from "@/assets/screenshot1.png";
-import screenshot2 from "@/assets/screenshot2.png";
-import screenshot3 from "@/assets/screenshot3.png";
-import screenshot4 from "@/assets/screenshot4.png";
+import screenshot1 from "@/assets/screenshot1.webp";
+import screenshot2 from "@/assets/screenshot2.webp";
+import screenshot3 from "@/assets/screenshot3.webp";
+import screenshot4 from "@/assets/screenshot4.webp";
 import gameplayBg3 from "@/assets/gameplay-bg3.gif";
 import ScrollReveal from "./ui/ScrollReveal";
 
