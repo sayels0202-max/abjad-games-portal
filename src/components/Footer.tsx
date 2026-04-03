@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-
+import footerLogo from "@/assets/footer-logo.png";
 const socials = [
   {
     name: "X (Twitter)",
