@@ -208,14 +208,33 @@ const HeroSection = () => {
             </div>
 
             {/* Motto */}
-            <motion.p
-              className="font-body text-sm md:text-lg tracking-[0.35em] uppercase mb-14 text-destructive-foreground"
+            <motion.div
+              className="relative mb-14"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.8 }}
             >
-              {motto}
-            </motion.p>
+              {/* Decorative lines */}
+              <div className="flex items-center gap-4 justify-center">
+                <motion.span
+                  className="block h-[1px] w-12 bg-gradient-to-r from-transparent to-primary/60"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: 2.2 }}
+                />
+                <p className="font-body text-sm md:text-lg tracking-[0.35em] uppercase text-destructive-foreground bg-gradient-to-r from-muted-foreground via-foreground to-muted-foreground bg-clip-text text-transparent">
+                  {motto}
+                </p>
+                <motion.span
+                  className="block h-[1px] w-12 bg-gradient-to-l from-transparent to-primary/60"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: 2.2 }}
+                />
+              </div>
+              {/* Subtle glow underneath */}
+              <div className="absolute inset-0 -z-10 blur-2xl opacity-20 bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+            </motion.div>
 
           </motion.div>
 
