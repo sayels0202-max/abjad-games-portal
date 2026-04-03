@@ -44,7 +44,7 @@ const Index = () => {
           <TeamSection />
           <ContactSection />
           <Footer />
-          <AmbientAudio />
+          
           
         </motion.div>
       )}
