@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import logoText from "@/assets/logo-text.png";
+import logoIcon from "@/assets/footer-logo.png";
 
 const navLinks = [
   { label: "Games", href: "#showcase" },
