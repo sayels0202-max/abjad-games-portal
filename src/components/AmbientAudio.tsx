@@ -14,21 +14,12 @@ const AmbientAudio = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Auto-play on first user interaction (click/scroll/key)
+  // Auto-play immediately on mount
   useEffect(() => {
-    const startAudio = () => {
-      if (hasStartedRef.current) return;
-      const audio = audioRef.current;
-      if (!audio) return;
-      audio.volume = 0.3;
-      audio.play().then(() => {
-        hasStartedRef.current = true;
-      }).catch(() => {});
-    };
-
-    const events = ["click", "scroll", "keydown", "touchstart"];
-    events.forEach((e) => window.addEventListener(e, startAudio, { once: true }));
-    return () => events.forEach((e) => window.removeEventListener(e, startAudio));
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.volume = 0.3;
+    audio.play().catch(() => {});
   }, []);
 
   const toggleAudio = () => {
