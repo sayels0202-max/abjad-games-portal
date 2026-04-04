@@ -14,12 +14,44 @@ const AmbientAudio = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Auto-play immediately on mount
+  // Auto-play on mount, with fallback on first user interaction
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
     audio.volume = 0.3;
-    audio.play().catch(() => {});
+    
+    const tryPlay = () => {
+      if (hasStartedRef.current) return;
+      audio.play().then(() => {
+        hasStartedRef.current = true;
+      }).catch(() => {});
+    };
+
+    tryPlay();
+
+    const onInteraction = () => {
+      if (!hasStartedRef.current && !isMuted) {
+        tryPlay();
+      }
+      if (hasStartedRef.current) {
+        document.removeEventListener("click", onInteraction);
+        document.removeEventListener("touchstart", onInteraction);
+        document.removeEventListener("scroll", onInteraction);
+        document.removeEventListener("keydown", onInteraction);
+      }
+    };
+
+    document.addEventListener("click", onInteraction);
+    document.addEventListener("touchstart", onInteraction);
+    document.addEventListener("scroll", onInteraction);
+    document.addEventListener("keydown", onInteraction);
+
+    return () => {
+      document.removeEventListener("click", onInteraction);
+      document.removeEventListener("touchstart", onInteraction);
+      document.removeEventListener("scroll", onInteraction);
+      document.removeEventListener("keydown", onInteraction);
+    };
   }, []);
 
   const toggleAudio = () => {
