@@ -65,7 +65,7 @@ const AdminLinkedInPage = () => {
     if (!editing) return;
     const { id, created_at, ...rest } = editing as any;
 
-    const payload = { post_url: rest.post_url, caption: rest.caption, published: rest.published };
+    const payload = { post_url: rest.post_url, text: rest.text, image_url: rest.image_url, author_name: rest.author_name, likes_count: rest.likes_count, caption: rest.caption, published: rest.published };
 
     if (isNew) {
       const { error } = await supabase.from("linkedin_posts").insert(payload);
