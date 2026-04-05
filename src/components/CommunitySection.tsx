@@ -82,18 +82,61 @@ const CommunitySection = () => {
             ))}
           </div>
         ) : !news || news.length === 0 ? (
-          <ScrollReveal>
-            <div className="text-center py-16">
-              <GlassCard className="inline-block px-12 py-10" tilt={false}>
-                <p className="font-display text-lg text-foreground mb-2">
-                  Stay Tuned
-                </p>
-                <p className="text-sm text-muted-foreground font-body">
-                  News and announcements coming soon.
-                </p>
-              </GlassCard>
+          tweets.length > 0 ? (
+            <div>
+              <div className="flex items-center justify-center gap-3 mb-8">
+                <Twitter className="w-5 h-5 text-primary" />
+                <h3 className="font-display text-xl font-semibold text-foreground">
+                  Latest from @AbjadGames
+                </h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {tweets.slice(0, 3).map((tweet, i) => (
+                  <motion.a
+                    key={tweet.id}
+                    href={`https://x.com/AbjadGames/status/${tweet.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: i * 0.08 }}
+                  >
+                    <GlassCard className="p-5 h-full hover:border-primary/30 transition-colors" tilt={false}>
+                      <div className="flex items-center gap-2 mb-3">
+                        <Twitter className="w-4 h-4 text-primary/60" />
+                        <span className="text-xs text-muted-foreground/60 font-body">
+                          {formatDate(tweet.created_at)}
+                        </span>
+                      </div>
+                      <p className="text-sm text-foreground/90 font-body leading-relaxed line-clamp-4">
+                        {tweet.text}
+                      </p>
+                      {tweet.public_metrics && (
+                        <div className="flex gap-4 mt-3 text-xs text-muted-foreground/50 font-body">
+                          <span>❤️ {tweet.public_metrics.like_count}</span>
+                          <span>🔁 {tweet.public_metrics.retweet_count}</span>
+                        </div>
+                      )}
+                    </GlassCard>
+                  </motion.a>
+                ))}
+              </div>
             </div>
-          </ScrollReveal>
+          ) : (
+            <ScrollReveal>
+              <div className="text-center py-16">
+                <GlassCard className="inline-block px-12 py-10" tilt={false}>
+                  <p className="font-display text-lg text-foreground mb-2">
+                    Stay Tuned
+                  </p>
+                  <p className="text-sm text-muted-foreground font-body">
+                    News and announcements coming soon.
+                  </p>
+                </GlassCard>
+              </div>
+            </ScrollReveal>
+          )
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {news.map((item, i) => (
