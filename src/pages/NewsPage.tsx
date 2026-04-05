@@ -17,6 +17,11 @@ interface NewsItem {
   created_at: string;
 }
 
+type FeedItem =
+  | { type: "news"; data: NewsItem; date: Date }
+  | { type: "tweet"; data: Tweet; date: Date }
+  | { type: "linkedin"; data: { id: string; post_url: string; caption: string | null; created_at: string }; date: Date };
+
 const NewsPage = () => {
   const { data: news, isLoading } = useQuery({
     queryKey: ["all-published-news"],
@@ -42,9 +47,6 @@ const NewsPage = () => {
     retry: 1,
   });
 
-  const tweets: Tweet[] = tweetsData?.data || [];
-  const mediaMap = buildMediaMap(tweetsData || {});
-
   const { data: linkedinPosts } = useQuery({
     queryKey: ["all-linkedin-posts"],
     queryFn: async () => {
@@ -58,12 +60,36 @@ const NewsPage = () => {
     },
   });
 
+  const tweets: Tweet[] = tweetsData?.data || [];
+  const mediaMap = buildMediaMap(tweetsData || {});
+
   const formatDate = (dateStr: string) =>
     new Date(dateStr).toLocaleDateString("en-US", {
       year: "numeric",
       month: "short",
       day: "numeric",
     });
+
+  // Merge all into unified feed
+  const feedItems: FeedItem[] = [];
+
+  if (news) {
+    news.forEach((item) => {
+      feedItems.push({ type: "news", data: item, date: new Date(item.created_at) });
+    });
+  }
+
+  tweets.forEach((tweet) => {
+    feedItems.push({ type: "tweet", data: tweet, date: new Date(tweet.created_at) });
+  });
+
+  if (linkedinPosts) {
+    linkedinPosts.forEach((post) => {
+      feedItems.push({ type: "linkedin", data: post, date: new Date(post.created_at) });
+    });
+  }
+
+  feedItems.sort((a, b) => b.date.getTime() - a.date.getTime());
 
   return (
     <div className="min-h-screen bg-background px-6 py-16">
@@ -77,17 +103,64 @@ const NewsPage = () => {
           </h1>
         </div>
 
-        {/* Tweets Section */}
-        {tweets.length > 0 && (
-          <div className="mb-16">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {tweets.map((tweet, i) => {
-                const media = getTweetMedia(tweet, mediaMap);
+        {isLoading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="h-64 rounded-2xl bg-muted/20 animate-pulse" />
+            ))}
+          </div>
+        ) : feedItems.length === 0 ? (
+          <div className="text-center py-16">
+            <p className="text-muted-foreground font-body">No news yet. Stay tuned!</p>
+            <Link to="/" className="text-primary text-sm font-body hover:underline mt-4 inline-block">
+              ← Back to Home
+            </Link>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {feedItems.map((item, i) => {
+              if (item.type === "news") {
+                return (
+                  <motion.div
+                    key={`news-${item.data.id}`}
+                    initial={{ opacity: 0, y: 24 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: i * 0.08 }}
+                  >
+                    <Link to={`/news/${item.data.id}`}>
+                      <GlassCard className="overflow-hidden h-full flex flex-col hover:border-primary/30 transition-colors" tilt={false}>
+                        {item.data.cover_image_url && (
+                          <div className="aspect-video overflow-hidden">
+                            <img src={item.data.cover_image_url} alt={item.data.title} className="w-full h-full object-cover" loading="lazy" />
+                          </div>
+                        )}
+                        <div className="p-6 flex flex-col flex-1">
+                          <time className="text-xs tracking-[0.15em] uppercase text-muted-foreground/60 font-body mb-3">
+                            {formatDate(item.data.created_at)}
+                            {item.data.author_name && ` · ${item.data.author_name}`}
+                          </time>
+                          <h3 className="font-display text-lg font-semibold text-foreground mb-2">
+                            {item.data.title}
+                          </h3>
+                          {item.data.summary && (
+                            <p className="text-sm text-muted-foreground font-body line-clamp-3 flex-1">
+                              {item.data.summary}
+                            </p>
+                          )}
+                        </div>
+                      </GlassCard>
+                    </Link>
+                  </motion.div>
+                );
+              }
+
+              if (item.type === "tweet") {
+                const media = getTweetMedia(item.data, mediaMap);
                 const mediaUrl = media?.url || media?.preview_image_url;
                 return (
                   <motion.a
-                    key={tweet.id}
-                    href={`https://x.com/AbjadGames/status/${tweet.id}`}
+                    key={`tweet-${item.data.id}`}
+                    href={`https://x.com/AbjadGames/status/${item.data.id}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     initial={{ opacity: 0, y: 16 }}
@@ -97,12 +170,7 @@ const NewsPage = () => {
                     <GlassCard className="overflow-hidden h-full hover:border-primary/30 transition-colors" tilt={false}>
                       {mediaUrl && (
                         <div className="relative aspect-video overflow-hidden">
-                          <img
-                            src={mediaUrl}
-                            alt=""
-                            className="w-full h-full object-cover"
-                            loading="lazy"
-                          />
+                          <img src={mediaUrl} alt="" className="w-full h-full object-cover" loading="lazy" />
                           {(media?.type === "video" || media?.type === "animated_gif") && (
                             <div className="absolute inset-0 flex items-center justify-center bg-background/30">
                               <div className="w-10 h-10 rounded-full bg-primary/90 flex items-center justify-center">
@@ -116,101 +184,39 @@ const NewsPage = () => {
                         <div className="flex items-center gap-2 mb-3">
                           <XLogo className="w-4 h-4 text-primary/60" />
                           <span className="text-xs text-muted-foreground/60 font-body">
-                            {formatDate(tweet.created_at)}
+                            {formatDate(item.data.created_at)}
                           </span>
                         </div>
                         <p className="text-sm text-foreground/90 font-body leading-relaxed whitespace-pre-line" dir="auto">
-                          {cleanTweetText(tweet.text)}
+                          {cleanTweetText(item.data.text)}
                         </p>
-                        {tweet.public_metrics && (
+                        {item.data.public_metrics && (
                           <div className="flex gap-4 mt-3 text-xs text-muted-foreground/50 font-body">
-                            <span>❤️ {tweet.public_metrics.like_count}</span>
-                            <span>🔁 {tweet.public_metrics.retweet_count}</span>
+                            <span>❤️ {item.data.public_metrics.like_count}</span>
+                            <span>🔁 {item.data.public_metrics.retweet_count}</span>
                           </div>
                         )}
                       </div>
                     </GlassCard>
                   </motion.a>
                 );
-              })}
-            </div>
-          </div>
-        )}
+              }
 
-        {/* LinkedIn Posts */}
-        {linkedinPosts && linkedinPosts.length > 0 && (
-          <div className="mb-16">
-            <h2 className="font-display text-xl md:text-2xl font-bold text-foreground tracking-wide mb-6">
-              LinkedIn
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {linkedinPosts.map((post, i) => (
-                <motion.div
-                  key={post.id}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: i * 0.06 }}
-                >
-                  <LinkedInEmbed postUrl={post.post_url} caption={post.caption} />
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        )}
+              if (item.type === "linkedin") {
+                return (
+                  <motion.div
+                    key={`linkedin-${item.data.id}`}
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: i * 0.06 }}
+                  >
+                    <LinkedInEmbed postUrl={item.data.post_url} caption={item.data.caption} />
+                  </motion.div>
+                );
+              }
 
-        {/* News Section */}
-        {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="h-64 rounded-2xl bg-muted/20 animate-pulse" />
-            ))}
-          </div>
-        ) : !news || news.length === 0 ? (
-          <div className="text-center py-16">
-            <p className="text-muted-foreground font-body">No news yet. Stay tuned!</p>
-            <Link to="/" className="text-primary text-sm font-body hover:underline mt-4 inline-block">
-              ← Back to Home
-            </Link>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {news.map((item, i) => (
-              <motion.div
-                key={item.id}
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-              >
-                <Link to={`/news/${item.id}`}>
-                  <GlassCard className="overflow-hidden h-full flex flex-col hover:border-primary/30 transition-colors" tilt={false}>
-                    {item.cover_image_url && (
-                      <div className="aspect-video overflow-hidden">
-                        <img
-                          src={item.cover_image_url}
-                          alt={item.title}
-                          className="w-full h-full object-cover"
-                          loading="lazy"
-                        />
-                      </div>
-                    )}
-                    <div className="p-6 flex flex-col flex-1">
-                      <time className="text-xs tracking-[0.15em] uppercase text-muted-foreground/60 font-body mb-3">
-                        {formatDate(item.created_at)}
-                        {item.author_name && ` · ${item.author_name}`}
-                      </time>
-                      <h3 className="font-display text-lg font-semibold text-foreground mb-2">
-                        {item.title}
-                      </h3>
-                      {item.summary && (
-                        <p className="text-sm text-muted-foreground font-body line-clamp-3 flex-1">
-                          {item.summary}
-                        </p>
-                      )}
-                    </div>
-                  </GlassCard>
-                </Link>
-              </motion.div>
-            ))}
+              return null;
+            })}
           </div>
         )}
 
