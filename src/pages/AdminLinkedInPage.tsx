@@ -141,11 +141,44 @@ const AdminLinkedInPage = () => {
               </p>
             </div>
             <div>
+              <label className="text-sm text-muted-foreground font-body mb-1 block">Post Text</label>
+              <Textarea
+                value={editing.text || ""}
+                onChange={(e) => setEditing({ ...editing, text: e.target.value })}
+                placeholder="نص المنشور"
+                rows={4}
+              />
+            </div>
+            <div>
+              <label className="text-sm text-muted-foreground font-body mb-1 block">Image URL (optional)</label>
+              <Input
+                value={editing.image_url || ""}
+                onChange={(e) => setEditing({ ...editing, image_url: e.target.value })}
+                placeholder="https://..."
+                dir="ltr"
+              />
+            </div>
+            <div>
+              <label className="text-sm text-muted-foreground font-body mb-1 block">Author Name</label>
+              <Input
+                value={editing.author_name || ""}
+                onChange={(e) => setEditing({ ...editing, author_name: e.target.value })}
+              />
+            </div>
+            <div>
+              <label className="text-sm text-muted-foreground font-body mb-1 block">Likes Count</label>
+              <Input
+                type="number"
+                value={editing.likes_count || 0}
+                onChange={(e) => setEditing({ ...editing, likes_count: parseInt(e.target.value) || 0 })}
+              />
+            </div>
+            <div>
               <label className="text-sm text-muted-foreground font-body mb-1 block">Caption (optional)</label>
               <Input
                 value={editing.caption || ""}
                 onChange={(e) => setEditing({ ...editing, caption: e.target.value })}
-                placeholder="وصف اختياري للمنشور"
+                placeholder="وصف اختياري"
               />
             </div>
             <div className="flex items-center gap-3">
@@ -156,10 +189,16 @@ const AdminLinkedInPage = () => {
               <label className="text-sm text-foreground font-body">Published</label>
             </div>
 
-            {editing.post_url && (
+            {editing.text && (
               <div className="mt-4">
                 <label className="text-sm text-muted-foreground font-body mb-2 block">Preview</label>
-                <LinkedInEmbed postUrl={editing.post_url} caption={editing.caption} />
+                <LinkedInEmbed
+                  postUrl={editing.post_url}
+                  text={editing.text}
+                  imageUrl={editing.image_url}
+                  authorName={editing.author_name}
+                  likesCount={editing.likes_count}
+                />
               </div>
             )}
 
