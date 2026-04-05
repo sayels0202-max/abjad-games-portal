@@ -20,7 +20,7 @@ interface NewsItem {
 type FeedItem =
   | { type: "news"; data: NewsItem; date: Date }
   | { type: "tweet"; data: Tweet; date: Date }
-  | { type: "linkedin"; data: { id: string; post_url: string; caption: string | null; created_at: string }; date: Date };
+  | { type: "linkedin"; data: { id: string; post_url: string; text: string | null; image_url: string | null; author_name: string | null; likes_count: number | null; caption: string | null; created_at: string }; date: Date };
 
 const CommunitySection = () => {
   const { data: news, isLoading } = useQuery({
