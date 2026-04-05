@@ -1,4 +1,4 @@
-import { Linkedin } from "lucide-react";
+import LinkedInLogo from "./ui/LinkedInLogo";
 import GlassCard from "./ui/GlassCard";
 
 interface LinkedInEmbedProps {
