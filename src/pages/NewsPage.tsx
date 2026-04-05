@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import GlassCard from "@/components/ui/GlassCard";
 import XLogo from "@/components/ui/XLogo";
 import { Play } from "lucide-react";
-import { Tweet, TweetsResponse, buildMediaMap, getTweetMedia } from "@/lib/tweets";
+import { Tweet, TweetsResponse, buildMediaMap, getTweetMedia, cleanTweetText } from "@/lib/tweets";
 
 interface NewsItem {
   id: string;
@@ -106,7 +106,7 @@ const NewsPage = () => {
                           </span>
                         </div>
                         <p className="text-sm text-foreground/90 font-body leading-relaxed whitespace-pre-line" dir="auto">
-                          {tweet.text}
+                          {cleanTweetText(tweet.text)}
                         </p>
                         {tweet.public_metrics && (
                           <div className="flex gap-4 mt-3 text-xs text-muted-foreground/50 font-body">

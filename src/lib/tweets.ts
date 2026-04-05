@@ -40,3 +40,8 @@ export function getTweetMedia(tweet: Tweet, mediaMap: Record<string, TweetMedia>
   const key = tweet.attachments?.media_keys?.[0];
   return key ? mediaMap[key] : undefined;
 }
+
+export function cleanTweetText(text: string): string {
+  // Remove trailing t.co URLs (media/card links Twitter appends)
+  return text.replace(/\s*https:\/\/t\.co\/\S+\s*$/g, "").trim();
+}

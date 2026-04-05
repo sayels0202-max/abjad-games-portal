@@ -6,7 +6,7 @@ import GlassCard from "./ui/GlassCard";
 import ScrollReveal from "./ui/ScrollReveal";
 import XLogo from "./ui/XLogo";
 import { Play } from "lucide-react";
-import { Tweet, TweetsResponse, buildMediaMap, getTweetMedia } from "@/lib/tweets";
+import { Tweet, TweetsResponse, buildMediaMap, getTweetMedia, cleanTweetText } from "@/lib/tweets";
 
 interface NewsItem {
   id: string;
@@ -118,7 +118,7 @@ const CommunitySection = () => {
                           </span>
                         </div>
                         <p className="text-sm text-foreground/90 font-body leading-relaxed whitespace-pre-line" dir="auto">
-                          {tweet.text}
+                          {cleanTweetText(tweet.text)}
                         </p>
                         {tweet.public_metrics && (
                           <div className="flex gap-4 mt-3 text-xs text-muted-foreground/50 font-body">
