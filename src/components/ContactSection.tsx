@@ -2,6 +2,8 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import ScrollReveal from "./ui/ScrollReveal";
 import GlassCard from "./ui/GlassCard";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const ContactSection = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
