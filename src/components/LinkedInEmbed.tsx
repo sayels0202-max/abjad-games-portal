@@ -42,7 +42,7 @@ const LinkedInEmbed = ({ postUrl, text, imageUrl, authorName, likesCount, create
             <img src={imageUrl} alt="" className="w-full h-full object-cover" loading="lazy" />
           </div>
         )}
-        <div className="p-4">
+        <div className="p-5">
           <div className="flex items-center gap-2 mb-3">
             <LinkedInLogo className="w-4 h-4 text-primary/60" />
             {authorName && (
