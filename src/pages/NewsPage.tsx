@@ -20,7 +20,7 @@ interface NewsItem {
 type FeedItem =
   | { type: "news"; data: NewsItem; date: Date }
   | { type: "tweet"; data: Tweet; date: Date }
-  | { type: "linkedin"; data: { id: string; post_url: string; caption: string | null; created_at: string }; date: Date };
+  | { type: "linkedin"; data: { id: string; post_url: string; text: string | null; image_url: string | null; author_name: string | null; likes_count: number | null; caption: string | null; created_at: string }; date: Date };
 
 const NewsPage = () => {
   const { data: news, isLoading } = useQuery({
@@ -210,7 +210,14 @@ const NewsPage = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: i * 0.06 }}
                   >
-                    <LinkedInEmbed postUrl={item.data.post_url} caption={item.data.caption} />
+                    <LinkedInEmbed
+                      postUrl={item.data.post_url}
+                      text={item.data.text}
+                      imageUrl={item.data.image_url}
+                      authorName={item.data.author_name}
+                      likesCount={item.data.likes_count}
+                      createdAt={item.data.created_at}
+                    />
                   </motion.div>
                 );
               }

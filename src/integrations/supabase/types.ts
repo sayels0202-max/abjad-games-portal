@@ -16,27 +16,39 @@ export type Database = {
     Tables: {
       linkedin_posts: {
         Row: {
+          author_name: string | null
           caption: string | null
           created_at: string
           id: string
+          image_url: string | null
+          likes_count: number | null
           post_url: string
           published: boolean
+          text: string | null
           updated_at: string
         }
         Insert: {
+          author_name?: string | null
           caption?: string | null
           created_at?: string
           id?: string
+          image_url?: string | null
+          likes_count?: number | null
           post_url: string
           published?: boolean
+          text?: string | null
           updated_at?: string
         }
         Update: {
+          author_name?: string | null
           caption?: string | null
           created_at?: string
           id?: string
+          image_url?: string | null
+          likes_count?: number | null
           post_url?: string
           published?: boolean
+          text?: string | null
           updated_at?: string
         }
         Relationships: []
