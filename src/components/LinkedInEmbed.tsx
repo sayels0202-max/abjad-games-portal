@@ -1,74 +1,74 @@
-import { useEffect, useRef } from "react";
+import { Linkedin } from "lucide-react";
+import GlassCard from "./ui/GlassCard";
 
 interface LinkedInEmbedProps {
   postUrl: string;
+  text?: string | null;
+  imageUrl?: string | null;
+  authorName?: string | null;
+  likesCount?: number | null;
   caption?: string | null;
+  createdAt?: string;
 }
 
-const LinkedInEmbed = ({ postUrl, caption }: LinkedInEmbedProps) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    // Load LinkedIn embed script if not already loaded
-    const existingScript = document.querySelector('script[src="https://platform.linkedin.com/badges/js/profile.js"]');
-    if (!existingScript) {
-      const script = document.createElement("script");
-      script.src = "https://platform.linkedin.com/in.js";
-      script.type = "text/javascript";
-      script.async = true;
-      document.body.appendChild(script);
+const LinkedInEmbed = ({ postUrl, text, imageUrl, authorName, likesCount, createdAt }: LinkedInEmbedProps) => {
+  // Build the LinkedIn post link from URN or URL
+  const getPostLink = (url: string) => {
+    if (url.startsWith("urn:li:")) {
+      return `https://www.linkedin.com/feed/update/${url}`;
     }
-
-    // Re-process embeds when component mounts
-    if ((window as any).IN?.parse) {
-      (window as any).IN.parse(containerRef.current);
-    }
-  }, [postUrl]);
-
-  // Extract post embed URL for iframe approach (more reliable)
-  const getEmbedUrl = (url: string) => {
-    // LinkedIn embed URL format
-    return `https://www.linkedin.com/embed/feed/update/${extractUrn(url)}`;
-  };
-
-  const extractUrn = (url: string) => {
-    // Try to extract activity ID from URL like:
-    // https://www.linkedin.com/posts/company_activity-1234567890-xxxx
-    // https://www.linkedin.com/feed/update/urn:li:activity:1234567890
-    const activityMatch = url.match(/activity[:-](\d+)/);
-    if (activityMatch) {
-      return `urn:li:activity:${activityMatch[1]}`;
-    }
-    // Try share format
-    const shareMatch = url.match(/urn:li:share:(\d+)/);
-    if (shareMatch) {
-      return `urn:li:share:${shareMatch[1]}`;
-    }
-    // Try ugcPost format
-    const ugcMatch = url.match(/urn:li:ugcPost:(\d+)/);
-    if (ugcMatch) {
-      return `urn:li:ugcPost:${ugcMatch[1]}`;
-    }
-    // Fallback: return URL as-is and let LinkedIn handle it
     return url;
   };
 
+  const formatDate = (dateStr?: string) => {
+    if (!dateStr) return "";
+    return new Date(dateStr).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  };
+
   return (
-    <div ref={containerRef} className="w-full">
-      <iframe
-        src={getEmbedUrl(postUrl)}
-        width="100%"
-        height="608"
-        frameBorder="0"
-        allowFullScreen
-        title={caption || "LinkedIn Post"}
-        className="rounded-xl border border-border bg-card"
-        style={{ minHeight: "400px", maxHeight: "700px" }}
-      />
-      {caption && (
-        <p className="text-xs text-muted-foreground font-body mt-2 text-center">{caption}</p>
-      )}
-    </div>
+    <a
+      href={getPostLink(postUrl)}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block h-full"
+    >
+      <GlassCard className="overflow-hidden h-full hover:border-primary/30 transition-colors" tilt={false}>
+        {imageUrl && (
+          <div className="relative aspect-video overflow-hidden">
+            <img src={imageUrl} alt="" className="w-full h-full object-cover" loading="lazy" />
+          </div>
+        )}
+        <div className="p-5">
+          <div className="flex items-center gap-2 mb-3">
+            <Linkedin className="w-4 h-4 text-[hsl(var(--primary))]/60" />
+            {authorName && (
+              <span className="text-xs text-muted-foreground/80 font-body font-medium">
+                {authorName}
+              </span>
+            )}
+            {createdAt && (
+              <span className="text-xs text-muted-foreground/60 font-body">
+                · {formatDate(createdAt)}
+              </span>
+            )}
+          </div>
+          {text && (
+            <p className="text-sm text-foreground/90 font-body leading-relaxed whitespace-pre-line" dir="auto">
+              {text}
+            </p>
+          )}
+          {(likesCount != null && likesCount > 0) && (
+            <div className="flex gap-4 mt-3 text-xs text-muted-foreground/50 font-body">
+              <span>👍 {likesCount}</span>
+            </div>
+          )}
+        </div>
+      </GlassCard>
+    </a>
   );
 };
 
