@@ -132,7 +132,7 @@ const CommunitySection = () => {
             </div>
           </ScrollReveal>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 items-start max-w-5xl mx-auto">
             {displayItems.map((item, i) => {
               if (item.type === "news") {
                 return (
@@ -154,11 +154,11 @@ const CommunitySection = () => {
                             />
                           </div>
                         )}
-                        <div className="p-6 flex flex-col flex-1">
+                        <div className="p-4 flex flex-col flex-1">
                           <time className="text-xs tracking-[0.15em] uppercase text-muted-foreground/60 font-body mb-3">
                             {formatDate(item.data.created_at)}
                           </time>
-                          <h3 className="font-display text-lg font-semibold text-foreground mb-2">
+                          <h3 className="font-display text-base font-semibold text-foreground mb-2">
                             {item.data.title}
                           </h3>
                           {item.data.summary && (
@@ -200,7 +200,7 @@ const CommunitySection = () => {
                           )}
                         </div>
                       )}
-                      <div className="p-5">
+                      <div className="p-4">
                         <div className="flex items-center gap-2 mb-3">
                           <XLogo className="w-4 h-4 text-primary/60" />
                           <span className="text-xs text-muted-foreground/60 font-body">
