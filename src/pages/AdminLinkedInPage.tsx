@@ -107,6 +107,10 @@ const AdminLinkedInPage = () => {
     setEditing({
       id: "",
       post_url: "",
+      text: "",
+      image_url: "",
+      author_name: "Abjad Games",
+      likes_count: 0,
       caption: "",
       published: true,
       created_at: "",
