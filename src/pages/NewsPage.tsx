@@ -6,6 +6,7 @@ import GlassCard from "@/components/ui/GlassCard";
 import XLogo from "@/components/ui/XLogo";
 import { Play } from "lucide-react";
 import { Tweet, TweetsResponse, buildMediaMap, getTweetMedia, cleanTweetText } from "@/lib/tweets";
+import LinkedInEmbed from "@/components/LinkedInEmbed";
 
 interface NewsItem {
   id: string;
