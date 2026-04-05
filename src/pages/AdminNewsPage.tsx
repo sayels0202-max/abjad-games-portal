@@ -191,6 +191,9 @@ const AdminNewsPage = () => {
             <Button onClick={startNew} size="sm">
               <Plus className="w-4 h-4 mr-1" /> New Article
             </Button>
+            <Button variant="outline" size="sm" onClick={() => navigate("/admin/linkedin")}>
+              LinkedIn Posts
+            </Button>
             <Button variant="outline" size="sm" onClick={handleLogout}>
               <LogOut className="w-4 h-4 mr-1" /> Logout
             </Button>
