@@ -43,6 +43,20 @@ const CommunitySection = () => {
     retry: 1,
   });
 
+  const { data: linkedinPosts } = useQuery({
+    queryKey: ["linkedin-posts"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("linkedin_posts")
+        .select("*")
+        .eq("published", true)
+        .order("created_at", { ascending: false })
+        .limit(3);
+      if (error) throw error;
+      return data;
+    },
+  });
+
   const tweets: Tweet[] = tweetsData?.data || [];
   const mediaMap = buildMediaMap(tweetsData || {});
 
