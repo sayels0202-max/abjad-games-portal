@@ -158,7 +158,7 @@ const CommunitySection = () => {
                           <time className="text-xs tracking-[0.15em] uppercase text-muted-foreground/60 font-body mb-3">
                             {formatDate(item.data.created_at)}
                           </time>
-                          <h3 className="font-display text-lg font-semibold text-foreground mb-2">
+                          <h3 className="font-display text-base font-semibold text-foreground mb-2">
                             {item.data.title}
                           </h3>
                           {item.data.summary && (
