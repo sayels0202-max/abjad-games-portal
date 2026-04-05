@@ -6,6 +6,7 @@ import GlassCard from "@/components/ui/GlassCard";
 import XLogo from "@/components/ui/XLogo";
 import { Play } from "lucide-react";
 import { Tweet, TweetsResponse, buildMediaMap, getTweetMedia, cleanTweetText } from "@/lib/tweets";
+import LinkedInEmbed from "@/components/LinkedInEmbed";
 
 interface NewsItem {
   id: string;
@@ -43,6 +44,19 @@ const NewsPage = () => {
 
   const tweets: Tweet[] = tweetsData?.data || [];
   const mediaMap = buildMediaMap(tweetsData || {});
+
+  const { data: linkedinPosts } = useQuery({
+    queryKey: ["all-linkedin-posts"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("linkedin_posts")
+        .select("*")
+        .eq("published", true)
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      return data;
+    },
+  });
 
   const formatDate = (dateStr: string) =>
     new Date(dateStr).toLocaleDateString("en-US", {
@@ -119,6 +133,27 @@ const NewsPage = () => {
                   </motion.a>
                 );
               })}
+            </div>
+          </div>
+        )}
+
+        {/* LinkedIn Posts */}
+        {linkedinPosts && linkedinPosts.length > 0 && (
+          <div className="mb-16">
+            <h2 className="font-display text-xl md:text-2xl font-bold text-foreground tracking-wide mb-6">
+              LinkedIn
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {linkedinPosts.map((post, i) => (
+                <motion.div
+                  key={post.id}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: i * 0.06 }}
+                >
+                  <LinkedInEmbed postUrl={post.post_url} caption={post.caption} />
+                </motion.div>
+              ))}
             </div>
           </div>
         )}

@@ -10,6 +10,7 @@ import NewsPage from "./pages/NewsPage.tsx";
 import NewsDetailPage from "./pages/NewsDetailPage.tsx";
 import AdminLoginPage from "./pages/AdminLoginPage.tsx";
 import AdminNewsPage from "./pages/AdminNewsPage.tsx";
+import AdminLinkedInPage from "./pages/AdminLinkedInPage.tsx";
 import AmbientAudio from "./components/AmbientAudio.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/news/:id" element={<NewsDetailPage />} />
           <Route path="/admin" element={<AdminLoginPage />} />
           <Route path="/admin/news" element={<AdminNewsPage />} />
+          <Route path="/admin/linkedin" element={<AdminLinkedInPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
