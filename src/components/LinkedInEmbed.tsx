@@ -44,7 +44,7 @@ const LinkedInEmbed = ({ postUrl, text, imageUrl, authorName, likesCount, create
         )}
         <div className="p-5">
           <div className="flex items-center gap-2 mb-3">
-            <Linkedin className="w-4 h-4 text-[hsl(var(--primary))]/60" />
+            <LinkedInLogo className="w-4 h-4 text-[#0A66C2]" />
             {authorName && (
               <span className="text-xs text-muted-foreground/80 font-body font-medium">
                 {authorName}
