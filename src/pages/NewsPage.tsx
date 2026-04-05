@@ -106,7 +106,7 @@ const NewsPage = () => {
                           </span>
                         </div>
                         <p className="text-sm text-foreground/90 font-body leading-relaxed whitespace-pre-line" dir="auto">
-                          {tweet.text}
+                          {cleanTweetText(tweet.text)}
                         </p>
                         {tweet.public_metrics && (
                           <div className="flex gap-4 mt-3 text-xs text-muted-foreground/50 font-body">
