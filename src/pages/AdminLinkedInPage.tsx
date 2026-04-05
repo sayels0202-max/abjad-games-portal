@@ -11,6 +11,10 @@ import LinkedInEmbed from "@/components/LinkedInEmbed";
 interface LinkedInPost {
   id: string;
   post_url: string;
+  text: string | null;
+  image_url: string | null;
+  author_name: string | null;
+  likes_count: number | null;
   caption: string | null;
   published: boolean;
   created_at: string;
