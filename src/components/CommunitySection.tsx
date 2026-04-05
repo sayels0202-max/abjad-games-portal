@@ -200,7 +200,7 @@ const CommunitySection = () => {
                           )}
                         </div>
                       )}
-                      <div className="p-5">
+                      <div className="p-4">
                         <div className="flex items-center gap-2 mb-3">
                           <XLogo className="w-4 h-4 text-primary/60" />
                           <span className="text-xs text-muted-foreground/60 font-body">
