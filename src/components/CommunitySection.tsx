@@ -7,6 +7,7 @@ import ScrollReveal from "./ui/ScrollReveal";
 import XLogo from "./ui/XLogo";
 import { Play } from "lucide-react";
 import { Tweet, TweetsResponse, buildMediaMap, getTweetMedia, cleanTweetText } from "@/lib/tweets";
+import LinkedInEmbed from "./LinkedInEmbed";
 
 interface NewsItem {
   id: string;
