@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import GlassCard from "@/components/ui/GlassCard";
 import XLogo from "@/components/ui/XLogo";
 import { Play } from "lucide-react";
-import { Tweet, TweetsResponse, buildMediaMap, getTweetMedia } from "@/lib/tweets";
+import { Tweet, TweetsResponse, buildMediaMap, getTweetMedia, cleanTweetText } from "@/lib/tweets";
 
 interface NewsItem {
   id: string;
