@@ -98,7 +98,7 @@ const NewsPage = () => {
                         {formatDate(tweet.created_at)}
                       </span>
                     </div>
-                    <p className="text-sm text-foreground/90 font-body leading-relaxed line-clamp-4">
+                    <p className="text-sm text-foreground/90 font-body leading-relaxed line-clamp-4" dir="auto">
                       {tweet.text}
                     </p>
                     {tweet.public_metrics && (
