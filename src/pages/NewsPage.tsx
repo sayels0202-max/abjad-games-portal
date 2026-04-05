@@ -137,6 +137,27 @@ const NewsPage = () => {
           </div>
         )}
 
+        {/* LinkedIn Posts */}
+        {linkedinPosts && linkedinPosts.length > 0 && (
+          <div className="mb-16">
+            <h2 className="font-display text-xl md:text-2xl font-bold text-foreground tracking-wide mb-6">
+              LinkedIn
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {linkedinPosts.map((post, i) => (
+                <motion.div
+                  key={post.id}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: i * 0.06 }}
+                >
+                  <LinkedInEmbed postUrl={post.post_url} caption={post.caption} />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* News Section */}
         {isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

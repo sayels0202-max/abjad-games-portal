@@ -201,6 +201,30 @@ const CommunitySection = () => {
             ))}
           </div>
         )}
+
+        {/* LinkedIn Posts */}
+        {linkedinPosts && linkedinPosts.length > 0 && (
+          <div className="mt-16">
+            <ScrollReveal>
+              <h3 className="font-display text-xl md:text-2xl font-bold text-foreground tracking-wide text-center mb-8">
+                LinkedIn
+              </h3>
+            </ScrollReveal>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {linkedinPosts.map((post, i) => (
+                <motion.div
+                  key={post.id}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.08 }}
+                >
+                  <LinkedInEmbed postUrl={post.post_url} caption={post.caption} />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
