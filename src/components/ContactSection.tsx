@@ -86,9 +86,10 @@ const ContactSection = () => {
               </div>
               <button
                 type="submit"
-                className="w-full border border-primary/40 px-8 py-3 font-display text-sm tracking-[0.3em] uppercase text-primary transition-all duration-500 hover:bg-primary/10 hover:border-primary hover:shadow-[0_0_25px_hsl(38_92%_53%/0.15)] rounded-md"
+                disabled={loading}
+                className="w-full border border-primary/40 px-8 py-3 font-display text-sm tracking-[0.3em] uppercase text-primary transition-all duration-500 hover:bg-primary/10 hover:border-primary hover:shadow-[0_0_25px_hsl(38_92%_53%/0.15)] rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Send Message
+                {loading ? "Sending..." : "Send Message"}
               </button>
             </form>
           </GlassCard>
