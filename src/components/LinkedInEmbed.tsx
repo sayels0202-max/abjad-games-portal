@@ -36,7 +36,7 @@ const LinkedInEmbed = ({ postUrl, text, imageUrl, authorName, likesCount, create
       rel="noopener noreferrer"
       className="block h-full"
     >
-      <GlassCard className="overflow-hidden h-full hover:border-primary/30 transition-colors" tilt={false}>
+      <GlassCard className="overflow-hidden hover:border-primary/30 transition-colors" tilt={false}>
         {imageUrl && (
           <div className="relative aspect-video overflow-hidden">
             <img src={imageUrl} alt="" className="w-full h-full object-cover" loading="lazy" />
