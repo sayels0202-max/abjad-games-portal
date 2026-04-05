@@ -154,7 +154,7 @@ const CommunitySection = () => {
                             />
                           </div>
                         )}
-                        <div className="p-6 flex flex-col flex-1">
+                        <div className="p-4 flex flex-col flex-1">
                           <time className="text-xs tracking-[0.15em] uppercase text-muted-foreground/60 font-body mb-3">
                             {formatDate(item.data.created_at)}
                           </time>
