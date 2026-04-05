@@ -210,7 +210,14 @@ const NewsPage = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: i * 0.06 }}
                   >
-                    <LinkedInEmbed postUrl={item.data.post_url} caption={item.data.caption} />
+                    <LinkedInEmbed
+                      postUrl={item.data.post_url}
+                      text={item.data.text}
+                      imageUrl={item.data.image_url}
+                      authorName={item.data.author_name}
+                      likesCount={item.data.likes_count}
+                      createdAt={item.data.created_at}
+                    />
                   </motion.div>
                 );
               }
