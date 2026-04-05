@@ -58,12 +58,12 @@ const LinkedInEmbed = ({ postUrl, caption }: LinkedInEmbedProps) => {
       <iframe
         src={getEmbedUrl(postUrl)}
         width="100%"
-        height="400"
+        height="608"
         frameBorder="0"
         allowFullScreen
         title={caption || "LinkedIn Post"}
         className="rounded-xl border border-border bg-card"
-        style={{ minHeight: "300px", maxHeight: "500px" }}
+        style={{ minHeight: "400px", maxHeight: "700px" }}
       />
       {caption && (
         <p className="text-xs text-muted-foreground font-body mt-2 text-center">{caption}</p>
