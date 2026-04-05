@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import GlassCard from "./ui/GlassCard";
 import ScrollReveal from "./ui/ScrollReveal";
+import { Twitter } from "lucide-react";
 
 interface NewsItem {
   id: string;
@@ -11,6 +12,16 @@ interface NewsItem {
   summary: string | null;
   cover_image_url: string | null;
   created_at: string;
+}
+
+interface Tweet {
+  id: string;
+  text: string;
+  created_at: string;
+  public_metrics?: {
+    like_count: number;
+    retweet_count: number;
+  };
 }
 
 const CommunitySection = () => {
@@ -28,6 +39,18 @@ const CommunitySection = () => {
     },
   });
 
+  const { data: tweetsData } = useQuery({
+    queryKey: ["tweets"],
+    queryFn: async () => {
+      const { data, error } = await supabase.functions.invoke("fetch-tweets");
+      if (error) throw error;
+      return data;
+    },
+    staleTime: 5 * 60 * 1000,
+    retry: 1,
+  });
+
+  const tweets: Tweet[] = tweetsData?.data || [];
   const formatDate = (dateStr: string) => {
     return new Date(dateStr).toLocaleDateString("en-US", {
       year: "numeric",
