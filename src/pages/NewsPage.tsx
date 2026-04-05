@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { motion } from "framer-motion";
 import GlassCard from "@/components/ui/GlassCard";
-import { Twitter, Play } from "lucide-react";
+import XLogo from "@/components/ui/XLogo";
+import { Play } from "lucide-react";
 import { Tweet, TweetsResponse, buildMediaMap, getTweetMedia } from "@/lib/tweets";
 
 interface NewsItem {
@@ -65,12 +66,6 @@ const NewsPage = () => {
         {/* Tweets Section */}
         {tweets.length > 0 && (
           <div className="mb-16">
-            <div className="flex items-center gap-3 mb-6">
-              <Twitter className="w-5 h-5 text-primary" />
-              <h2 className="font-display text-xl font-semibold text-foreground">
-                Latest from @AbjadGames
-              </h2>
-            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {tweets.map((tweet, i) => {
                 const media = getTweetMedia(tweet, mediaMap);
@@ -94,7 +89,7 @@ const NewsPage = () => {
                             className="w-full h-full object-cover"
                             loading="lazy"
                           />
-                          {media?.type === "video" && (
+                          {(media?.type === "video" || media?.type === "animated_gif") && (
                             <div className="absolute inset-0 flex items-center justify-center bg-background/30">
                               <div className="w-10 h-10 rounded-full bg-primary/90 flex items-center justify-center">
                                 <Play className="w-5 h-5 text-primary-foreground ml-0.5" />
@@ -105,12 +100,12 @@ const NewsPage = () => {
                       )}
                       <div className="p-5">
                         <div className="flex items-center gap-2 mb-3">
-                          <Twitter className="w-4 h-4 text-primary/60" />
+                          <XLogo className="w-4 h-4 text-primary/60" />
                           <span className="text-xs text-muted-foreground/60 font-body">
                             {formatDate(tweet.created_at)}
                           </span>
                         </div>
-                        <p className="text-sm text-foreground/90 font-body leading-relaxed line-clamp-4" dir="auto">
+                        <p className="text-sm text-foreground/90 font-body leading-relaxed whitespace-pre-line" dir="auto">
                           {tweet.text}
                         </p>
                         {tweet.public_metrics && (
