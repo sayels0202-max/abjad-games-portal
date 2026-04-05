@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { motion } from "framer-motion";
 import GlassCard from "@/components/ui/GlassCard";
-import { Twitter } from "lucide-react";
+import { Twitter, Play } from "lucide-react";
+import { Tweet, TweetsResponse, buildMediaMap, getTweetMedia } from "@/lib/tweets";
 
 interface NewsItem {
   id: string;
@@ -12,17 +13,6 @@ interface NewsItem {
   cover_image_url: string | null;
   author_name: string | null;
   created_at: string;
-}
-
-interface Tweet {
-  id: string;
-  text: string;
-  created_at: string;
-  public_metrics?: {
-    like_count: number;
-    retweet_count: number;
-    reply_count: number;
-  };
 }
 
 const NewsPage = () => {
@@ -44,13 +34,14 @@ const NewsPage = () => {
     queryFn: async () => {
       const { data, error } = await supabase.functions.invoke("fetch-tweets");
       if (error) throw error;
-      return data;
+      return data as TweetsResponse;
     },
     staleTime: 5 * 60 * 1000,
     retry: 1,
   });
 
   const tweets: Tweet[] = tweetsData?.data || [];
+  const mediaMap = buildMediaMap(tweetsData || {});
 
   const formatDate = (dateStr: string) =>
     new Date(dateStr).toLocaleDateString("en-US", {
@@ -81,35 +72,58 @@ const NewsPage = () => {
               </h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {tweets.map((tweet, i) => (
-                <motion.a
-                  key={tweet.id}
-                  href={`https://x.com/AbjadGames/status/${tweet.id}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: i * 0.06 }}
-                >
-                  <GlassCard className="p-5 h-full hover:border-primary/30 transition-colors" tilt={false}>
-                    <div className="flex items-center gap-2 mb-3">
-                      <Twitter className="w-4 h-4 text-primary/60" />
-                      <span className="text-xs text-muted-foreground/60 font-body">
-                        {formatDate(tweet.created_at)}
-                      </span>
-                    </div>
-                    <p className="text-sm text-foreground/90 font-body leading-relaxed line-clamp-4" dir="auto">
-                      {tweet.text}
-                    </p>
-                    {tweet.public_metrics && (
-                      <div className="flex gap-4 mt-3 text-xs text-muted-foreground/50 font-body">
-                        <span>❤️ {tweet.public_metrics.like_count}</span>
-                        <span>🔁 {tweet.public_metrics.retweet_count}</span>
+              {tweets.map((tweet, i) => {
+                const media = getTweetMedia(tweet, mediaMap);
+                const mediaUrl = media?.url || media?.preview_image_url;
+                return (
+                  <motion.a
+                    key={tweet.id}
+                    href={`https://x.com/AbjadGames/status/${tweet.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: i * 0.06 }}
+                  >
+                    <GlassCard className="overflow-hidden h-full hover:border-primary/30 transition-colors" tilt={false}>
+                      {mediaUrl && (
+                        <div className="relative aspect-video overflow-hidden">
+                          <img
+                            src={mediaUrl}
+                            alt=""
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
+                          {media?.type === "video" && (
+                            <div className="absolute inset-0 flex items-center justify-center bg-background/30">
+                              <div className="w-10 h-10 rounded-full bg-primary/90 flex items-center justify-center">
+                                <Play className="w-5 h-5 text-primary-foreground ml-0.5" />
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                      <div className="p-5">
+                        <div className="flex items-center gap-2 mb-3">
+                          <Twitter className="w-4 h-4 text-primary/60" />
+                          <span className="text-xs text-muted-foreground/60 font-body">
+                            {formatDate(tweet.created_at)}
+                          </span>
+                        </div>
+                        <p className="text-sm text-foreground/90 font-body leading-relaxed line-clamp-4" dir="auto">
+                          {tweet.text}
+                        </p>
+                        {tweet.public_metrics && (
+                          <div className="flex gap-4 mt-3 text-xs text-muted-foreground/50 font-body">
+                            <span>❤️ {tweet.public_metrics.like_count}</span>
+                            <span>🔁 {tweet.public_metrics.retweet_count}</span>
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </GlassCard>
-                </motion.a>
-              ))}
+                    </GlassCard>
+                  </motion.a>
+                );
+              })}
             </div>
           </div>
         )}
