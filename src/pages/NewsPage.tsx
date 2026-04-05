@@ -45,6 +45,19 @@ const NewsPage = () => {
   const tweets: Tweet[] = tweetsData?.data || [];
   const mediaMap = buildMediaMap(tweetsData || {});
 
+  const { data: linkedinPosts } = useQuery({
+    queryKey: ["all-linkedin-posts"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("linkedin_posts")
+        .select("*")
+        .eq("published", true)
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      return data;
+    },
+  });
+
   const formatDate = (dateStr: string) =>
     new Date(dateStr).toLocaleDateString("en-US", {
       year: "numeric",
