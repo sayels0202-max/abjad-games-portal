@@ -5,7 +5,7 @@ import screenshot1 from "@/assets/screenshot1.webp";
 import screenshot2 from "@/assets/screenshot2.webp";
 import screenshot3 from "@/assets/screenshot3.webp";
 import screenshot4 from "@/assets/screenshot4.webp";
-import gameplayBg3 from "@/assets/gameplay-bg3.gif";
+import gameplayBg3 from "@/assets/gameplay-bg3.webm";
 import ScrollReveal from "./ui/ScrollReveal";
 
 const screenshots = [
