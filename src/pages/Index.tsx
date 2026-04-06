@@ -27,27 +27,24 @@ const Index = () => {
     <>
       <LoadingScreen isVisible={loading} onComplete={() => {}} />
 
-      {!loading && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-        >
-          <FireParticles />
-          <CursorTrail />
-          <ScrollWatermark />
-          <Navbar />
-          <HeroSection />
-          <ShowcaseSection />
-          <StudioSection />
-          <CommunitySection />
-          <TeamSection />
-          <ContactSection />
-          <Footer />
-          
-          
-        </motion.div>
-      )}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: loading ? 0 : 1 }}
+        transition={{ duration: 1 }}
+        aria-hidden={loading}
+      >
+        <FireParticles />
+        <CursorTrail />
+        <ScrollWatermark />
+        <Navbar />
+        <HeroSection />
+        <ShowcaseSection />
+        <StudioSection />
+        <CommunitySection />
+        <TeamSection />
+        <ContactSection />
+        <Footer />
+      </motion.div>
     </>
   );
 };
