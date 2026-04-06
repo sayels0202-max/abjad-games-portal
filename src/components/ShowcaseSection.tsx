@@ -48,9 +48,12 @@ const ShowcaseSection = () => {
           exit={{ opacity: 0 }}
           transition={{ duration: 1.2 }}
         >
-          <img
+          <video
             src={bgGifs[activeBg]}
-            alt=""
+            autoPlay
+            loop
+            muted
+            playsInline
             className="w-full h-full object-cover"
           />
         </motion.div>
