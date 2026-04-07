@@ -151,6 +151,10 @@ const MediaGallery = () => {
 const PlaytestModal = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [age, setAge] = useState("");
+  const [weeklyHours, setWeeklyHours] = useState("");
+  const [favoriteGames, setFavoriteGames] = useState("");
+  const [previousPlaytest, setPreviousPlaytest] = useState<boolean | null>(null);
   const [twitter, setTwitter] = useState("");
   const [discord, setDiscord] = useState("");
   const [loading, setLoading] = useState(false);
@@ -169,12 +173,38 @@ const PlaytestModal = ({ open, onClose }: { open: boolean; onClose: () => void }
       setError("Please enter a valid email.");
       return;
     }
+    const ageNum = parseInt(age);
+    if (!age || isNaN(ageNum) || ageNum < 10 || ageNum > 100) {
+      setError("Please enter a valid age (10-100).");
+      return;
+    }
+    const hoursNum = parseInt(weeklyHours);
+    if (!weeklyHours || isNaN(hoursNum) || hoursNum < 0 || hoursNum > 168) {
+      setError("Please enter valid weekly gaming hours.");
+      return;
+    }
+    if (!favoriteGames.trim()) {
+      setError("Please list your favorite games.");
+      return;
+    }
+    if (previousPlaytest === null) {
+      setError("Please answer whether you've done a playtest before.");
+      return;
+    }
+    if (!discord.trim()) {
+      setError("Discord handle is required.");
+      return;
+    }
     setLoading(true);
     const { error: dbError } = await supabase.from("playtest_requests").insert({
       name: name.trim(),
       email: email.trim(),
+      age: ageNum,
+      weekly_hours: hoursNum,
+      favorite_games: favoriteGames.trim(),
+      previous_playtest: previousPlaytest,
       twitter_handle: twitter.trim() || null,
-      discord_handle: discord.trim() || null,
+      discord_handle: discord.trim(),
     });
     setLoading(false);
     if (dbError) {
@@ -188,10 +218,13 @@ const PlaytestModal = ({ open, onClose }: { open: boolean; onClose: () => void }
     if (!open) {
       setTimeout(() => {
         setName(""); setEmail(""); setTwitter(""); setDiscord("");
+        setAge(""); setWeeklyHours(""); setFavoriteGames(""); setPreviousPlaytest(null);
         setSubmitted(false); setError("");
       }, 300);
     }
   }, [open]);
+
+  const inputClass = "w-full bg-background/50 border border-foreground/10 rounded-lg px-4 py-2.5 text-foreground font-body text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-primary";
 
   return (
     <AnimatePresence>
@@ -208,7 +241,7 @@ const PlaytestModal = ({ open, onClose }: { open: boolean; onClose: () => void }
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.3 }}
-            className="relative w-full max-w-md mirror-surface mirror-edge rounded-2xl p-8 border border-foreground/10"
+            className="relative w-full max-w-md mirror-surface mirror-edge rounded-2xl p-8 border border-foreground/10 max-h-[90vh] overflow-y-auto"
           >
             <button onClick={onClose} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors">
               <X className="w-5 h-5" />
@@ -235,35 +268,46 @@ const PlaytestModal = ({ open, onClose }: { open: boolean; onClose: () => void }
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <label className="block text-xs font-body text-muted-foreground mb-1 tracking-wider uppercase">Name *</label>
-                    <input
-                      value={name} onChange={e => setName(e.target.value)}
-                      className="w-full bg-background/50 border border-foreground/10 rounded-lg px-4 py-2.5 text-foreground font-body text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-primary"
-                      placeholder="Your name"
-                    />
+                    <input value={name} onChange={e => setName(e.target.value)} className={inputClass} placeholder="Your name" />
                   </div>
                   <div>
                     <label className="block text-xs font-body text-muted-foreground mb-1 tracking-wider uppercase">Email *</label>
-                    <input
-                      type="email" value={email} onChange={e => setEmail(e.target.value)}
-                      className="w-full bg-background/50 border border-foreground/10 rounded-lg px-4 py-2.5 text-foreground font-body text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-primary"
-                      placeholder="you@email.com"
-                    />
+                    <input type="email" value={email} onChange={e => setEmail(e.target.value)} className={inputClass} placeholder="you@email.com" />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-body text-muted-foreground mb-1 tracking-wider uppercase">Age *</label>
+                      <input type="number" value={age} onChange={e => setAge(e.target.value)} className={inputClass} placeholder="25" min="10" max="100" />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-body text-muted-foreground mb-1 tracking-wider uppercase">Weekly Gaming Hours *</label>
+                      <input type="number" value={weeklyHours} onChange={e => setWeeklyHours(e.target.value)} className={inputClass} placeholder="10" min="0" max="168" />
+                    </div>
                   </div>
                   <div>
-                    <label className="block text-xs font-body text-muted-foreground mb-1 tracking-wider uppercase">Twitter / X</label>
-                    <input
-                      value={twitter} onChange={e => setTwitter(e.target.value)}
-                      className="w-full bg-background/50 border border-foreground/10 rounded-lg px-4 py-2.5 text-foreground font-body text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-primary"
-                      placeholder="@handle"
-                    />
+                    <label className="block text-xs font-body text-muted-foreground mb-1 tracking-wider uppercase">Top Games You Play *</label>
+                    <textarea value={favoriteGames} onChange={e => setFavoriteGames(e.target.value)} className={inputClass + " resize-none h-20"} placeholder="e.g. Elden Ring, Resident Evil, Silent Hill..." maxLength={500} />
                   </div>
                   <div>
-                    <label className="block text-xs font-body text-muted-foreground mb-1 tracking-wider uppercase">Discord</label>
-                    <input
-                      value={discord} onChange={e => setDiscord(e.target.value)}
-                      className="w-full bg-background/50 border border-foreground/10 rounded-lg px-4 py-2.5 text-foreground font-body text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-primary"
-                      placeholder="username#0000"
-                    />
+                    <label className="block text-xs font-body text-muted-foreground mb-1 tracking-wider uppercase">Have you done a playtest before? *</label>
+                    <div className="flex gap-3 mt-1">
+                      <button type="button" onClick={() => setPreviousPlaytest(true)}
+                        className={`flex-1 py-2.5 rounded-lg border text-sm font-body transition-all ${previousPlaytest === true ? 'border-primary bg-primary/10 text-primary' : 'border-foreground/10 text-muted-foreground hover:border-foreground/20'}`}>
+                        Yes
+                      </button>
+                      <button type="button" onClick={() => setPreviousPlaytest(false)}
+                        className={`flex-1 py-2.5 rounded-lg border text-sm font-body transition-all ${previousPlaytest === false ? 'border-primary bg-primary/10 text-primary' : 'border-foreground/10 text-muted-foreground hover:border-foreground/20'}`}>
+                        No
+                      </button>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-body text-muted-foreground mb-1 tracking-wider uppercase">Discord *</label>
+                    <input value={discord} onChange={e => setDiscord(e.target.value)} className={inputClass} placeholder="username" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-body text-muted-foreground mb-1 tracking-wider uppercase">Twitter / X (Optional)</label>
+                    <input value={twitter} onChange={e => setTwitter(e.target.value)} className={inputClass} placeholder="@handle" />
                   </div>
 
                   {error && <p className="text-sm text-destructive font-body">{error}</p>}

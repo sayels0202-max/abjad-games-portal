@@ -118,31 +118,43 @@ export type Database = {
       }
       playtest_requests: {
         Row: {
+          age: number | null
           created_at: string
           discord_handle: string | null
           email: string
+          favorite_games: string | null
           id: string
           name: string
+          previous_playtest: boolean
           status: string
           twitter_handle: string | null
+          weekly_hours: number | null
         }
         Insert: {
+          age?: number | null
           created_at?: string
           discord_handle?: string | null
           email: string
+          favorite_games?: string | null
           id?: string
           name: string
+          previous_playtest?: boolean
           status?: string
           twitter_handle?: string | null
+          weekly_hours?: number | null
         }
         Update: {
+          age?: number | null
           created_at?: string
           discord_handle?: string | null
           email?: string
+          favorite_games?: string | null
           id?: string
           name?: string
+          previous_playtest?: boolean
           status?: string
           twitter_handle?: string | null
+          weekly_hours?: number | null
         }
         Relationships: []
       }
