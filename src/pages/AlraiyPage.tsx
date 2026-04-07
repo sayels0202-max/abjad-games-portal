@@ -1,7 +1,9 @@
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Gamepad2, X, CheckCircle2, Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 import banner from "@/assets/banner.png";
 import logoText from "@/assets/logo-text.png";
 import screenshot1 from "@/assets/screenshot1.png";
