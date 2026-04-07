@@ -116,6 +116,36 @@ export type Database = {
         }
         Relationships: []
       }
+      playtest_requests: {
+        Row: {
+          created_at: string
+          discord_handle: string | null
+          email: string
+          id: string
+          name: string
+          status: string
+          twitter_handle: string | null
+        }
+        Insert: {
+          created_at?: string
+          discord_handle?: string | null
+          email: string
+          id?: string
+          name: string
+          status?: string
+          twitter_handle?: string | null
+        }
+        Update: {
+          created_at?: string
+          discord_handle?: string | null
+          email?: string
+          id?: string
+          name?: string
+          status?: string
+          twitter_handle?: string | null
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           id: string
