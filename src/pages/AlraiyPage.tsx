@@ -148,8 +148,146 @@ const MediaGallery = () => {
   );
 };
 
+const PlaytestModal = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [twitter, setTwitter] = useState("");
+  const [discord, setDiscord] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
+  const { toast } = useToast();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    if (!name.trim() || !email.trim()) {
+      setError("Name and email are required.");
+      return;
+    }
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      setError("Please enter a valid email.");
+      return;
+    }
+    setLoading(true);
+    const { error: dbError } = await supabase.from("playtest_requests").insert({
+      name: name.trim(),
+      email: email.trim(),
+      twitter_handle: twitter.trim() || null,
+      discord_handle: discord.trim() || null,
+    });
+    setLoading(false);
+    if (dbError) {
+      setError("Something went wrong. Please try again.");
+      return;
+    }
+    setSubmitted(true);
+  };
+
+  useEffect(() => {
+    if (!open) {
+      setTimeout(() => {
+        setName(""); setEmail(""); setTwitter(""); setDiscord("");
+        setSubmitted(false); setError("");
+      }, 300);
+    }
+  }, [open]);
+
+  return (
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          className="fixed inset-0 z-50 flex items-center justify-center px-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            transition={{ duration: 0.3 }}
+            className="relative w-full max-w-md mirror-surface mirror-edge rounded-2xl p-8 border border-foreground/10"
+          >
+            <button onClick={onClose} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors">
+              <X className="w-5 h-5" />
+            </button>
+
+            {submitted ? (
+              <div className="text-center py-8">
+                <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 200 }}>
+                  <CheckCircle2 className="w-16 h-16 text-primary mx-auto mb-4" />
+                </motion.div>
+                <h3 className="font-display text-2xl text-foreground mb-2 tracking-wide">REQUEST SENT</h3>
+                <p className="text-muted-foreground font-body text-sm">We'll review your request and get back to you soon.</p>
+              </div>
+            ) : (
+              <>
+                <div className="mb-6">
+                  <h3 className="font-display text-2xl text-foreground tracking-wide flex items-center gap-2">
+                    <Gamepad2 className="w-6 h-6 text-primary" />
+                    Request Playtest
+                  </h3>
+                  <p className="text-muted-foreground font-body text-sm mt-1">Fill in your details to apply for early access.</p>
+                </div>
+
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div>
+                    <label className="block text-xs font-body text-muted-foreground mb-1 tracking-wider uppercase">Name *</label>
+                    <input
+                      value={name} onChange={e => setName(e.target.value)}
+                      className="w-full bg-background/50 border border-foreground/10 rounded-lg px-4 py-2.5 text-foreground font-body text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-primary"
+                      placeholder="Your name"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-body text-muted-foreground mb-1 tracking-wider uppercase">Email *</label>
+                    <input
+                      type="email" value={email} onChange={e => setEmail(e.target.value)}
+                      className="w-full bg-background/50 border border-foreground/10 rounded-lg px-4 py-2.5 text-foreground font-body text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-primary"
+                      placeholder="you@email.com"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-body text-muted-foreground mb-1 tracking-wider uppercase">Twitter / X</label>
+                    <input
+                      value={twitter} onChange={e => setTwitter(e.target.value)}
+                      className="w-full bg-background/50 border border-foreground/10 rounded-lg px-4 py-2.5 text-foreground font-body text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-primary"
+                      placeholder="@handle"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-body text-muted-foreground mb-1 tracking-wider uppercase">Discord</label>
+                    <input
+                      value={discord} onChange={e => setDiscord(e.target.value)}
+                      className="w-full bg-background/50 border border-foreground/10 rounded-lg px-4 py-2.5 text-foreground font-body text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-primary"
+                      placeholder="username#0000"
+                    />
+                  </div>
+
+                  {error && <p className="text-sm text-destructive font-body">{error}</p>}
+
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full mirror-surface mirror-edge mirror-hover border border-primary/30 px-6 py-3 font-display text-sm tracking-[0.2em] uppercase text-primary rounded-xl flex items-center justify-center gap-2 disabled:opacity-50"
+                  >
+                    {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Submit Request"}
+                  </button>
+                </form>
+              </>
+            )}
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
 const AlraiyPage = () => {
   const heroRef = useRef<HTMLDivElement>(null);
+  const [playtestOpen, setPlaytestOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
