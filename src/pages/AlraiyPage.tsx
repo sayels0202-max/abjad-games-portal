@@ -412,6 +412,28 @@ const AlraiyPage = () => {
         </div>
       </section>
 
+      {/* Playtest CTA */}
+      <section className="py-24 px-6">
+        <ScrollReveal direction="scale">
+          <div className="mx-auto max-w-2xl text-center mirror-surface mirror-edge rounded-2xl border border-primary/20 p-12">
+            <Gamepad2 className="w-10 h-10 text-primary mx-auto mb-4" />
+            <p className="font-display text-3xl md:text-4xl text-foreground mb-3 tracking-wide">
+              Playtest Now Open
+            </p>
+            <p className="text-muted-foreground font-body font-light text-base mb-8 max-w-md mx-auto">
+              We're looking for players to test AL-RAIY. Spots are limited — request access now.
+            </p>
+            <button
+              onClick={() => setPlaytestOpen(true)}
+              className="inline-flex items-center gap-3 mirror-surface mirror-edge mirror-hover border border-primary/30 px-10 py-4 font-display text-sm tracking-[0.3em] uppercase text-primary rounded-xl"
+            >
+              <Gamepad2 className="w-5 h-5" />
+              Request a Playtest
+            </button>
+          </div>
+        </ScrollReveal>
+      </section>
+
       {/* Steam Wishlist CTA */}
       <section className="py-32 px-6 text-center">
         <ScrollReveal direction="scale">
@@ -436,6 +458,8 @@ const AlraiyPage = () => {
           </div>
         </ScrollReveal>
       </section>
+
+      <PlaytestModal open={playtestOpen} onClose={() => setPlaytestOpen(false)} />
       <footer className="border-t border-foreground/5 py-8 px-6 text-center">
         <p className="text-xs text-muted-foreground font-body">
           © {new Date().getFullYear()} Abjad Games. All rights reserved.
