@@ -375,14 +375,6 @@ const AlraiyPage = () => {
           </motion.div>
 
           <motion.div className="relative z-10 flex h-full flex-col items-center justify-center text-center px-6" style={{ opacity }}>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.3 }}
-              className="text-xs md:text-sm tracking-[0.5em] uppercase text-primary font-body font-medium mb-6"
-            >
-              Abjad Games Presents
-            </motion.p>
             <motion.img
               src={alraiyLogo}
               alt="ALRAIY — The Last Fire"
