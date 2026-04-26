@@ -238,6 +238,7 @@ const CommunitySection = () => {
                       authorName={item.data.author_name}
                       likesCount={item.data.likes_count}
                       createdAt={item.data.created_at}
+                      embedHtml={(item.data as any).embed_html}
                     />
                   </motion.div>
                 );
