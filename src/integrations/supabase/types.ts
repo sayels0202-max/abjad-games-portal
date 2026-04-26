@@ -46,6 +46,7 @@ export type Database = {
           author_name: string | null
           caption: string | null
           created_at: string
+          embed_html: string | null
           id: string
           image_url: string | null
           likes_count: number | null
@@ -58,6 +59,7 @@ export type Database = {
           author_name?: string | null
           caption?: string | null
           created_at?: string
+          embed_html?: string | null
           id?: string
           image_url?: string | null
           likes_count?: number | null
@@ -70,6 +72,7 @@ export type Database = {
           author_name?: string | null
           caption?: string | null
           created_at?: string
+          embed_html?: string | null
           id?: string
           image_url?: string | null
           likes_count?: number | null
