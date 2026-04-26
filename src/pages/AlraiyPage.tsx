@@ -336,6 +336,13 @@ const AlraiyPage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    document.title = "Abjad Games";
+    const link: HTMLLinkElement =
+      document.querySelector("link[rel='icon']") || document.createElement("link");
+    link.rel = "icon";
+    link.type = "image/x-icon";
+    link.href = "/favicon.ico";
+    if (!link.parentNode) document.head.appendChild(link);
   }, []);
 
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
