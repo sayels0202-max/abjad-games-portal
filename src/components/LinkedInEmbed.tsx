@@ -50,33 +50,18 @@ const LinkedInEmbed = ({
 
   const embedSrc = extractLinkedInEmbedSrc(embedHtml);
 
-  // If an official LinkedIn embed is provided, render the iframe inside the GlassCard frame
+  // If an official LinkedIn embed is provided, render only the iframe inside the GlassCard
   if (embedSrc) {
     return (
       <GlassCard className="overflow-hidden hover:border-primary/30 transition-colors p-0" tilt={false}>
-        <div className="flex items-center gap-2 px-5 pt-4 pb-3">
-          <LinkedInLogo className="w-4 h-4 text-primary/60" />
-          {authorName && (
-            <span className="text-xs text-muted-foreground/80 font-body font-medium">
-              {authorName}
-            </span>
-          )}
-          {createdAt && (
-            <span className="text-xs text-muted-foreground/60 font-body">
-              · {formatDate(createdAt)}
-            </span>
-          )}
-        </div>
-        <div className="w-full bg-background">
-          <iframe
-            src={embedSrc}
-            title="LinkedIn embedded post"
-            className="w-full block"
-            style={{ height: 668, border: 0 }}
-            allowFullScreen
-            loading="lazy"
-          />
-        </div>
+        <iframe
+          src={embedSrc}
+          title="LinkedIn embedded post"
+          className="w-full block bg-background"
+          style={{ height: 668, border: 0 }}
+          allowFullScreen
+          loading="lazy"
+        />
       </GlassCard>
     );
   }
