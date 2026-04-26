@@ -130,17 +130,15 @@ const ShowcaseSection = () => {
               </div>
 
               <div className="mt-10 flex flex-wrap gap-4">
-                <a
-                  href="https://store.steampowered.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 mirror-surface mirror-edge mirror-hover border border-primary/30 px-8 py-3 font-display text-sm tracking-[0.2em] uppercase text-primary rounded-xl"
+                <div
+                  aria-disabled="true"
+                  className="inline-flex items-center gap-3 mirror-surface mirror-edge border border-primary/20 px-8 py-3 font-display text-sm tracking-[0.2em] uppercase text-primary/70 rounded-xl opacity-70 cursor-not-allowed select-none"
                 >
                   <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg">
                     <path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658a3.387 3.387 0 0 1 1.912-.59c.064 0 .128.003.19.008l2.861-4.142V8.91a4.528 4.528 0 0 1 4.524-4.524 4.528 4.528 0 0 1 4.524 4.524 4.528 4.528 0 0 1-4.524 4.524h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396a3.406 3.406 0 0 1-3.362-2.898L.309 14.466C1.539 19.857 6.272 24 11.979 24c6.627 0 12.001-5.373 12.001-12S18.606 0 11.979 0zM7.54 18.21l-1.473-.61a2.542 2.542 0 0 0 4.753-.895 2.543 2.543 0 0 0-2.54-2.541c-.267 0-.527.042-.774.12l1.521.63a1.868 1.868 0 0 1-1.423 3.453l-.064-.157zm8.4-5.695a3.023 3.023 0 0 0 3.016-3.015 3.023 3.023 0 0 0-3.016-3.015 3.023 3.023 0 0 0-3.016 3.015 3.023 3.023 0 0 0 3.016 3.015zm-.005-5.278a2.269 2.269 0 0 1 2.263 2.263 2.269 2.269 0 0 1-2.263 2.263 2.269 2.269 0 0 1-2.263-2.263 2.269 2.269 0 0 1 2.263-2.263z"/>
                   </svg>
-                  Wishlist on Steam
-                </a>
+                  Steam — Coming Soon
+                </div>
                 <Link
                   to="/alraiy"
                   className="inline-block mirror-surface mirror-edge mirror-hover border border-foreground/20 px-8 py-3 font-display text-sm tracking-[0.2em] uppercase text-muted-foreground hover:text-primary rounded-xl transition-colors"
