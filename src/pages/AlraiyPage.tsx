@@ -390,7 +390,6 @@ const AlraiyPage = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 1.2, delay: 0.5 }}
               className="w-[320px] md:w-[560px] lg:w-[720px] mx-auto drop-shadow-[0_0_60px_hsl(var(--primary)/0.4)]"
-              style={{ mixBlendMode: "screen" }}
             />
             <motion.div
               initial={{ width: 0 }}
