@@ -6,7 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import banner from "@/assets/banner.png";
 import logoText from "@/assets/logo-text.png";
-import alraiyLogo from "@/assets/alraiy-logo.jpg";
+import alraiyLogo from "@/assets/alraiy-logo.png";
 import screenshot1 from "@/assets/screenshot1.png";
 import screenshot2 from "@/assets/screenshot2.png";
 import screenshot3 from "@/assets/screenshot3.png";
