@@ -369,7 +369,7 @@ const AlraiyPage = () => {
             <ArrowLeft className="w-4 h-4" />
             <img src={logoText} alt="Abjad Games" className="h-7" />
           </Link>
-          <span className="font-display text-xs tracking-[0.3em] text-primary uppercase">AL-RAIY</span>
+          <img src={alraiyLogo} alt="AL-RAIY" className="h-8 md:h-10 w-auto drop-shadow-[0_0_12px_hsl(var(--primary)/0.4)]" />
         </div>
       </motion.div>
 
