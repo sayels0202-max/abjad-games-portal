@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { ArrowLeft, Gamepad2, X, CheckCircle2, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import LogoSparks from "@/components/LogoSparks";
 import banner from "@/assets/banner.png";
 import logoText from "@/assets/logo-text.png";
 import alraiyLogo from "@/assets/alraiy-logo.png";
