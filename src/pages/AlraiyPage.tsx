@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { ArrowLeft, Gamepad2, X, CheckCircle2, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import LogoSparks from "@/components/LogoSparks";
 import banner from "@/assets/banner.png";
 import logoText from "@/assets/logo-text.png";
 import alraiyLogo from "@/assets/alraiy-logo.png";
@@ -382,14 +383,31 @@ const AlraiyPage = () => {
           </motion.div>
 
           <motion.div className="relative z-10 flex h-full flex-col items-center justify-center text-center px-6" style={{ opacity }}>
-            <motion.img
-              src={alraiyLogo}
-              alt="ALRAIY — The Last Fire"
+            <motion.div
               initial={{ opacity: 0, y: 40, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 1.2, delay: 0.5 }}
-              className="w-[320px] md:w-[560px] lg:w-[720px] mx-auto drop-shadow-[0_0_60px_hsl(var(--primary)/0.4)]"
-            />
+              className="relative w-[320px] md:w-[560px] lg:w-[720px] mx-auto"
+            >
+              {/* Pulsing glow halo */}
+              <motion.div
+                aria-hidden
+                className="absolute inset-0 -z-10 blur-3xl"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at center, hsl(var(--primary) / 0.55) 0%, hsl(var(--primary) / 0.18) 40%, transparent 70%)",
+                }}
+                animate={{ opacity: [0.55, 0.95, 0.55], scale: [1, 1.08, 1] }}
+                transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut" }}
+              />
+              <img
+                src={alraiyLogo}
+                alt="ALRAIY — The Last Fire"
+                className="relative w-full drop-shadow-[0_0_80px_hsl(var(--primary)/0.65)]"
+              />
+              {/* Sparks rising from the logo */}
+              <LogoSparks />
+            </motion.div>
           </motion.div>
         </motion.section>
       </div>
