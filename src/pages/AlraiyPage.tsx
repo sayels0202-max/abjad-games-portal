@@ -6,7 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import banner from "@/assets/banner.png";
 import logoText from "@/assets/logo-text.png";
-import alraiyLogo from "@/assets/alraiy-logo.jpg";
+import alraiyLogo from "@/assets/alraiy-logo.png";
 import screenshot1 from "@/assets/screenshot1.png";
 import screenshot2 from "@/assets/screenshot2.png";
 import screenshot3 from "@/assets/screenshot3.png";
@@ -390,7 +390,6 @@ const AlraiyPage = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 1.2, delay: 0.5 }}
               className="w-[320px] md:w-[560px] lg:w-[720px] mx-auto drop-shadow-[0_0_60px_hsl(var(--primary)/0.4)]"
-              style={{ mixBlendMode: "screen" }}
             />
             <motion.div
               initial={{ width: 0 }}
