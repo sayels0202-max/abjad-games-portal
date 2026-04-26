@@ -1,0 +1,1 @@
+UPDATE public.linkedin_posts SET embed_html = NULL WHERE post_url LIKE '%7453770360648458241%';
