@@ -455,18 +455,15 @@ const AlraiyPage = () => {
           <div className="mx-auto max-w-2xl text-center mirror-surface mirror-edge rounded-2xl border border-primary/20 p-12">
             <Gamepad2 className="w-10 h-10 text-primary mx-auto mb-4" />
             <p className="font-display text-3xl md:text-4xl text-foreground mb-3 tracking-wide">
-              Playtest Now Open
+              Playtest Coming Soon
             </p>
             <p className="text-muted-foreground font-body font-light text-base mb-8 max-w-md mx-auto">
-              We're looking for players to test AL-RAIY. Spots are limited — request access now.
+              We haven't opened playtest applications yet. Stay tuned — access will be announced soon.
             </p>
-            <button
-              onClick={() => setPlaytestOpen(true)}
-              className="inline-flex items-center gap-3 mirror-surface mirror-edge mirror-hover border border-primary/30 px-10 py-4 font-display text-sm tracking-[0.3em] uppercase text-primary rounded-xl"
-            >
+            <div className="inline-flex items-center gap-3 mirror-surface mirror-edge border border-primary/20 px-10 py-4 font-display text-sm tracking-[0.3em] uppercase text-muted-foreground rounded-xl opacity-70">
               <Gamepad2 className="w-5 h-5" />
-              Request a Playtest
-            </button>
+              Coming Soon
+            </div>
           </div>
         </ScrollReveal>
       </section>
