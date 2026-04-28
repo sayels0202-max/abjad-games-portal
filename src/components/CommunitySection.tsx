@@ -73,7 +73,25 @@ const CommunitySection = () => {
     });
   };
 
-  // Merge all content into a single feed sorted by date
+  // Helper: check if item has an image
+  const hasImage = (item: FeedItem): boolean => {
+    if (item.type === "news") return !!item.data.cover_image_url;
+    if (item.type === "linkedin") return !!item.data.image_url;
+    if (item.type === "tweet") {
+      const media = getTweetMedia(item.data, mediaMap);
+      return !!(media?.url || media?.preview_image_url);
+    }
+    return false;
+  };
+
+  // Get popularity score (likes/engagement)
+  const getPopularity = (item: FeedItem): number => {
+    if (item.type === "tweet") return item.data.public_metrics?.like_count ?? 0;
+    if (item.type === "linkedin") return item.data.likes_count ?? 0;
+    return 0;
+  };
+
+  // Merge all content into a single feed
   const feedItems: FeedItem[] = [];
 
   if (news) {
@@ -82,7 +100,7 @@ const CommunitySection = () => {
     });
   }
 
-  tweets.slice(0, 6).forEach((tweet) => {
+  tweets.forEach((tweet) => {
     feedItems.push({ type: "tweet", data: tweet, date: new Date(tweet.created_at) });
   });
 
@@ -92,9 +110,21 @@ const CommunitySection = () => {
     });
   }
 
-  // Sort by date descending, take top 6
-  feedItems.sort((a, b) => b.date.getTime() - a.date.getTime());
-  const displayItems = feedItems.slice(0, 6);
+  // Filter: only items with images
+  const withImages = feedItems.filter(hasImage);
+
+  // Find most popular post
+  const sortedByPopularity = [...withImages].sort((a, b) => getPopularity(b) - getPopularity(a));
+  const mostPopular = sortedByPopularity[0];
+
+  // Sort the rest by date descending
+  const rest = withImages
+    .filter((item) => item !== mostPopular)
+    .sort((a, b) => b.date.getTime() - a.date.getTime())
+    .slice(0, 2);
+
+  // Final layout: [recent, recent, mostPopular] (most popular on the right)
+  const displayItems: FeedItem[] = mostPopular ? [...rest, mostPopular] : rest;
 
   return (
     <section id="community" className="relative py-32 px-6">
