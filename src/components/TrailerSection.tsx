@@ -21,7 +21,7 @@ const TrailerSection = () => {
     <section ref={ref} className="relative py-0 overflow-hidden">
       {/* Parallax background with scale */}
       <motion.div className="absolute inset-0" style={{ y: bgY, scale: bgScale }}>
-        <img src={banner} alt="AL-RAIY Trailer" className="w-full h-[120%] object-cover" />
+        <img src={banner} alt="ALRAIY: The Last Fire Trailer" className="w-full h-[120%] object-cover" />
       </motion.div>
 
       <motion.div className="absolute inset-0 bg-background" style={{ opacity: overlayOpacity }} />
@@ -44,7 +44,7 @@ const TrailerSection = () => {
 
           <ScrollReveal delay={0.3}>
             <p className="max-w-2xl mx-auto text-muted-foreground font-body font-light text-lg leading-relaxed mb-12">
-              A glimpse into the world of AL-RAIY — where ancient shadows 
+              A glimpse into the world of ALRAIY: The Last Fire — where ancient shadows 
               and desert fires shape the fate of the last shepherd.
             </p>
           </ScrollReveal>

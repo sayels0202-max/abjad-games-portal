@@ -370,7 +370,7 @@ const AlraiyPage = () => {
             <ArrowLeft className="w-4 h-4" />
             <img src={logoText} alt="Abjad Games" className="h-7" />
           </Link>
-          <img src={alraiyLogo} alt="AL-RAIY" className="h-8 md:h-10 w-auto drop-shadow-[0_0_12px_hsl(var(--primary)/0.4)]" />
+          <img src={alraiyLogo} alt="ALRAIY: The Last Fire" className="h-8 md:h-10 w-auto drop-shadow-[0_0_12px_hsl(var(--primary)/0.4)]" />
         </div>
       </motion.div>
 
@@ -378,7 +378,7 @@ const AlraiyPage = () => {
       <div ref={heroRef} className="relative h-[180vh]">
         <motion.section className="sticky top-0 h-screen overflow-hidden" style={{ opacity: sectionOpacity }}>
           <motion.div className="absolute inset-0" style={{ y, scale }}>
-            <img src={gameplayBg3} alt="Al-Raiy" className="h-full w-full object-cover" />
+            <img src={gameplayBg3} alt="ALRAIY The Last Fire" className="h-full w-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
           </motion.div>
 
@@ -486,7 +486,7 @@ const AlraiyPage = () => {
               Wishlist on Steam
             </p>
             <p className="text-muted-foreground font-body font-light text-base mb-8">
-              Be the first to know when AL-RAIY launches.
+              Be the first to know when ALRAIY: The Last Fire launches.
             </p>
             <a
               href="https://store.steampowered.com"

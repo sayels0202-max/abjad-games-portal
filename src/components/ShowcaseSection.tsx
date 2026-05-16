@@ -115,7 +115,7 @@ const ShowcaseSection = () => {
           <ScrollReveal direction="right" delay={0.35}>
             <div className="lg:pt-4">
               <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-8 tracking-wide">
-                AL-RAIY
+                ALRAIY: The Last Fire
               </h2>
 
               <div className="space-y-5 text-muted-foreground font-body font-light leading-relaxed">
