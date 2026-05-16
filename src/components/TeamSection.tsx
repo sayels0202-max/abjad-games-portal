@@ -3,12 +3,12 @@ import { useRef, useState } from "react";
 import ScrollReveal from "./ui/ScrollReveal";
 import firasImg from "@/assets/team/firas.webp";
 import sayilImg from "@/assets/team/sayil.webp";
-import alsulaimanImg from "@/assets/team/alsulaiman.webp";
+import alabdaliImg from "@/assets/team/alabdali.png";
 import alradhyanImg from "@/assets/team/alradhyan.webp";
 
 const team = [
   { name: "Sayil", lastName: "Alyami", role: "Game Designer", image: sayilImg, objectPos: "object-[50%_20%]" },
-  { name: "Abdulaziz", lastName: "Alsulaiman", role: "3D Artist", image: alsulaimanImg, objectPos: "object-[50%_25%]" },
+  { name: "Fatima", lastName: "Alabdali", role: "3D Artist", image: alabdaliImg, objectPos: "object-[50%_25%]" },
   { name: "Abdulaziz", lastName: "Alradhyan", role: "Programmer", image: alradhyanImg, objectPos: "object-[50%_15%]" },
   { name: "Feras", lastName: "Hisan", role: "Producer", image: firasImg, objectPos: "object-[50%_15%]" },
 ];
