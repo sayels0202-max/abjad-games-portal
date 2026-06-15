@@ -87,7 +87,7 @@ const Navbar = () => {
 
             {/* Discord */}
             <a
-              href="https://discord.gg/UFx2PNFS45"
+              href="https://discord.gg/2WhecGnBr9"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 text-muted-foreground hover:text-primary transition-colors duration-300 ml-2"
@@ -129,7 +129,7 @@ const Navbar = () => {
           </motion.a>
         ))}
         <motion.a
-          href="https://discord.gg/UFx2PNFS45"
+          href="https://discord.gg/2WhecGnBr9"
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => setIsOpen(false)}
