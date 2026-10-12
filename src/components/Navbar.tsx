@@ -7,7 +7,6 @@ const navLinks = [
   { label: "Games", href: "#showcase" },
   { label: "Studio", href: "#about" },
   { label: "News", href: "#community" },
-  { label: "Team", href: "#team" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -29,7 +28,7 @@ const Navbar = () => {
 
   useEffect(() => {
     if (location.pathname !== "/") return;
-    const sections = ["showcase", "about", "community", "team", "contact"];
+    const sections = ["showcase", "about", "community", "contact"];
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {

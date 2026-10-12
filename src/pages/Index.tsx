@@ -9,7 +9,6 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import ShowcaseSection from "@/components/ShowcaseSection";
 import StudioSection from "@/components/StudioSection";
-import TeamSection from "@/components/TeamSection";
 import CommunitySection from "@/components/CommunitySection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
@@ -41,7 +40,6 @@ const Index = () => {
         <ShowcaseSection />
         <StudioSection />
         <CommunitySection />
-        <TeamSection />
         <ContactSection />
         <Footer />
       </motion.div>
