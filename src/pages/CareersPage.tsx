@@ -2,8 +2,8 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Briefcase } from "lucide-react";
-import logoText from "@/assets/logo-text.png";
-import logoIcon from "@/assets/logo-icon.png";
+import abjadLogo from "@/assets/abjad-logo-white.svg";
+import abjadIcon from "@/assets/abjad-icon-white.svg";
 
 const CareersPage = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -19,7 +19,8 @@ const CareersPage = () => {
             <span className="text-xs tracking-[0.2em] uppercase font-body">Back</span>
           </Link>
           <Link to="/">
-            <img src={logoText} alt="ABJAD GAMES" className="h-10 md:h-12" />
+            <img src={abjadIcon} alt="ABJAD GAMES" className="abjad-icon-fill h-9 sm:hidden" />
+            <img src={abjadLogo} alt="ABJAD GAMES" className="abjad-logo-fill hidden sm:block h-11" />
           </Link>
           <div className="w-20" />
         </div>
@@ -31,11 +32,11 @@ const CareersPage = () => {
         
         <div className="relative mx-auto max-w-4xl text-center">
           <motion.img
-            src={logoIcon}
+            src={abjadIcon}
             alt="Abjad Games"
-            className="w-20 md:w-28 mx-auto mb-8 opacity-80"
+            className="abjad-icon-fill w-16 md:w-20 mx-auto mb-8"
             initial={{ opacity: 0, scale: 0.8 }}
-            animate={heroInView ? { opacity: 0.8, scale: 1 } : {}}
+            animate={heroInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.8 }}
           />
           <motion.p

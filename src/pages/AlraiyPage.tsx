@@ -6,7 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import LogoSparks from "@/components/LogoSparks";
 import banner from "@/assets/banner.png";
-import logoText from "@/assets/logo-text.png";
+import abjadIcon from "@/assets/abjad-icon-white.svg";
 import alraiyLogo from "@/assets/alraiy-logo.png";
 import screenshot1 from "@/assets/screenshot1.png";
 import screenshot2 from "@/assets/screenshot2.png";
@@ -368,7 +368,7 @@ const AlraiyPage = () => {
         <div className="relative mx-auto max-w-7xl flex items-center justify-between">
           <Link to="/" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors duration-300">
             <ArrowLeft className="w-4 h-4" />
-            <img src={logoText} alt="Abjad Games" className="h-7" />
+            <img src={abjadIcon} alt="Abjad Games" className="abjad-icon-fill h-7" />
           </Link>
           <img src={alraiyLogo} alt="ALRAIY: The Last Fire" className="h-8 md:h-10 w-auto drop-shadow-[0_0_12px_hsl(var(--primary)/0.4)]" />
         </div>

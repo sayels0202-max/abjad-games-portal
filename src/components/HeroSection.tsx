@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import { useRef, useState, useEffect, useMemo } from "react";
-import abjadLogo from "@/assets/abjad-logo-text.webp";
+import abjadLogo from "@/assets/abjad-logo-white.svg";
 
 const scanLineKeyframes = `
 @keyframes scan-line {
@@ -211,7 +211,7 @@ const HeroSection = () => {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: showTitle ? 1 : 0, scale: showTitle ? 1 : 0.8 }}
                 transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className="relative z-10 w-[440px] md:w-[680px] lg:w-[920px] mx-auto drop-shadow-[0_0_40px_hsl(var(--primary)/0.15)]"
+                className="abjad-logo-fill relative z-10 w-[300px] sm:w-[440px] md:w-[600px] lg:w-[720px] mx-auto drop-shadow-[0_0_40px_hsl(var(--primary)/0.15)]"
                 style={{ filter: "drop-shadow(0 0 60px hsl(0 0% 0% / 0.8))" }}
               />
 

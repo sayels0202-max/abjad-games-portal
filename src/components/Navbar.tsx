@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import logoIcon from "@/assets/footer-logo-sm.webp";
+import abjadIcon from "@/assets/abjad-icon-white.svg";
 
 const navLinks = [
   { label: "Games", href: "#showcase" },
@@ -59,9 +59,9 @@ const Navbar = () => {
         <div className="relative mx-auto max-w-7xl flex items-center justify-between">
           <a href="#" className="flex items-center group" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
             <img
-              src={logoIcon}
+              src={abjadIcon}
               alt="ABJAD GAMES"
-              className="h-12 md:h-14 w-auto transition-all duration-500 group-hover:drop-shadow-[0_0_15px_hsl(38_92%_50%/0.3)]"
+              className="abjad-icon-fill h-9 md:h-10 w-auto transition-all duration-500 group-hover:drop-shadow-[0_0_15px_hsl(38_92%_50%/0.3)]"
             />
           </a>
 

@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import logoOutline from "@/assets/logo-outline-sm.webp";
+import abjadMark from "@/assets/abjad-mark-white.svg";
 
 const ScrollWatermark = () => {
   const { scrollYProgress } = useScroll();
@@ -15,7 +15,7 @@ const ScrollWatermark = () => {
       style={{ opacity }}
     >
       <motion.img
-        src={logoOutline}
+        src={abjadMark}
         alt=""
         className="w-[50vw] max-w-[600px]"
         style={{ rotate, scale, y }}

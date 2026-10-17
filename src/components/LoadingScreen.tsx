@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef } from "react";
-import logoOutline from "@/assets/logo-outline-sm.webp";
+import abjadIcon from "@/assets/abjad-icon-white.svg";
 
 interface LoadingScreenProps {
   isVisible: boolean;
@@ -105,9 +105,9 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
                 transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
               />
               <img
-                src={logoOutline}
+                src={abjadIcon}
                 alt="Abjad Games"
-                className="w-44 md:w-60 animate-breathe relative z-10"
+                className="abjad-icon-fill w-28 md:w-36 animate-breathe relative z-10"
                 fetchPriority="high"
               />
             </div>

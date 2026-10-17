@@ -1,4 +1,4 @@
-import logoOutline from "@/assets/logo-outline-sm.webp";
+import abjadIcon from "@/assets/abjad-icon-white.svg";
 import ScrollReveal from "./ui/ScrollReveal";
 import GlassCard from "./ui/GlassCard";
 
@@ -10,7 +10,7 @@ const StudioSection = () => {
       <div className="relative mx-auto max-w-4xl text-center">
         <ScrollReveal direction="scale">
           <div className="flex flex-col items-center mb-12">
-            <img src={logoOutline} alt="Abjad Games" className="w-40 md:w-56 mb-4 opacity-90" />
+            <img src={abjadIcon} alt="Abjad Games" className="abjad-icon-fill w-24 md:w-32 mb-4" />
           </div>
         </ScrollReveal>
 

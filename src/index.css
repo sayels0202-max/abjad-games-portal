@@ -125,6 +125,17 @@ a, button, [role="button"], input[type="submit"], select, label, .cursor-pointer
       0 0 60px -12px hsl(var(--primary) / 0.1);
   }
 
+  /* Logo hamza fill: the hamza is cut out of the logo's box, so video or images
+     behind it show through. These paint page colour behind the hamza only,
+     clear of the box's cut corners. Match the class to the SVG used. */
+  .abjad-icon-fill {
+    background: linear-gradient(hsl(var(--background)), hsl(var(--background))) center / 84% 66% no-repeat;
+  }
+
+  .abjad-logo-fill {
+    background: linear-gradient(hsl(var(--background)), hsl(var(--background))) 2.65% 50% / 21.74% 66% no-repeat;
+  }
+
   /* Smooth scroll */
   html {
     scroll-behavior: smooth;
