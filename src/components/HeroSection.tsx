@@ -2,117 +2,6 @@ import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-mot
 import { useRef, useState, useEffect, useMemo } from "react";
 import abjadLogo from "@/assets/abjad-logo-white.svg";
 
-const scanLineKeyframes = `
-@keyframes scan-line {
-  0% { transform: translateY(-100vh); }
-  100% { transform: translateY(100vh); }
-}
-`;
-
-const SPARK_COLORS = [
-  "255, 160, 20",
-  "255, 100, 10",
-  "255, 200, 50",
-  "200, 60, 10",
-  "255, 140, 0",
-];
-
-interface Spark {
-  x: number; y: number; vx: number; vy: number;
-  size: number; life: number; maxLife: number; color: string;
-}
-
-const LogoSparks = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const sparksRef = useRef<Spark[]>([]);
-  const animRef = useRef<number>(0);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const resize = () => {
-      const parent = canvas.parentElement;
-      if (parent) {
-        canvas.width = parent.offsetWidth;
-        canvas.height = parent.offsetHeight;
-      }
-    };
-    resize();
-    window.addEventListener("resize", resize);
-
-    const spawnSpark = (): Spark => {
-      const maxLife = 40 + Math.random() * 60;
-      return {
-        x: canvas.width * (0.15 + Math.random() * 0.7),
-        y: canvas.height * (0.35 + Math.random() * 0.3),
-        vx: (Math.random() - 0.5) * 1.2,
-        vy: -(0.6 + Math.random() * 1.8),
-        size: 0.6 + Math.random() * 1.8,
-        life: 0,
-        maxLife,
-        color: SPARK_COLORS[Math.floor(Math.random() * SPARK_COLORS.length)],
-      };
-    };
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      if (sparksRef.current.length < 30 && Math.random() < 0.4) {
-        sparksRef.current.push(spawnSpark());
-      }
-
-      sparksRef.current = sparksRef.current.filter((p) => {
-        p.life++;
-        if (p.life > p.maxLife) return false;
-
-        p.x += p.vx + (Math.random() - 0.5) * 0.3;
-        p.y += p.vy;
-        p.vy *= 0.99;
-
-        const progress = p.life / p.maxLife;
-        const alpha = progress < 0.1 ? progress * 10 : progress > 0.6 ? (1 - progress) * 2.5 : 1;
-        const currentSize = p.size * (1 - progress * 0.5);
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, currentSize, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${p.color}, ${alpha * 0.5})`;
-        ctx.fill();
-
-        // Glow
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, currentSize * 2.5, 0, Math.PI * 2);
-        const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, currentSize * 2.5);
-        grad.addColorStop(0, `rgba(${p.color}, ${alpha * 0.15})`);
-        grad.addColorStop(1, `rgba(${p.color}, 0)`);
-        ctx.fillStyle = grad;
-        ctx.fill();
-
-        return true;
-      });
-
-      animRef.current = requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    return () => {
-      window.removeEventListener("resize", resize);
-      cancelAnimationFrame(animRef.current);
-    };
-  }, []);
-
-  return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 z-20 pointer-events-none"
-      style={{ mixBlendMode: "screen" }}
-    />
-  );
-};
-
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [blurVal, setBlurVal] = useState(0);
@@ -146,7 +35,6 @@ const HeroSection = () => {
 
   return (
     <>
-      <style>{scanLineKeyframes}</style>
       <div ref={containerRef} className="relative h-[200vh]">
         <motion.section
           className="sticky top-0 h-screen overflow-hidden"
@@ -154,16 +42,21 @@ const HeroSection = () => {
         >
           {/* Background layers */}
           <motion.div className="absolute inset-0" style={{ y: imgY, scale }}>
+            {/* Hunt Me a Meal restaurant loop; masters live in brand/site-art */}
             <video
               autoPlay
               loop
               muted
               playsInline
+              poster="/images/restaurant-loop-poster.webp"
               className="h-full w-full object-cover"
               style={{ filter: blurVal > 0.6 ? `blur(${blurVal - 0.6}px)` : 'none' }}
             >
-              <source src="/hero-bg.mp4" type="video/mp4" />
+              <source src="/videos/restaurant-loop.webm" type="video/webm" />
+              <source src="/videos/restaurant-loop.mp4" type="video/mp4" />
             </video>
+            {/* The restaurant is much brighter than the old fire video; dim it so the motto reads */}
+            <div className="absolute inset-0 bg-black/40" />
             {/* Color grading overlay */}
             <div className="absolute inset-0 bg-gradient-to-b from-background/35 via-transparent to-background/25" />
             <div className="absolute inset-0 bg-gradient-to-r from-background/18 via-transparent to-background/18" />
@@ -175,14 +68,6 @@ const HeroSection = () => {
               }}
             />
           </motion.div>
-
-          {/* Scan line effect */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none z-20">
-            <div
-              className="absolute w-full h-[2px] bg-primary/10"
-              style={{ animation: "scan-line 4s linear infinite" }}
-            />
-          </div>
 
           {/* Dark overlay on scroll */}
           <motion.div
@@ -203,7 +88,7 @@ const HeroSection = () => {
             className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center"
             style={{ opacity: contentOpacity, y: contentY }}
           >
-            {/* Logo with spark particles */}
+            {/* Logo */}
             <div className="relative mb-10 md:mb-14">
               <motion.img
                 src={abjadLogo}
@@ -214,9 +99,6 @@ const HeroSection = () => {
                 className="abjad-logo-fill relative z-10 w-[300px] sm:w-[440px] md:w-[600px] lg:w-[720px] mx-auto drop-shadow-[0_0_40px_hsl(var(--primary)/0.15)]"
                 style={{ filter: "drop-shadow(0 0 60px hsl(0 0% 0% / 0.8))" }}
               />
-
-              {/* Canvas sparks from logo */}
-              {showTitle && <LogoSparks />}
             </div>
 
             {/* Motto */}

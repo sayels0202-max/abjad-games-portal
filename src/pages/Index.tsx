@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import LoadingScreen from "@/components/LoadingScreen";
-import FireParticles from "@/components/FireParticles";
-import CursorTrail from "@/components/CursorTrail";
 import ScrollWatermark from "@/components/ScrollWatermark";
 
 import Navbar from "@/components/Navbar";
@@ -32,8 +30,6 @@ const Index = () => {
         transition={{ duration: 1 }}
         aria-hidden={loading}
       >
-        <FireParticles />
-        <CursorTrail />
         <ScrollWatermark />
         <Navbar />
         <HeroSection />

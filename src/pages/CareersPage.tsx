@@ -61,8 +61,8 @@ const CareersPage = () => {
             transition={{ duration: 0.8, delay: 0.45 }}
             className="max-w-2xl mx-auto text-muted-foreground font-body font-light text-lg leading-relaxed"
           >
-            We're a small team with a big vision. If you're passionate about crafting 
-            unforgettable gaming experiences rooted in rich cultural narratives, we want to hear from you.
+            We're an independent studio in Riyadh with big plans. If you love making
+            games that people play together, we'd love to hear from you.
           </motion.p>
         </div>
       </section>

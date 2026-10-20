@@ -22,7 +22,7 @@ const StudioSection = () => {
 
         <ScrollReveal delay={0.3}>
           <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-4 tracking-wide">
-            Crafting Worlds from Ancient Letters
+            Abjad Is Part of Us. We're Part of the World.
           </h2>
         </ScrollReveal>
 
@@ -35,27 +35,28 @@ const StudioSection = () => {
         <ScrollReveal delay={0.45}>
           <div className="space-y-6 text-muted-foreground font-body font-light text-lg leading-relaxed">
             <p>
-              Abjad Games is an independent game studio dedicated to telling stories 
-              that draw from the rich well of Arabian heritage and mythology.
+              Where we come from shows up in everything we make: the jokes, the stories, the
+              way we sit together and play. But we don't make games just for us. We make them
+              for everyone.
             </p>
             <p>
-              We believe the most powerful games are born from cultural authenticity — 
-              stories that have never been told in this medium, waiting to be experienced 
-              for the first time.
+              From Riyadh, we're building games that bring people together, wherever they are.
+              And we want the next game the whole world plays with friends to come from here.
             </p>
           </div>
         </ScrollReveal>
 
         <ScrollReveal delay={0.6}>
-          <div className="mt-16 flex justify-center gap-8 md:gap-16">
+          {/* Three columns on phones too: tighter padding and tracking so "Riyadh" and "Founded" fit at 360px */}
+          <div className="mt-16 grid grid-cols-3 gap-3 sm:flex sm:justify-center sm:gap-8 md:gap-16">
             {[
-              { label: "Founded", value: "2025" },
+              { label: "Founded", value: "2026" },
               { label: "Based In", value: "Riyadh" },
               { label: "First Title", value: "In Dev" },
             ].map((stat) => (
-              <GlassCard key={stat.label} className="px-6 py-4 text-center" tilt={false}>
-                <p className="font-display text-2xl text-primary">{stat.value}</p>
-                <p className="mt-1 text-xs tracking-[0.3em] uppercase text-muted-foreground font-body">
+              <GlassCard key={stat.label} className="px-2 py-4 sm:px-6 text-center" tilt={false}>
+                <p className="font-display text-xl sm:text-2xl text-primary whitespace-nowrap">{stat.value}</p>
+                <p className="mt-1 text-[10px] sm:text-xs tracking-[0.12em] sm:tracking-[0.3em] uppercase text-muted-foreground font-body whitespace-nowrap">
                   {stat.label}
                 </p>
               </GlassCard>
